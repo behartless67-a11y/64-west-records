@@ -1,0 +1,574 @@
+/* 64 West Records Website Styles */
+
+:root {
+    /* Brand Colors */
+    --amber: #F5A623;
+    --charcoal: #1A1A1A;
+    --cream: #FFF8F0;
+    --warm-gold: #D4AF37;
+
+    /* Typography */
+    --font-body: 'Inter', sans-serif;
+    --font-display: 'Merriweather', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--charcoal);
+    color: var(--cream);
+    line-height: 1.6;
+    padding-bottom: 100px;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+        repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(255, 255, 255, 0.02) 5px, rgba(255, 255, 255, 0.02) 10px);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, transparent 0%, rgba(255, 255, 255, 0.015) 50%, transparent 100%),
+        radial-gradient(circle at 80% 80%, transparent 0%, rgba(255, 255, 255, 0.015) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+body > * {
+    position: relative;
+    z-index: 2;
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 3rem;
+}
+
+/* Minimal Header */
+.minimal-header {
+    padding: 1.5rem 0 1rem 0;
+    text-align: center;
+}
+
+.logo-container {
+    margin-bottom: 1rem;
+}
+
+.site-logo {
+    max-width: 120px;
+    height: auto;
+    filter: drop-shadow(0 2px 10px rgba(245, 166, 35, 0.3));
+}
+
+.tagline-bold {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--amber);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px rgba(245, 166, 35, 0.3);
+}
+
+.tagline-sub {
+    font-size: 0.95rem;
+    color: var(--cream);
+    opacity: 0.7;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.minimal-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.minimal-nav a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+    opacity: 0.8;
+}
+
+.minimal-nav a:hover {
+    color: var(--amber);
+    opacity: 1;
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--cream);
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Site Header (for album pages) */
+.site-header {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #2a2a2a 100%);
+    padding: 2rem 0;
+    border-bottom: 3px solid var(--amber);
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.logo h1 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--amber);
+    margin: 0;
+    text-shadow: 0 0 20px rgba(245, 166, 35, 0.5);
+}
+
+/* Section Titles */
+.section-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--amber);
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-top: 3rem;
+}
+
+/* Albums Grid */
+.albums-grid {
+    padding: 1rem 0 4rem;
+}
+
+.albums-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+@media (max-width: 1600px) {
+    .albums-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .albums-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .albums-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.album-card {
+    background: #2a2a2a;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+}
+
+.album-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(245, 166, 35, 0.4);
+}
+
+.album-card-art {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+.album-card-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.album-card:hover .album-card-art img {
+    transform: scale(1.05);
+}
+
+.album-card-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.album-card-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--amber);
+    margin-bottom: 0.5rem;
+}
+
+.album-artist {
+    font-size: 1.1rem;
+    color: var(--warm-gold);
+    margin-bottom: 1rem;
+}
+
+.album-desc {
+    line-height: 1.7;
+    color: var(--cream);
+    opacity: 0.9;
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+}
+
+.album-meta {
+    font-size: 0.9rem;
+    color: var(--warm-gold);
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: auto;
+}
+
+/* Album Page Styles */
+.album-header {
+    text-align: center;
+    padding: 3rem 0;
+    background: linear-gradient(180deg, #2a2a2a 0%, var(--charcoal) 100%);
+    position: relative;
+}
+
+.back-link {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.95rem;
+    opacity: 0.8;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--amber);
+    opacity: 1;
+}
+
+.album-art {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(245, 166, 35, 0.4);
+}
+
+.album-art img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.album-title {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--amber);
+    margin-bottom: 0.5rem;
+}
+
+.album-artist {
+    font-size: 1.5rem;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+}
+
+.album-info {
+    color: var(--warm-gold);
+    font-size: 1rem;
+}
+
+.artist-bio {
+    max-width: 900px;
+    margin: 2rem auto 0;
+    text-align: left;
+    padding: 2rem;
+    background: rgba(42, 42, 42, 0.5);
+    border-radius: 8px;
+}
+
+.artist-bio h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--amber);
+    margin-bottom: 1rem;
+}
+
+.artist-bio p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--cream);
+    opacity: 0.9;
+}
+
+.album-description {
+    max-width: 900px;
+    margin: 1.5rem auto 0;
+    text-align: left;
+    padding: 2rem;
+    background: rgba(42, 42, 42, 0.5);
+    border-radius: 8px;
+}
+
+.album-description h3 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--amber);
+    margin-bottom: 1rem;
+}
+
+.album-description p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--cream);
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+/* Tracklist */
+.tracklist {
+    padding: 3rem 0;
+}
+
+.track-item {
+    background: #2a2a2a;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.track-item:hover {
+    background: #333;
+}
+
+.track-number {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--amber);
+    min-width: 40px;
+}
+
+.track-info {
+    flex: 1;
+}
+
+.track-title {
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 0.25rem;
+}
+
+.track-artist {
+    font-size: 0.9rem;
+    color: var(--warm-gold);
+}
+
+.play-button {
+    background: var(--amber);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+    font-size: 1.2rem;
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    background: var(--warm-gold);
+}
+
+.play-button.playing {
+    background: #f55;
+}
+
+/* Audio Player */
+.audio-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    padding: 0;
+    border-top: 3px solid var(--amber);
+    z-index: 1000;
+    display: none;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 4px;
+    background: #333;
+    cursor: pointer;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--amber);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+.audio-player.active {
+    display: block;
+}
+
+.player-content {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 3rem;
+}
+
+.now-playing {
+    flex: 1;
+}
+
+.now-playing-title {
+    color: var(--amber);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.now-playing-artist {
+    color: var(--cream);
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.player-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: var(--cream);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.control-btn:hover {
+    color: var(--amber);
+}
+
+.time-display {
+    color: var(--cream);
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-left: 1rem;
+    min-width: 100px;
+}
+
+/* About Section */
+.about-section {
+    padding: 4rem 0;
+    background: #2a2a2a;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--cream);
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+}
+
+/* Footer */
+.site-footer {
+    background: var(--charcoal);
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid #333;
+    color: var(--cream);
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .logo h1 {
+        font-size: 1.8rem;
+    }
+
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+
+    .album-art {
+        width: 300px;
+        height: 300px;
+    }
+
+    .player-content {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
