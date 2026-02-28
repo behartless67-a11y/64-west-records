@@ -18,3 +18,6 @@ __pycache__/
 
 # Temporary files
 *.tmp
+
+# Local Netlify folder
+.netlify
