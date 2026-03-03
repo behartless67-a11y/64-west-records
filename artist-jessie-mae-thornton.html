@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessie Mae Thornton | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav:hover {
+            opacity: 1;
+        }
+
+        .top-nav a {
+            color: #d4a574;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.7;
+        }
+
+        .artist-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem 2rem;
+            max-width: 100%;
+        }
+
+        .artist-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1rem 2rem 2rem 2rem;
+            max-width: 100%;
+            align-items: start;
+        }
+
+        .artist-bio {
+            column-count: 1;
+            margin: 0;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .artist-bio h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-bio p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .artist-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .album-carousel {
+            padding: 0.5rem 2rem 2rem 2rem;
+            max-width: 100%;
+        }
+
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            height: 320px;
+        }
+
+        .carousel-button {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        .carousel-button:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: scale(1.1);
+        }
+
+        .album-covers {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .album-cover-item {
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .album-cover-item.active {
+            transform: scale(1);
+            opacity: 1;
+            border-color: #d4a574;
+            box-shadow: 0 8px 32px rgba(212, 165, 116, 0.3);
+        }
+
+        .album-cover-item:not(.active) {
+            transform: scale(0.85);
+            opacity: 0.4;
+        }
+
+        .album-cover-item:not(.active):hover {
+            opacity: 0.7;
+            transform: scale(0.9);
+        }
+
+        .album-cover-item img {
+            display: block;
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .album-tracklist {
+            display: none;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-tracklist.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .album-tracklist h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .compact-track {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: transparent;
+            border-radius: 6px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .compact-track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track-num {
+            color: #d4a574;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 25px;
+        }
+
+        .track-name {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .compact-play-btn {
+            background: none;
+            border: none;
+            color: #d4a574;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .compact-play-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .album-description-block {
+            display: none;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-description-block.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .album-description-block h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .album-description-block p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .album-description-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(26, 26, 46, 0.95);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            min-width: 300px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .player-info {
+            margin-bottom: 0.75rem;
+        }
+
+        .player-track-title {
+            color: #d4a574;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .player-artist-name {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .player-controls-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .player-btn {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .player-btn:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: scale(1.05);
+        }
+
+        .player-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .player-progress-fill {
+            height: 100%;
+            background: #d4a574;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .player-time {
+            color: #999;
+            font-size: 0.75rem;
+            min-width: 80px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="artists.html">Artists</a>
+    </nav>
+
+    <div class="artist-header">
+        <h1 class="artist-name">Jessie Mae Thornton</h1>
+        <p class="artist-tagline">Modern Country / Americana</p>
+    </div>
+
+    <div class="album-carousel">
+        <div class="carousel-container">
+            <button class="carousel-button" id="prevAlbum">‹</button>
+            <div class="album-covers">
+                <div class="album-cover-item active" data-album="red-dirt">
+                    <img src="assets/images/jessie-mae-red-dirt-cover.jpg" alt="Red Dirt & Rhododendron">
+                </div>
+                <div class="album-cover-item" data-album="frost-foxglove">
+                    <img src="assets/images/jessie-mae-frost-foxglove-cover.jpg" alt="Frost & Foxglove">
+                </div>
+                <div class="album-cover-item" data-album="cheap-seats">
+                    <img src="assets/images/jessie-mae-cheap-seats-cover.jpg" alt="Cheap Seats & Good Company">
+                </div>
+            </div>
+            <button class="carousel-button" id="nextAlbum">›</button>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <!-- Artist Bio (Left Column) -->
+        <div class="artist-bio">
+            <h3>About Jessie Mae</h3>
+            <p>Jessie Mae Thornton grew up in a small town outside Staunton, Virginia, in the shadow of the Blue Ridge Mountains. Daughter of a tobacco farmer and a church choir director, she learned to sing harmony before she could read. She waitressed at a BBQ joint through high school, started writing songs on a beat-up Martin guitar her granddaddy left her, and got "discovered" after a video of her singing at Floyd Country Store went viral on TikTok.</p>
+            <p>She's been compared to a young Lainey Wilson meets Hailey Whitters. Gritty, real, with a voice that sounds like whiskey and sweet tea mixed together. She still lives in Virginia and refuses to move to Nashville, saying "the songs come from the mountains, not Music Row."</p>
+            <p>Her three albums trace a journey from the wide-eyed optimism of her debut, through the heartbreak and healing of her sophomore slump, to the rowdy confidence of her triumphant third record. Each album is distinctly Virginia, deeply personal, and unapologetically honest.</p>
+        </div>
+
+        <!-- Album Tracklists (Center Column) -->
+        <div class="album-tracklist active" id="red-dirt-tracklist">
+            <h3>Red Dirt & Rhododendron</h3>
+            <div class="compact-track" data-track="01_Red_Dirt_And_Rhododendron.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">01</span>
+                <span class="track-name">Red Dirt & Rhododendron</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="02_Baptized_In_The_Blue_Ridge.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">02</span>
+                <span class="track-name">Baptized in the Blue Ridge</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="03_Gravel_And_Grace.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">03</span>
+                <span class="track-name">Gravel and Grace</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="04_Saturday_Night_Staunton.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">04</span>
+                <span class="track-name">Saturday Night Staunton</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="05_Mama's_Kitchen.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">05</span>
+                <span class="track-name">Mama's Kitchen</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="06_Whiskey_Don't_Lie.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">06</span>
+                <span class="track-name">Whiskey Don't Lie</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="07_Tailgate_Gospel.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">07</span>
+                <span class="track-name">Tailgate Gospel</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="08_Borrowed_Time_Broken_Lines.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">08</span>
+                <span class="track-name">Borrowed Time, Broken Lines</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="09_Wildflower_Woman.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">09</span>
+                <span class="track-name">Wildflower Woman</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="10_64_West.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">10</span>
+                <span class="track-name">64 West</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="11_Porch_Light_On.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">11</span>
+                <span class="track-name">Porch Light On</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="12_Last_Call_At_The_Piedmont.mp3" data-album="Red Dirt & Rhododendron">
+                <span class="track-num">12</span>
+                <span class="track-name">Last Call at the Piedmont</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+        </div>
+
+        <div class="album-tracklist" id="frost-foxglove-tracklist">
+            <h3>Frost & Foxglove</h3>
+            <div class="compact-track">
+                <span class="track-num">01</span>
+                <span class="track-name">Frost & Foxglove</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">02</span>
+                <span class="track-name">Winter Lonely</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">03</span>
+                <span class="track-name">Ghost in the Hallway</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">04</span>
+                <span class="track-name">Beautiful Things (That End You)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">05</span>
+                <span class="track-name">Wildflower Graveyard</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">06</span>
+                <span class="track-name">Empty Kitchen Table</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">07</span>
+                <span class="track-name">Healing Slow</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">08</span>
+                <span class="track-name">Church Dress, Gravel Road</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">09</span>
+                <span class="track-name">Quiet Like Grief</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">10</span>
+                <span class="track-name">Forgive Me, Mama</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">11</span>
+                <span class="track-name">Morning Light</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track">
+                <span class="track-num">12</span>
+                <span class="track-name">Spring (I'm Still Here)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+        </div>
+
+        <div class="album-tracklist" id="cheap-seats-tracklist">
+            <h3>Cheap Seats & Good Company</h3>
+            <div class="compact-track" data-track="01_Beer_Run_Babysitter.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">01</span>
+                <span class="track-name">Beer Run Babysitter</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="02_Boots_Off_Bonfire_On.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">02</span>
+                <span class="track-name">Boots Off, Bonfire On</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="03_Cheap_Seats_Good_Company.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">03</span>
+                <span class="track-name">Cheap Seats & Good Company</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="04_Closing_Time_Confessional.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">04</span>
+                <span class="track-name">Closing Time Confessional</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="05_Girls_Night_Commandments.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">05</span>
+                <span class="track-name">Girls' Night Commandments</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="06_Hell_of_a_Tuesday.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">06</span>
+                <span class="track-name">Hell of a Tuesday</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="07_Pretty_When_Im_Loud.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">07</span>
+                <span class="track-name">Pretty When I'm Loud</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="08_Somebodys_Ex.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">08</span>
+                <span class="track-name">Somebody's Ex</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="09_Still_Her.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">09</span>
+                <span class="track-name">Still Her (Jessie Mae's Quiet Moment)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="10_Truck_Bed_Theology.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">10</span>
+                <span class="track-name">Truck Bed Theology</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="11_Two_Drinks_Behind.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">11</span>
+                <span class="track-name">Two Drinks Behind</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="12_Whole_Damn_Town.mp3" data-album="Cheap Seats & Good Company">
+                <span class="track-num">12</span>
+                <span class="track-name">Whole Damn Town</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+        </div>
+
+        <!-- Album Descriptions (Right Column) -->
+        <div class="album-description-block active" id="red-dirt-description">
+            <h3>About This Album</h3>
+            <p>Jessie Mae's stunning debut. A love letter to Southwest Virginia with its red dirt roads, rhododendrons, and the quiet beauty of small-town life. Warm, honest country music about home, family, and finding your voice when the world feels too big.</p>
+            <p>The album ranges from rowdy tailgate anthems to tender ballads. "Porch Light On" (track 11) inspired the label name and became an instant classic. This is the album that put Jessie Mae on the map and defined what 64 West Records would become.</p>
+            <p>Recorded in Staunton with a mix of Nashville session players and local Virginia musicians, the album captures the authenticity of Appalachian country without feeling dated. It's traditional enough for your granddaddy and modern enough for the dive bar jukebox.</p>
+        </div>
+
+        <div class="album-description-block" id="frost-foxglove-description">
+            <h3>About This Album</h3>
+            <p>The difficult second album. A year after the buzz faded, Jessie Mae confronts heartbreak, grief, and the slow work of healing. Stripped-down and melancholy, these songs understand that beautiful things and things that end you often look exactly the same.</p>
+            <p>Recorded almost entirely live with minimal overdubs, the album feels intimate and raw. Just Jessie Mae, her guitar, and the weight of everything she's been carrying. It's her "crying in the car" album, the one fans say saved them during their own dark winters.</p>
+            <p>While not as commercially successful as her debut, "Frost & Foxglove" proved Jessie Mae was a serious songwriter, not just a viral sensation. Critics called it "devastating" and "achingly beautiful." The album closer "Spring (I'm Still Here)" became an anthem for anyone who made it through the worst and lived to tell about it.</p>
+        </div>
+
+        <div class="album-description-block" id="cheap-seats-description">
+            <h3>About This Album</h3>
+            <p>Jessie Mae is BACK. Loud, fun, and unapologetically rowdy, this is the sound of the best summer of her life. Beer-soaked parking lot tailgates, cheap concert seats with the best people, and the freedom to just let loose. Pure party country joy.</p>
+            <p>After the darkness of "Frost & Foxglove," this album is all sunshine and beer cans. It's tailgate country meets girls' night out energy. Think Miranda Lambert meets Megan Moroney. Every song is a potential summer anthem.</p>
+            <p>The title track became a stadium sing-along, and "Hell of a Tuesday" went viral on TikTok with 50 million views. Jessie Mae proved she could write heartbreak and healing, but she can also write the hell out of a party. This is her most confident, most fun, and most commercial work yet.</p>
+        </div>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-player" id="audioPlayer" style="display: none;">
+        <div class="player-info">
+            <div class="player-track-title" id="playerTrackTitle">Track Title</div>
+            <div class="player-artist-name">Jessie Mae Thornton</div>
+        </div>
+        <div class="player-controls-row">
+            <button class="player-btn" id="prevTrackBtn">‹</button>
+            <button class="player-btn" id="playPauseBtn">▶</button>
+            <button class="player-btn" id="nextTrackBtn">›</button>
+            <div class="player-progress" id="progressBar">
+                <div class="player-progress-fill" id="progressFill"></div>
+            </div>
+            <div class="player-time" id="playerTime">0:00 / 0:00</div>
+        </div>
+    </div>
+
+    <audio id="audioElement"></audio>
+
+    <script>
+        const audioElement = document.getElementById('audioElement');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playerTrackTitle = document.getElementById('playerTrackTitle');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevTrackBtn = document.getElementById('prevTrackBtn');
+        const nextTrackBtn = document.getElementById('nextTrackBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const playerTime = document.getElementById('playerTime');
+
+        let currentTrackIndex = -1;
+        let tracks = [];
+        let isPlaying = false;
+
+        const albumCovers = document.querySelectorAll('.album-cover-item');
+        const albumTracklists = document.querySelectorAll('.album-tracklist');
+        const albumDescriptions = document.querySelectorAll('.album-description-block');
+        const prevAlbumBtn = document.getElementById('prevAlbum');
+        const nextAlbumBtn = document.getElementById('nextAlbum');
+
+        let currentIndex = 0;
+
+        // Album data
+        const albums = {
+            'red-dirt': {
+                folder: 'Jessie_Mae_Thornton_-_Red_Dirt_And_Rhododendron',
+                name: 'Red Dirt & Rhododendron'
+            },
+            'frost-foxglove': {
+                folder: 'Jessie Mae Thornton - Frost & Foxglove',
+                name: 'Frost & Foxglove'
+            },
+            'cheap-seats': {
+                folder: 'Jessie Mae Thornton - Cheap Seats & Good Company',
+                name: 'Cheap Seats & Good Company'
+            }
+        };
+
+        let currentAlbum = 'red-dirt';
+
+        function switchToAlbum(index) {
+            currentIndex = index;
+
+            albumCovers.forEach(c => c.classList.remove('active'));
+            albumCovers[index].classList.add('active');
+
+            const albumId = albumCovers[index].dataset.album;
+            currentAlbum = albumId;
+
+            albumTracklists.forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${albumId}-tracklist`).classList.add('active');
+
+            albumDescriptions.forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${albumId}-description`).classList.add('active');
+
+            initializeTracks();
+        }
+
+        albumCovers.forEach((cover, index) => {
+            cover.addEventListener('click', () => {
+                switchToAlbum(index);
+            });
+        });
+
+        prevAlbumBtn.addEventListener('click', () => {
+            const newIndex = currentIndex > 0 ? currentIndex - 1 : albumCovers.length - 1;
+            switchToAlbum(newIndex);
+        });
+
+        nextAlbumBtn.addEventListener('click', () => {
+            const newIndex = currentIndex < albumCovers.length - 1 ? currentIndex + 1 : 0;
+            switchToAlbum(newIndex);
+        });
+
+        // Initialize tracks
+        function initializeTracks() {
+            const trackElements = document.querySelectorAll('#' + currentAlbum + '-tracklist .compact-track');
+            tracks = Array.from(trackElements).map(el => ({
+                element: el,
+                file: el.dataset.track,
+                album: el.dataset.album,
+                title: el.querySelector('.track-name').textContent
+            }));
+
+            // Update click handlers
+            document.querySelectorAll('#' + currentAlbum + '-tracklist .compact-track').forEach((track, index) => {
+                track.onclick = () => playTrack(index);
+            });
+        }
+
+        // Play track
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+
+            currentTrackIndex = index;
+            const track = tracks[index];
+            const albumData = albums[currentAlbum];
+
+            // Skip if no track file
+            if (!track.file) {
+                console.log('Track file not available');
+                return;
+            }
+
+            audioElement.src = `assets/audio/${albumData.folder}/${track.file}`;
+            audioElement.play();
+            isPlaying = true;
+            playPauseBtn.textContent = '❚❚';
+
+            playerTrackTitle.textContent = track.title;
+            audioPlayer.style.display = 'block';
+
+            // Update play buttons
+            document.querySelectorAll('#' + currentAlbum + '-tracklist .compact-play-btn').forEach((btn, i) => {
+                btn.textContent = i === index ? '❚❚' : '▶';
+            });
+        }
+
+        // Play/Pause toggle
+        playPauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audioElement.pause();
+                playPauseBtn.textContent = '▶';
+                isPlaying = false;
+            } else {
+                audioElement.play();
+                playPauseBtn.textContent = '❚❚';
+                isPlaying = true;
+            }
+        });
+
+        // Previous/Next track
+        prevTrackBtn.addEventListener('click', () => {
+            if (currentTrackIndex > 0) {
+                playTrack(currentTrackIndex - 1);
+            }
+        });
+
+        nextTrackBtn.addEventListener('click', () => {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(currentTrackIndex + 1);
+            }
+        });
+
+        // Auto-play next track
+        audioElement.addEventListener('ended', () => {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(currentTrackIndex + 1);
+            } else {
+                isPlaying = false;
+                playPauseBtn.textContent = '▶';
+            }
+        });
+
+        // Progress bar
+        audioElement.addEventListener('timeupdate', () => {
+            const progress = (audioElement.currentTime / audioElement.duration) * 100;
+            progressFill.style.width = progress + '%';
+
+            const currentTime = formatTime(audioElement.currentTime);
+            const duration = formatTime(audioElement.duration);
+            playerTime.textContent = `${currentTime} / ${duration}`;
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audioElement.currentTime = pos * audioElement.duration;
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // Initialize
+        initializeTracks();
+    </script>
+</body>
+</html>

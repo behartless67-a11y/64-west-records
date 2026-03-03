@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ben James | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav:hover {
+            opacity: 1;
+        }
+
+        .top-nav a {
+            color: #d4a574;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.7;
+        }
+
+        .artist-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem 2rem;
+            max-width: 100%;
+        }
+
+        .artist-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1rem 2rem 2rem 2rem;
+            max-width: 100%;
+            align-items: start;
+        }
+
+        .artist-bio {
+            column-count: 1;
+            margin: 0;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .artist-bio h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-bio p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .artist-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .album-carousel {
+            padding: 0.5rem 2rem 2rem 2rem;
+            max-width: 100%;
+        }
+
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            height: 320px;
+        }
+
+        .carousel-button {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            z-index: 10;
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .album-covers {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .album-cover-item {
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .album-cover-item.active {
+            transform: scale(1);
+            opacity: 1;
+            border-color: #d4a574;
+            box-shadow: 0 8px 32px rgba(212, 165, 116, 0.3);
+        }
+
+        .album-cover-item img {
+            display: block;
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .album-tracklist {
+            display: none;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-tracklist.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .album-tracklist h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .compact-track {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: transparent;
+            border-radius: 6px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .compact-track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track-num {
+            color: #d4a574;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 25px;
+        }
+
+        .track-name {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .compact-play-btn {
+            background: none;
+            border: none;
+            color: #d4a574;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .compact-play-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .album-description-block {
+            display: none;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-description-block.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .album-description-block h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .album-description-block p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .album-description-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(26, 26, 46, 0.95);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            min-width: 300px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .player-info {
+            margin-bottom: 0.75rem;
+        }
+
+        .player-track-title {
+            color: #d4a574;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .player-artist-name {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .player-controls-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .player-btn {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .player-btn:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: scale(1.05);
+        }
+
+        .player-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .player-progress-fill {
+            height: 100%;
+            background: #d4a574;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .player-time {
+            color: #999;
+            font-size: 0.75rem;
+            min-width: 80px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="artists.html">Artists</a>
+    </nav>
+
+    <div class="artist-header">
+        <h1 class="artist-name">Ben James</h1>
+        <p class="artist-tagline">R&B / Soul</p>
+    </div>
+
+    <div class="album-carousel">
+        <div class="carousel-container">
+            <button class="carousel-button" id="prevAlbum">‹</button>
+            <div class="album-covers">
+                <div class="album-cover-item active" data-album="hey-gurl">
+                    <img src="assets/images/ben-james-hey-gurl-cover.jpg" alt="Hey Gurl">
+                </div>
+            </div>
+            <button class="carousel-button" id="nextAlbum">›</button>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <!-- Artist Bio (Left Column) -->
+        <div class="artist-bio">
+            <h3>About Ben James</h3>
+            <p>Ben James is a Virginia-born R&B singer with a voice that can break your heart and put it back together in the same breath. Growing up listening to everything from Teddy Swims to Daniel Caesar to old-school Marvin Gaye, Ben developed a sound that feels both timeless and completely modern.</p>
+            <p>He started singing in church choirs before discovering his love for R&B and soul music. His performances are intimate, emotional, and deeply felt. Every note comes from somewhere real.</p>
+            <p>With "Hey Gurl," his debut album, Ben proves he's one of the most exciting voices in modern R&B. Smooth vocals, lush production, and songs that understand what it means to love, lose, and hope anyway. This is R&B for late nights, long drives, and anyone who's ever felt too much.</p>
+        </div>
+
+        <!-- Album Tracklist (Center Column) -->
+        <div class="album-tracklist active" id="hey-gurl-tracklist">
+            <h3>Hey Gurl</h3>
+            <div class="compact-track" data-track="01_Always_and_Forever.mp3" data-album="Hey Gurl">
+                <span class="track-num">01</span>
+                <span class="track-name">Always and Forever (Hey Gurl)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="02_Better_Man.mp3" data-album="Hey Gurl">
+                <span class="track-num">02</span>
+                <span class="track-name">Better Man</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="03_Cancun_With_You.mp3" data-album="Hey Gurl">
+                <span class="track-num">03</span>
+                <span class="track-name">Cancun With You</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="04_Coronado.mp3" data-album="Hey Gurl">
+                <span class="track-num">04</span>
+                <span class="track-name">Coronado</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="05_Feed_Your_Soul.mp3" data-album="Hey Gurl">
+                <span class="track-num">05</span>
+                <span class="track-name">Feed Your Soul</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="06_Hey_Gurl.mp3" data-album="Hey Gurl">
+                <span class="track-num">06</span>
+                <span class="track-name">Hey Gurl</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="07_Hellfire_Honeysuckle.mp3" data-album="Hey Gurl">
+                <span class="track-num">07</span>
+                <span class="track-name">Hellfire & Honeysuckle (ft. Jessie Mae & VEXRA)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="08_Sixteen.mp3" data-album="Hey Gurl">
+                <span class="track-num">08</span>
+                <span class="track-name">Sixteen</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="09_Slow_Dance_In_The_Kitchen.mp3" data-album="Hey Gurl">
+                <span class="track-num">09</span>
+                <span class="track-name">Slow Dance in the Kitchen</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="10_Strongest_Woman.mp3" data-album="Hey Gurl">
+                <span class="track-num">10</span>
+                <span class="track-name">Strongest Woman</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="11_Twenty_Years_Deep.mp3" data-album="Hey Gurl">
+                <span class="track-num">11</span>
+                <span class="track-name">Twenty Years Deep</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="12_Unstoppable.mp3" data-album="Hey Gurl">
+                <span class="track-num">12</span>
+                <span class="track-name">Unstoppable (ft. VEXRA & Jessie Mae)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+        </div>
+
+        <!-- Album Description (Right Column) -->
+        <div class="album-description-block active" id="hey-gurl-description">
+            <h3>About This Album</h3>
+            <p>Smooth R&B meets soul. Ben James delivers heartfelt vocals over lush production, channeling the emotional depth of Teddy Swims with his own unique style. An album about love, longing, vulnerability, and connection.</p>
+            <p>From the opening track "Always and Forever (Hey Gurl)" to the powerful closer "Unstoppable," Ben takes listeners on an emotional journey through relationships, self-discovery, and the complexity of modern love.</p>
+            <p>Standout collaborations include "Hellfire & Honeysuckle" featuring Jessie Mae and VEXRA, and "Unstoppable" which showcases all three artists at their best. This is R&B that feels real, raw, and deeply human.</p>
+        </div>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="audio-player" id="audioPlayer" style="display: none;">
+        <div class="player-info">
+            <div class="player-track-title" id="playerTrackTitle">Track Title</div>
+            <div class="player-artist-name">Ben James</div>
+        </div>
+        <div class="player-controls-row">
+            <button class="player-btn" id="prevTrackBtn">‹</button>
+            <button class="player-btn" id="playPauseBtn">▶</button>
+            <button class="player-btn" id="nextTrackBtn">›</button>
+            <div class="player-progress" id="progressBar">
+                <div class="player-progress-fill" id="progressFill"></div>
+            </div>
+            <div class="player-time" id="playerTime">0:00 / 0:00</div>
+        </div>
+    </div>
+
+    <audio id="audioElement"></audio>
+
+    <script>
+        const audioElement = document.getElementById('audioElement');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playerTrackTitle = document.getElementById('playerTrackTitle');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const prevTrackBtn = document.getElementById('prevTrackBtn');
+        const nextTrackBtn = document.getElementById('nextTrackBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const playerTime = document.getElementById('playerTime');
+
+        let currentTrackIndex = -1;
+        let tracks = [];
+        let isPlaying = false;
+
+        const albums = {
+            'hey-gurl': {
+                folder: 'Ben James - Hey Gurl',
+                name: 'Hey Gurl'
+            }
+        };
+
+        let currentAlbum = 'hey-gurl';
+
+        function initializeTracks() {
+            const trackElements = document.querySelectorAll('.compact-track');
+            tracks = Array.from(trackElements).map(el => ({
+                element: el,
+                file: el.dataset.track,
+                album: el.dataset.album,
+                title: el.querySelector('.track-name').textContent
+            }));
+        }
+
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+
+            currentTrackIndex = index;
+            const track = tracks[index];
+            const albumData = albums[currentAlbum];
+
+            audioElement.src = `assets/audio/${albumData.folder}/${track.file}`;
+            audioElement.play();
+            isPlaying = true;
+            playPauseBtn.textContent = '❚❚';
+
+            playerTrackTitle.textContent = track.title;
+            audioPlayer.style.display = 'block';
+
+            document.querySelectorAll('.compact-play-btn').forEach((btn, i) => {
+                btn.textContent = i === index ? '❚❚' : '▶';
+            });
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audioElement.pause();
+                playPauseBtn.textContent = '▶';
+                isPlaying = false;
+            } else {
+                audioElement.play();
+                playPauseBtn.textContent = '❚❚';
+                isPlaying = true;
+            }
+        });
+
+        prevTrackBtn.addEventListener('click', () => {
+            if (currentTrackIndex > 0) {
+                playTrack(currentTrackIndex - 1);
+            }
+        });
+
+        nextTrackBtn.addEventListener('click', () => {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(currentTrackIndex + 1);
+            }
+        });
+
+        audioElement.addEventListener('ended', () => {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(currentTrackIndex + 1);
+            } else {
+                isPlaying = false;
+                playPauseBtn.textContent = '▶';
+            }
+        });
+
+        audioElement.addEventListener('timeupdate', () => {
+            const progress = (audioElement.currentTime / audioElement.duration) * 100;
+            progressFill.style.width = progress + '%';
+
+            const currentTime = formatTime(audioElement.currentTime);
+            const duration = formatTime(audioElement.duration);
+            playerTime.textContent = `${currentTime} / ${duration}`;
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audioElement.currentTime = pos * audioElement.duration;
+        });
+
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        document.querySelectorAll('.compact-track').forEach((track, index) => {
+            track.addEventListener('click', () => {
+                playTrack(index);
+            });
+        });
+
+        initializeTracks();
+    </script>
+</body>
+</html>
