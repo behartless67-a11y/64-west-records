@@ -419,7 +419,7 @@
 
         const albums = {
             'iron-gospel': {
-                folder: 'BLACKRIDGE - Iron Gospel',
+                folder: '',
                 name: 'Iron Gospel'
             }
         };
@@ -443,7 +443,7 @@
             const track = tracks[index];
             const albumData = albums[currentAlbum];
 
-            audioElement.src = `assets/audio/${albumData.folder}/${track.file}`;
+            audioElement.src = `assets/audio/${track.file}`;
             audioElement.play();
             isPlaying = true;
             playPauseBtn.textContent = '❚❚';

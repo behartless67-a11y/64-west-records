@@ -644,15 +644,15 @@
         // Album data
         const albums = {
             'red-dirt': {
-                folder: 'Jessie_Mae_Thornton_-_Red_Dirt_And_Rhododendron',
+                folder: '',
                 name: 'Red Dirt & Rhododendron'
             },
             'frost-foxglove': {
-                folder: 'Jessie Mae Thornton - Frost & Foxglove',
+                folder: '',
                 name: 'Frost & Foxglove'
             },
             'cheap-seats': {
-                folder: 'Jessie Mae Thornton - Cheap Seats & Good Company',
+                folder: '',
                 name: 'Cheap Seats & Good Company'
             }
         };
@@ -727,7 +727,7 @@
                 return;
             }
 
-            audioElement.src = `assets/audio/${albumData.folder}/${track.file}`;
+            audioElement.src = `assets/audio/${track.file}`;
             audioElement.play();
             isPlaying = true;
             playPauseBtn.textContent = '❚❚';

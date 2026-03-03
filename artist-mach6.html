@@ -464,7 +464,7 @@
 
         const albums = {
             'terminal-velocity': {
-                folder: 'MACH-6 - Terminal Velocity',
+                folder: '',
                 name: 'Terminal Velocity'
             }
         };
@@ -488,7 +488,7 @@
             const track = tracks[index];
             const albumData = albums[currentAlbum];
 
-            audioElement.src = `assets/audio/${albumData.folder}/${track.file}`;
+            audioElement.src = `assets/audio/${track.file}`;
             audioElement.play();
             isPlaying = true;
             playPauseBtn.textContent = '❚❚';

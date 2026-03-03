@@ -474,7 +474,7 @@
 
         const albums = {
             'hey-gurl': {
-                folder: 'Ben James - Hey Gurl',
+                folder: '',
                 name: 'Hey Gurl'
             }
         };
@@ -498,7 +498,7 @@
             const track = tracks[index];
             const albumData = albums[currentAlbum];
 
-            audioElement.src = `assets/audio/${albumData.folder}/${track.file}`;
+            audioElement.src = `assets/audio/${track.file}`;
             audioElement.play();
             isPlaying = true;
             playPauseBtn.textContent = '❚❚';
