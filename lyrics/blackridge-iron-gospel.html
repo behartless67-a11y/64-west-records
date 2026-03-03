@@ -63,10 +63,41 @@
         .back-link:hover {
             opacity: 0.8;
         }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav:hover {
+            opacity: 1;
+        }
+
+        .top-nav a {
+            color: #d4a574;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body>
-    <a href="/index.html" class="back-link">← Back to Albums</a>
+        <nav class="top-nav">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../artists.html">Artists</a>
+    </nav>
 
     <div class="lyrics-header">
         <h1 class="lyrics-album-title">Iron Gospel</h1>
