@@ -38,8 +38,16 @@ function loadTrack(index) {
     currentTrackIndex = index;
     const track = tracks[index];
 
+    // Detect album-specific subfolder
+    let audioPath = `../assets/audio/${track.file}`;
+
+    // Check if we're on Colt Ramsey album page
+    if (track.artist.includes('Colt Ramsey')) {
+        audioPath = `../assets/audio/colt-ramsey-lake-days/${track.file}`;
+    }
+
     // Update audio source
-    audioElement.src = `../assets/audio/${track.file}`;
+    audioElement.src = audioPath;
 
     // Update now playing info
     nowPlayingTitle.textContent = track.title;
