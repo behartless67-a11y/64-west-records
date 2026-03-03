@@ -9,6 +9,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Custom background with overlay */
+        body {
+            background-image: url('assets/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
         /* Gallery-specific styles */
         .gallery-grid {
             display: grid;
@@ -80,26 +101,26 @@
             display: none;
         }
 
-        /* Tagline at bottom */
-        .bottom-tagline {
+        /* Compact footer */
+        .site-footer {
             text-align: center;
-            padding: 3rem 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 1px solid rgba(212, 165, 116, 0.2);
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+            font-size: 0.85rem;
         }
 
-        .bottom-tagline .tagline-bold {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .site-footer .tagline {
+            font-size: 1rem;
+            font-weight: 600;
             color: #d4a574;
             margin: 0 0 0.5rem 0;
             font-family: 'Merriweather', serif;
         }
 
-        .bottom-tagline .tagline-sub {
-            font-size: 1rem;
-            opacity: 0.7;
-            margin: 0;
+        .site-footer p {
+            margin: 0.25rem 0;
+            opacity: 0.6;
         }
 
         /* Remove about section for cleaner gallery */
@@ -271,18 +292,12 @@
         </a>
     </div>
 
-    <!-- Bottom Tagline -->
-    <div class="bottom-tagline">
-        <p class="tagline-bold">The porch light's always on.</p>
-        <p class="tagline-sub">Independent music from Virginia</p>
-    </div>
-
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 64 West Records. Producer: HRTLSS. Songwriter: Ben Hartless.</p>
-            <p>Distributed by DistroKid. Music generated with Suno AI.</p>
-        </div>
+        <p class="tagline">The porch light's always on.</p>
+        <p>Independent music from Virginia</p>
+        <p>&copy; 2026 64 West Records • Producer: HRTLSS • Songwriter: Ben Hartless</p>
+        <p>Distributed by DistroKid • Music generated with Suno AI</p>
     </footer>
 
     <script src="assets/js/global-player.js"></script>
