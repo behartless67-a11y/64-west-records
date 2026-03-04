@@ -10,12 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Custom background with overlay */
-        html, body {
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
             background-image: url('assets/images/background.png');
             background-size: cover;
@@ -23,14 +17,6 @@
             background-attachment: fixed;
             background-repeat: no-repeat;
             position: relative;
-        }
-
-        /* Mobile background fix */
-        @media (max-width: 768px) {
-            body {
-                background-attachment: scroll;
-                background-position: center top;
-            }
         }
 
         body::before {
@@ -44,138 +30,312 @@
             z-index: -1;
         }
 
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
         .artist-header {
             text-align: center;
-            padding: 3rem 2rem 2rem 2rem;
+            padding: 2rem 2rem 1rem 2rem;
+            max-width: 100%;
         }
 
         .artist-name {
             font-size: 3rem;
             font-weight: 700;
             color: #d4a574;
-            margin: 0 0 0.5rem 0;
+            margin: 0;
             font-family: 'Merriweather', serif;
         }
 
         .artist-tagline {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1rem 2rem 2rem 2rem;
+            max-width: 100%;
+            align-items: start;
+        }
+
+        .artist-bio {
+            column-count: 1;
             margin: 0;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
         }
 
-        .artist-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem 2rem;
-        }
-
-        .content-section {
-            margin-bottom: 3rem;
-        }
-
-        .content-section h3 {
-            font-size: 1.75rem;
-            color: #d4a574;
+        .artist-bio h3 {
             margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
             font-family: 'Merriweather', serif;
         }
 
-        .content-section p {
-            font-size: 1.05rem;
+        .artist-bio p {
             line-height: 1.8;
             margin-bottom: 1rem;
-            opacity: 0.9;
         }
 
-        .album-showcase {
+        .artist-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .album-carousel {
+            padding: 0.5rem 2rem 2rem 2rem;
+            max-width: 100%;
+        }
+
+        .carousel-container {
             display: flex;
-            gap: 3rem;
-            align-items: flex-start;
-            margin-top: 2rem;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            height: 320px;
         }
 
-        .album-cover-large {
-            flex: 0 0 350px;
-            max-width: 350px;
+        .carousel-button {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            z-index: 10;
         }
 
-        .album-cover-large img {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        .carousel-button:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: scale(1.1);
         }
 
-        .album-details {
+        .album-covers {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
             flex: 1;
         }
 
-        .album-title-large {
-            font-size: 2rem;
-            color: #d4a574;
-            font-family: 'Merriweather', serif;
-            margin: 0 0 0.5rem 0;
+        .album-cover-item {
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
         }
 
-        .album-meta {
+        .album-cover-item.active {
+            transform: scale(1);
+            opacity: 1;
+            border-color: #d4a574;
+            box-shadow: 0 8px 32px rgba(212, 165, 116, 0.3);
+        }
+
+        .album-cover-item:not(.active) {
+            transform: scale(0.85);
+            opacity: 0.4;
+        }
+
+        .album-cover-item:not(.active):hover {
+            opacity: 0.7;
+            transform: scale(0.9);
+        }
+
+        .album-cover-item img {
+            display: block;
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .album-tracklist {
+            display: none;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-tracklist.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .album-tracklist h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .compact-track {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: transparent;
+            border-radius: 6px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .compact-track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .compact-track.playing {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track-num {
+            color: #d4a574;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 25px;
+        }
+
+        .track-name {
+            flex: 1;
             font-size: 0.95rem;
-            color: rgba(212, 165, 116, 0.8);
-            margin-bottom: 1.5rem;
         }
 
-        .album-link {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            background: rgba(212, 165, 116, 0.2);
-            border: 1px solid rgba(212, 165, 116, 0.4);
-            border-radius: 4px;
+        .compact-play-btn {
+            background: none;
+            border: none;
             color: #d4a574;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-
-        .album-link:hover {
-            background: rgba(212, 165, 116, 0.3);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .album-showcase {
-                flex-direction: column;
-            }
-
-            .album-cover-large {
-                flex: none;
-                max-width: 100%;
-            }
-
-            .artist-name {
-                font-size: 2rem;
-            }
-        }
-
-        /* Compact footer */
-        .site-footer {
-            text-align: center;
-            padding: 1.5rem 2rem;
-            background: rgba(0, 0, 0, 0.5);
-            border-top: 1px solid rgba(212, 165, 116, 0.15);
-            font-size: 0.85rem;
-        }
-
-        .site-footer .tagline {
             font-size: 1rem;
-            font-weight: 600;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .compact-play-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .album-description-block {
+            display: none;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-description-block.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .album-description-block h3 {
+            margin: 0 0 1rem 0;
             color: #d4a574;
-            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+            font-weight: 700;
             font-family: 'Merriweather', serif;
         }
 
-        .site-footer p {
-            margin: 0.25rem 0;
-            opacity: 0.6;
+        .album-description-block p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .album-description-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .track-player-row {
+            display: none;
+            width: 100%;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0 0 0;
+        }
+
+        .compact-track.playing .track-player-row {
+            display: flex;
+        }
+
+        .track-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .track-progress-fill {
+            height: 100%;
+            background: #d4a574;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .track-time {
+            color: #999;
+            font-size: 0.7rem;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .track-volume {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 60px;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .track-volume::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+        }
+
+        .track-volume::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+            border: none;
+        }
+
+        @media (max-width: 480px) {
+            .track-volume {
+                width: 40px;
+            }
         }
     </style>
 </head>
@@ -186,45 +346,191 @@
         <a href="artists.html">Artists</a>
     </nav>
 
-    <!-- Artist Header -->
     <div class="artist-header">
         <h1 class="artist-name">Tyler Hayes & Jake Morrison</h1>
-        <p class="artist-tagline">Party country for people who can't party like they used to</p>
+        <p class="artist-tagline">Modern Country / Comedy Country / Party Country</p>
     </div>
 
-    <!-- Artist Content -->
-    <div class="artist-content">
-        <div class="content-section">
-            <h3>About the Artists</h3>
+    <div class="album-carousel">
+        <div class="carousel-container">
+            <button class="carousel-button" id="prevAlbum">‹</button>
+            <div class="album-covers">
+                <div class="album-cover-item active" data-album="aged-perfection">
+                    <img src="assets/images/tyler-jake-aged-perfection-cover.png" alt="Aged to Perfection">
+                </div>
+            </div>
+            <button class="carousel-button" id="nextAlbum">›</button>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <!-- Artist Bio (Left Column) -->
+        <div class="artist-bio">
+            <h3>About Tyler Hayes & Jake Morrison</h3>
             <p>Tyler Hayes and Jake Morrison are best friends from Charlottesville, Virginia. Both 42, both married with kids, both stuck in that weird middle-age zone where you still want to go out but your body vetoes the decision three days later.</p>
             <p>What started as acoustic guitars at a brewery after yet another rained-out softball game turned into an accidental music career. They write songs about the stuff nobody else will admit: needing your wife's permission to have boys' night, throwing your back out at weddings, and discovering that your peak weekend moment is now a 2pm brewery tour.</p>
             <p>Their sound channels Dan + Shay's polished harmonies and modern country production, but with lyrics about real life in your 40s. It's party country, technically. Just… a different kind of party. The kind that starts at brunch and ends by 9pm.</p>
         </div>
 
-        <div class="content-section">
-            <h3>Albums</h3>
-            <div class="album-showcase">
-                <div class="album-cover-large">
-                    <img src="assets/images/tyler-jake-aged-perfection-cover.png" alt="Aged to Perfection">
-                </div>
-                <div class="album-details">
-                    <h2 class="album-title-large">Aged to Perfection</h2>
-                    <p class="album-meta">Modern Country • 2026 • 12 Tracks • Explicit</p>
-                    <p>Twelve brutally honest, hilarious songs about being in your 40s. Wine flights replacing shots. Brunch replacing pregaming. Denny's replacing the afterparty. Needing three business days to recover from one night out. Getting hall passes from your wife. Sitting down at concerts without shame.</p>
-                    <p>From "I Can't Do Shots (But I'll Do a Flight)" to "Last Night Was a Movie (I Don't Remember)," this is the album for anyone who's ever needed permission to go out or called in sick the day after one beer.</p>
-                    <p><strong>Standout Tracks:</strong> "My Wife Said I Could Go Out," "I Threw My Back Out (Dancing to Cupid Shuffle)," "I Need Three Business Days," "She Drunk-Texted Me (From the Couch)"</p>
-                    <a href="albums/tyler-jake-aged-perfection.html" class="album-link">Listen to Full Album</a>
-                </div>
+        <!-- Album Tracklist (Center Column) -->
+        <div class="album-tracklist active" id="aged-perfection-tracklist">
+            <h3>Aged to Perfection</h3>
+            <div class="compact-track" data-track="01 - I Can't Do Shots (But I'll Do a Flight).mp3" data-album="Aged to Perfection">
+                <span class="track-num">01</span>
+                <span class="track-name">I Can't Do Shots (But I'll Do a Flight)</span>
+                <button class="compact-play-btn">▶</button>
             </div>
+            <div class="compact-track" data-track="02 - Brunch Is the New Pregame.mp3" data-album="Aged to Perfection">
+                <span class="track-num">02</span>
+                <span class="track-name">Brunch Is the New Pregame</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="03 - My Wife Said I Could Go Out.mp3" data-album="Aged to Perfection">
+                <span class="track-num">03</span>
+                <span class="track-name">My Wife Said I Could Go Out</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="04 - I Threw My Back Out (Dancing to Cupid Shuffle).mp3" data-album="Aged to Perfection">
+                <span class="track-num">04</span>
+                <span class="track-name">I Threw My Back Out (Dancing to Cupid Shuffle)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="05 - Bottle Service (At the Wine Store).mp3" data-album="Aged to Perfection">
+                <span class="track-num">05</span>
+                <span class="track-name">Bottle Service (At the Wine Store)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="06 - I Need Three Business Days.mp3" data-album="Aged to Perfection">
+                <span class="track-num">06</span>
+                <span class="track-name">I Need Three Business Days</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="07 - The Afterparty's at Denny's.mp3" data-album="Aged to Perfection">
+                <span class="track-num">07</span>
+                <span class="track-name">The Afterparty's at Denny's</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="08 - Somebody's Designated Walking.mp3" data-album="Aged to Perfection">
+                <span class="track-num">08</span>
+                <span class="track-name">Somebody's Designated Walking</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="09 - She Drunk-Texted Me (From the Couch).mp3" data-album="Aged to Perfection">
+                <span class="track-num">09</span>
+                <span class="track-name">She Drunk-Texted Me (From the Couch)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="10 - I Peaked at the Brewery Tour.mp3" data-album="Aged to Perfection">
+                <span class="track-num">10</span>
+                <span class="track-name">I Peaked at the Brewery Tour</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="11 - Sitting Down at Concerts.mp3" data-album="Aged to Perfection">
+                <span class="track-num">11</span>
+                <span class="track-name">Sitting Down at Concerts</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="12 - Last Night Was a Movie (I Don't Remember).mp3" data-album="Aged to Perfection">
+                <span class="track-num">12</span>
+                <span class="track-name">Last Night Was a Movie (I Don't Remember)</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+        </div>
+
+        <!-- Album Description (Right Column) -->
+        <div class="album-description-block active" id="aged-perfection-description">
+            <h3>About This Album</h3>
+            <p>"Aged to Perfection" is party country for people who can't party like they used to. It's 12 brutally honest, hilarious songs about being in your 40s: needing three business days to recover from one night out, getting hall passes from your wife, throwing your back out dancing to the Cupid Shuffle, and peaking at brewery tours instead of nightclubs.</p>
+            <p>From wine flights replacing shots to Denny's replacing the afterparty, this album captures the evolution from wild twenties to civilized forties with humor, heart, and zero apologies. It's about wineries over bars, brunch over late nights, and sitting down at concerts without shame.</p>
+            <p>Modern country production with 808s and tight harmonies, but lyrics that speak to everyone who's ever needed their wife's permission to go out or called in sick the day after one beer. Dan + Shay meets real life. Funny, self-aware, and surprisingly sweet.</p>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <p class="tagline">The porch light's always on.</p>
-        <p>Independent music from Virginia</p>
-        <p>&copy; 2026 64 West Records • Producer: HRTLSS • Songwriter: Ben Hartless</p>
-        <p>Distributed by DistroKid • Music generated with Suno AI</p>
-    </footer>
+    <audio id="audioElement"></audio>
+
+    <script>
+        const audio = document.getElementById('audioElement');
+        let currentTrackIndex = -1;
+        let isPlaying = false;
+
+        document.querySelectorAll('.compact-track').forEach(track => {
+            const row = document.createElement('div');
+            row.className = 'track-player-row';
+            row.innerHTML = `
+                <div class="track-progress">
+                    <div class="track-progress-fill"></div>
+                </div>
+                <span class="track-time">0:00 / 0:00</span>
+                <input type="range" class="track-volume" min="0" max="1" step="0.01" value="0.8">
+            `;
+            track.appendChild(row);
+        });
+
+        const tracks = Array.from(document.querySelectorAll('.compact-track'));
+
+        function formatTime(s) {
+            if (isNaN(s)) return '0:00';
+            return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
+        }
+
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            tracks.forEach(t => t.classList.remove('playing'));
+            document.querySelectorAll('.compact-play-btn').forEach(btn => btn.textContent = '\u25B6');
+            currentTrackIndex = index;
+
+            const track = tracks[index];
+            const filename = track.dataset.track;
+            audio.src = `assets/audio/tyler-jake-aged-perfection/${filename}`;
+            audio.play();
+            track.classList.add('playing');
+            track.querySelector('.compact-play-btn').textContent = '\u23F8';
+            isPlaying = true;
+        }
+
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', (e) => {
+                if (e.target.classList.contains('track-volume') || e.target.classList.contains('track-progress')) return;
+                if (currentTrackIndex === index && isPlaying) {
+                    audio.pause();
+                    track.querySelector('.compact-play-btn').textContent = '\u25B6';
+                    isPlaying = false;
+                } else {
+                    playTrack(index);
+                }
+            });
+
+            const progress = track.querySelector('.track-progress');
+            const volumeSlider = track.querySelector('.track-volume');
+
+            progress.addEventListener('click', (e) => {
+                if (currentTrackIndex !== index) return;
+                const rect = progress.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = percent * audio.duration;
+            });
+
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
+            });
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (currentTrackIndex < 0) return;
+            const track = tracks[currentTrackIndex];
+            const fill = track.querySelector('.track-progress-fill');
+            const timeDisplay = track.querySelector('.track-time');
+            fill.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+            timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        });
+
+        audio.addEventListener('ended', () => {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(currentTrackIndex + 1);
+            }
+        });
+
+        audio.volume = 0.8;
+    </script>
 </body>
 </html>
