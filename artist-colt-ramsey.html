@@ -549,7 +549,7 @@
             const el = tracks[index];
             el.classList.add('playing');
             el.querySelector('.compact-play-btn').textContent = '\u275A\u275A';
-            audio.src = `assets/audio/${el.dataset.track}`;
+            audio.src = `assets/audio/colt-ramsey-lake-days/${el.dataset.track}`;
             audio.volume = parseFloat(el.querySelector('.track-volume').value);
             audio.play();
             isPlaying = true;
