@@ -628,6 +628,16 @@
             switchToAlbum(newIndex);
         });
 
+        // Hash-based album routing
+        if (window.location.hash) {
+            const targetAlbum = window.location.hash.substring(1);
+            albumCovers.forEach((cover, index) => {
+                if (cover.dataset.album === targetAlbum) {
+                    switchToAlbum(index);
+                }
+            });
+        }
+
         // Audio player functionality
         const audioElement = document.getElementById('audioElement');
         const playPauseBtn = document.getElementById('playPauseBtn');

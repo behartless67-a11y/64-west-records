@@ -621,6 +621,48 @@
     <audio id="audioElement"></audio>
 
     <script>
+        // Album carousel switching
+        const albumCovers = document.querySelectorAll('.album-cover-item');
+        const albumTracklists = document.querySelectorAll('.album-tracklist');
+        const albumDescriptions = document.querySelectorAll('.album-description-block');
+        const prevAlbumBtn = document.getElementById('prevAlbum');
+        const nextAlbumBtn = document.getElementById('nextAlbum');
+        let currentAlbumIndex = 0;
+
+        function switchToAlbum(index) {
+            currentAlbumIndex = index;
+            albumCovers.forEach(c => c.classList.remove('active'));
+            albumCovers[index].classList.add('active');
+            const albumId = albumCovers[index].dataset.album;
+            albumTracklists.forEach(c => c.classList.remove('active'));
+            const tl = document.getElementById(`${albumId}-tracklist`);
+            if (tl) tl.classList.add('active');
+            albumDescriptions.forEach(c => c.classList.remove('active'));
+            const desc = document.getElementById(`${albumId}-description`);
+            if (desc) desc.classList.add('active');
+        }
+
+        albumCovers.forEach((cover, index) => {
+            cover.addEventListener('click', () => switchToAlbum(index));
+        });
+
+        if (prevAlbumBtn) prevAlbumBtn.addEventListener('click', () => {
+            switchToAlbum((currentAlbumIndex - 1 + albumCovers.length) % albumCovers.length);
+        });
+        if (nextAlbumBtn) nextAlbumBtn.addEventListener('click', () => {
+            switchToAlbum((currentAlbumIndex + 1) % albumCovers.length);
+        });
+
+        // Hash-based album routing
+        if (window.location.hash) {
+            const targetAlbum = window.location.hash.substring(1);
+            albumCovers.forEach((cover, index) => {
+                if (cover.dataset.album === targetAlbum) {
+                    switchToAlbum(index);
+                }
+            });
+        }
+
         const audio = document.getElementById('audioElement');
         let currentTrackIndex = -1;
         let isPlaying = false;
