@@ -11,6 +11,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Custom background with overlay */
+        html, body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             background-image: url('assets/images/background.png');
             background-size: cover;
@@ -20,10 +26,11 @@
             position: relative;
         }
 
-        /* Mobile background fix - iOS Safari doesn't support background-attachment: fixed */
+        /* Mobile background fix - iOS Safari and Chrome don't always support background-attachment: fixed */
         @media (max-width: 768px) {
             body {
                 background-attachment: scroll;
+                background-position: center top;
             }
         }
 
