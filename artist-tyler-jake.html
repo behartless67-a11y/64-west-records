@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyler Hayes & Jake Morrison | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom background with overlay */
+        html, body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-image: url('assets/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        /* Mobile background fix */
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+                background-position: center top;
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        .artist-header {
+            text-align: center;
+            padding: 3rem 2rem 2rem 2rem;
+        }
+
+        .artist-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0 0 0.5rem 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .artist-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .content-section h3 {
+            font-size: 1.75rem;
+            color: #d4a574;
+            margin: 0 0 1rem 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .content-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .album-showcase {
+            display: flex;
+            gap: 3rem;
+            align-items: flex-start;
+            margin-top: 2rem;
+        }
+
+        .album-cover-large {
+            flex: 0 0 350px;
+            max-width: 350px;
+        }
+
+        .album-cover-large img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .album-details {
+            flex: 1;
+        }
+
+        .album-title-large {
+            font-size: 2rem;
+            color: #d4a574;
+            font-family: 'Merriweather', serif;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .album-meta {
+            font-size: 0.95rem;
+            color: rgba(212, 165, 116, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .album-link {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: rgba(212, 165, 116, 0.2);
+            border: 1px solid rgba(212, 165, 116, 0.4);
+            border-radius: 4px;
+            color: #d4a574;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .album-link:hover {
+            background: rgba(212, 165, 116, 0.3);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .album-showcase {
+                flex-direction: column;
+            }
+
+            .album-cover-large {
+                flex: none;
+                max-width: 100%;
+            }
+
+            .artist-name {
+                font-size: 2rem;
+            }
+        }
+
+        /* Compact footer */
+        .site-footer {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+            font-size: 0.85rem;
+        }
+
+        .site-footer .tagline {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d4a574;
+            margin: 0 0 0.5rem 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .site-footer p {
+            margin: 0.25rem 0;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="artists.html">Artists</a>
+    </nav>
+
+    <!-- Artist Header -->
+    <div class="artist-header">
+        <h1 class="artist-name">Tyler Hayes & Jake Morrison</h1>
+        <p class="artist-tagline">Party country for people who can't party like they used to</p>
+    </div>
+
+    <!-- Artist Content -->
+    <div class="artist-content">
+        <div class="content-section">
+            <h3>About the Artists</h3>
+            <p>Tyler Hayes and Jake Morrison are best friends from Charlottesville, Virginia. Both 42, both married with kids, both stuck in that weird middle-age zone where you still want to go out but your body vetoes the decision three days later.</p>
+            <p>What started as acoustic guitars at a brewery after yet another rained-out softball game turned into an accidental music career. They write songs about the stuff nobody else will admit: needing your wife's permission to have boys' night, throwing your back out at weddings, and discovering that your peak weekend moment is now a 2pm brewery tour.</p>
+            <p>Their sound channels Dan + Shay's polished harmonies and modern country production, but with lyrics about real life in your 40s. It's party country, technically. Just… a different kind of party. The kind that starts at brunch and ends by 9pm.</p>
+        </div>
+
+        <div class="content-section">
+            <h3>Albums</h3>
+            <div class="album-showcase">
+                <div class="album-cover-large">
+                    <img src="assets/images/tyler-jake-aged-perfection-cover.png" alt="Aged to Perfection">
+                </div>
+                <div class="album-details">
+                    <h2 class="album-title-large">Aged to Perfection</h2>
+                    <p class="album-meta">Modern Country • 2026 • 12 Tracks • Explicit</p>
+                    <p>Twelve brutally honest, hilarious songs about being in your 40s. Wine flights replacing shots. Brunch replacing pregaming. Denny's replacing the afterparty. Needing three business days to recover from one night out. Getting hall passes from your wife. Sitting down at concerts without shame.</p>
+                    <p>From "I Can't Do Shots (But I'll Do a Flight)" to "Last Night Was a Movie (I Don't Remember)," this is the album for anyone who's ever needed permission to go out or called in sick the day after one beer.</p>
+                    <p><strong>Standout Tracks:</strong> "My Wife Said I Could Go Out," "I Threw My Back Out (Dancing to Cupid Shuffle)," "I Need Three Business Days," "She Drunk-Texted Me (From the Couch)"</p>
+                    <a href="albums/tyler-jake-aged-perfection.html" class="album-link">Listen to Full Album</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p class="tagline">The porch light's always on.</p>
+        <p>Independent music from Virginia</p>
+        <p>&copy; 2026 64 West Records • Producer: HRTLSS • Songwriter: Ben Hartless</p>
+        <p>Distributed by DistroKid • Music generated with Suno AI</p>
+    </footer>
+</body>
+</html>
