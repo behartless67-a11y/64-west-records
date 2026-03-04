@@ -198,6 +198,7 @@
 
         .compact-track {
             display: flex;
+            flex-wrap: wrap;
             align-items: center;
             gap: 0.75rem;
             padding: 0.5rem;
@@ -208,6 +209,10 @@
         }
 
         .compact-track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .compact-track.playing {
             background: rgba(212, 165, 116, 0.1);
         }
 
@@ -272,79 +277,76 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .audio-player {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(26, 26, 46, 0.95);
-            border: 1px solid rgba(212, 165, 116, 0.3);
-            border-radius: 12px;
-            padding: 1rem;
-            min-width: 300px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        .player-info {
-            margin-bottom: 0.75rem;
-        }
-
-        .player-track-title {
-            color: #d4a574;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .player-artist-name {
-            color: #999;
-            font-size: 0.85rem;
-        }
-
-        .player-controls-row {
-            display: flex;
+/* Inline player row */
+        .track-player-row {
+            display: none;
+            width: 100%;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
+            padding: 0.25rem 0 0 0;
         }
 
-        .player-btn {
-            background: rgba(212, 165, 116, 0.1);
-            border: 1px solid rgba(212, 165, 116, 0.3);
-            color: #d4a574;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
+        .compact-track.playing .track-player-row {
+            display: flex;
         }
 
-        .player-btn:hover {
-            background: rgba(212, 165, 116, 0.2);
-            transform: scale(1.05);
-        }
-
-        .player-progress {
+        .track-progress {
             flex: 1;
             height: 4px;
             background: rgba(212, 165, 116, 0.2);
             border-radius: 2px;
-            overflow: hidden;
             cursor: pointer;
+            overflow: hidden;
         }
 
-        .player-progress-fill {
+        .track-progress-fill {
             height: 100%;
             background: #d4a574;
             width: 0%;
             transition: width 0.1s;
         }
 
-        .player-time {
+        .track-time {
             color: #999;
-            font-size: 0.75rem;
-            min-width: 80px;
+            font-size: 0.7rem;
+            min-width: 70px;
             text-align: right;
+        }
+
+        .track-volume {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 60px;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .track-volume::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+        }
+
+        .track-volume::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+            border: none;
+        }
+
+        @media (max-width: 480px) {
+            .track-volume {
+                width: 40px;
+            }
         }
     </style>
 </head>
@@ -400,149 +402,85 @@
         </div>
     </div>
 
-    <!-- Audio Player -->
-    <div class="audio-player" id="audioPlayer" style="display: none;">
-        <div class="player-info">
-            <div class="player-track-title" id="playerTrackTitle">Track Title</div>
-            <div class="player-artist-name">BLACKRIDGE</div>
-        </div>
-        <div class="player-controls-row">
-            <button class="player-btn" id="prevTrackBtn">‹</button>
-            <button class="player-btn" id="playPauseBtn">▶</button>
-            <button class="player-btn" id="nextTrackBtn">›</button>
-            <div class="player-progress" id="progressBar">
-                <div class="player-progress-fill" id="progressFill"></div>
-            </div>
-            <div class="player-time" id="playerTime">0:00 / 0:00</div>
-        </div>
-    </div>
-
     <audio id="audioElement"></audio>
 
     <script>
-        const audioElement = document.getElementById('audioElement');
-        const audioPlayer = document.getElementById('audioPlayer');
-        const playerTrackTitle = document.getElementById('playerTrackTitle');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const prevTrackBtn = document.getElementById('prevTrackBtn');
-        const nextTrackBtn = document.getElementById('nextTrackBtn');
-        const progressBar = document.getElementById('progressBar');
-        const progressFill = document.getElementById('progressFill');
-        const playerTime = document.getElementById('playerTime');
-
+        const audio = document.getElementById('audioElement');
         let currentTrackIndex = -1;
-        let tracks = [];
         let isPlaying = false;
 
-        const albums = {
-            'iron-gospel': {
-                folder: '',
-                name: 'Iron Gospel'
-            }
-        };
+        document.querySelectorAll('.compact-track').forEach(track => {
+            const row = document.createElement('div');
+            row.className = 'track-player-row';
+            row.innerHTML = `
+                <div class="track-progress">
+                    <div class="track-progress-fill"></div>
+                </div>
+                <span class="track-time">0:00 / 0:00</span>
+                <input type="range" class="track-volume" min="0" max="1" step="0.01" value="0.8">
+            `;
+            track.appendChild(row);
+        });
 
-        let currentAlbum = 'iron-gospel';
+        const tracks = Array.from(document.querySelectorAll('.compact-track'));
 
-        function initializeTracks() {
-            const trackElements = document.querySelectorAll('.compact-track');
-            tracks = Array.from(trackElements).map(el => ({
-                element: el,
-                file: el.dataset.track,
-                album: el.dataset.album,
-                title: el.querySelector('.track-name').textContent
-            }));
+        function formatTime(s) {
+            if (isNaN(s)) return '0:00';
+            return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
         }
 
         function playTrack(index) {
             if (index < 0 || index >= tracks.length) return;
-
+            tracks.forEach(t => t.classList.remove('playing'));
+            document.querySelectorAll('.compact-play-btn').forEach(btn => btn.textContent = '\u25B6');
             currentTrackIndex = index;
-            const track = tracks[index];
-            const albumData = albums[currentAlbum];
-
-            audioElement.src = `assets/audio/${track.file}`;
-            audioElement.play();
+            const el = tracks[index];
+            el.classList.add('playing');
+            el.querySelector('.compact-play-btn').textContent = '\u275A\u275A';
+            audio.src = `assets/audio/${el.dataset.track}`;
+            audio.volume = parseFloat(el.querySelector('.track-volume').value);
+            audio.play();
             isPlaying = true;
-            playPauseBtn.textContent = '❚❚';
-
-            playerTrackTitle.textContent = track.title;
-            audioPlayer.style.display = 'block';
-
-            document.querySelectorAll('.compact-play-btn').forEach((btn, i) => {
-                btn.textContent = i === index ? '❚❚' : '▶';
-            });
         }
 
-        playPauseBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                audioElement.pause();
-                playPauseBtn.textContent = '▶';
-                isPlaying = false;
-            } else {
-                audioElement.play();
-                playPauseBtn.textContent = '❚❚';
-                isPlaying = true;
-            }
-        });
-
-        prevTrackBtn.addEventListener('click', () => {
-            if (currentTrackIndex > 0) {
-                playTrack(currentTrackIndex - 1);
-            }
-        });
-
-        nextTrackBtn.addEventListener('click', () => {
-            if (currentTrackIndex < tracks.length - 1) {
-                playTrack(currentTrackIndex + 1);
-            }
-        });
-
-        audioElement.addEventListener('ended', () => {
-            if (currentTrackIndex < tracks.length - 1) {
-                playTrack(currentTrackIndex + 1);
-            } else {
-                isPlaying = false;
-                playPauseBtn.textContent = '▶';
-            }
-        });
-
-        audioElement.addEventListener('timeupdate', () => {
-            const progress = (audioElement.currentTime / audioElement.duration) * 100;
-            progressFill.style.width = progress + '%';
-
-            const currentTime = formatTime(audioElement.currentTime);
-            const duration = formatTime(audioElement.duration);
-            playerTime.textContent = `${currentTime} / ${duration}`;
-        });
-
-        progressBar.addEventListener('click', (e) => {
-            const rect = progressBar.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            audioElement.currentTime = pos * audioElement.duration;
-        });
-
-        function formatTime(seconds) {
-            if (isNaN(seconds)) return '0:00';
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        document.querySelectorAll('.compact-track').forEach((track, index) => {
-            track.addEventListener('click', () => {
-                playTrack(index);
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', (e) => {
+                if (e.target.classList.contains('track-progress') ||
+                    e.target.classList.contains('track-progress-fill') ||
+                    e.target.classList.contains('track-volume')) return;
+                if (currentTrackIndex === index && isPlaying) {
+                    audio.pause(); isPlaying = false;
+                    track.querySelector('.compact-play-btn').textContent = '\u25B6';
+                } else if (currentTrackIndex === index && !isPlaying) {
+                    audio.play(); isPlaying = true;
+                    track.querySelector('.compact-play-btn').textContent = '\u275A\u275A';
+                } else { playTrack(index); }
             });
+            track.querySelector('.track-progress').addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (currentTrackIndex !== index) playTrack(index);
+                const rect = e.currentTarget.getBoundingClientRect();
+                audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+            });
+            track.querySelector('.track-volume').addEventListener('input', (e) => {
+                e.stopPropagation(); audio.volume = parseFloat(e.target.value);
+            });
+            track.querySelector('.track-volume').addEventListener('click', e => e.stopPropagation());
         });
 
-        initializeTracks();
+        audio.addEventListener('timeupdate', () => {
+            if (currentTrackIndex < 0) return;
+            const el = tracks[currentTrackIndex];
+            el.querySelector('.track-progress-fill').style.width = (audio.currentTime / audio.duration) * 100 + '%';
+            el.querySelector('.track-time').textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        });
 
-        // Disable prev/next track for single track
-        prevTrackBtn.style.opacity = '0.3';
-        prevTrackBtn.style.cursor = 'not-allowed';
-        prevTrackBtn.disabled = true;
-        nextTrackBtn.style.opacity = '0.3';
-        nextTrackBtn.style.cursor = 'not-allowed';
-        nextTrackBtn.disabled = true;
+        audio.addEventListener('ended', () => {
+            tracks[currentTrackIndex].classList.remove('playing');
+            tracks[currentTrackIndex].querySelector('.compact-play-btn').textContent = '\u25B6';
+            if (currentTrackIndex < tracks.length - 1) { playTrack(currentTrackIndex + 1); }
+            else { isPlaying = false; currentTrackIndex = -1; }
+        });
     </script>
 </body>
 </html>
