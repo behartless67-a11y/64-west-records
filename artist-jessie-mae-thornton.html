@@ -356,9 +356,52 @@
             border: none;
         }
 
+        /* Mobile responsive layout */
+        @media (max-width: 1024px) {
+            .content-grid {
+                display: flex;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 2rem;
+            }
+
+            .album-tracklist {
+                order: 1;
+            }
+
+            .artist-bio {
+                order: 2;
+            }
+
+            .album-description-block {
+                order: 3;
+            }
+
+            .album-carousel {
+                padding: 0.5rem 1rem 1.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                gap: 1.5rem;
+            }
+        }
+
         @media (max-width: 480px) {
             .track-volume {
                 width: 40px;
+            }
+
+            .content-grid {
+                padding: 0.75rem;
+                gap: 1.25rem;
+            }
+
+            .album-tracklist,
+            .artist-bio,
+            .album-description-block {
+                padding: 1rem;
             }
         }
     </style>

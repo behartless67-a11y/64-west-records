@@ -328,9 +328,116 @@
             border: none;
         }
 
+        /* Mobile responsive layout */
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 1rem;
+            }
+
+            .artist-header {
+                padding: 1.5rem 1rem 1rem 1rem;
+            }
+
+            .artist-name {
+                font-size: 2rem;
+            }
+
+            .album-carousel {
+                padding: 0.5rem 1rem 1.5rem 1rem;
+            }
+
+            .carousel-container {
+                height: 280px;
+            }
+
+            .album-cover-item img {
+                width: 220px;
+                height: 220px;
+            }
+
+            /* Reorder on mobile: carousel, tracklist, bio/description */
+            .content-grid {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .album-tracklist {
+                order: 1;
+            }
+
+            .artist-bio {
+                order: 2;
+            }
+
+            .album-description-block {
+                order: 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .artist-name {
+                font-size: 1.75rem;
+            }
+
+            .artist-tagline {
+                font-size: 1rem;
+            }
+
+            .carousel-container {
+                height: 240px;
+            }
+
+            .album-cover-item img {
+                width: 180px;
+                height: 180px;
+            }
+
+            .carousel-button {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .content-grid {
+                gap: 1.5rem;
+            }
+        }
+
         @media (max-width: 480px) {
+            .artist-name {
+                font-size: 1.5rem;
+            }
+
+            .carousel-container {
+                height: 200px;
+            }
+
+            .album-cover-item img {
+                width: 150px;
+                height: 150px;
+            }
+
+            .carousel-button {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+
             .track-volume {
                 width: 40px;
+            }
+
+            .content-grid {
+                padding: 0.75rem;
+                gap: 1.25rem;
+            }
+
+            .album-tracklist,
+            .artist-bio,
+            .album-description-block {
+                padding: 1rem;
             }
         }
     </style>
