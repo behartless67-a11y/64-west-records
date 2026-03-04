@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About 64 West Records - The porch light's always on.</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom background with overlay */
+        body {
+            background-image: url('assets/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        /* About page specific styles */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-header h1 {
+            font-size: 2.5rem;
+            font-family: 'Merriweather', serif;
+            color: #d4a574;
+            margin: 0 0 1rem 0;
+        }
+
+        .about-header .tagline {
+            font-size: 1.25rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        .about-section {
+            margin-bottom: 3rem;
+        }
+
+        .about-section h2 {
+            font-family: 'Merriweather', serif;
+            color: #d4a574;
+            font-size: 1.75rem;
+            margin: 0 0 1rem 0;
+        }
+
+        .about-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .artist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .artist-name {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 8px;
+            font-weight: 600;
+            color: #d4a574;
+            transition: all 0.3s ease;
+        }
+
+        .artist-name:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .signature {
+            text-align: center;
+            margin-top: 4rem;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* Compact footer */
+        .site-footer {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+            font-size: 0.85rem;
+        }
+
+        .site-footer .tagline {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d4a574;
+            margin: 0 0 0.5rem 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .site-footer p {
+            margin: 0.25rem 0;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="artists.html">Artists</a>
+    </nav>
+
+    <div class="about-content">
+        <div class="about-header">
+            <h1>About 64 West Records</h1>
+            <p class="tagline">The porch light's always on.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>The Truth</h2>
+            <p>Let's start with what's real: Every artist on this label is AI-generated. Every song was created through a collaboration between me and multiple AI tools - Suno for music generation, Claude and Claude Code for lyric crafting, persona development, and meticulous refinement of every detail.</p>
+
+            <p>But here's what's also real: the stories, the emotions, the experiences that shaped these songs. Each of these artists - VEXRA, Elena Voss, Colt Ramsey, Jessie Mae Thornton, Ben James, MACH-6, BLACKRIDGE - represents a piece of me. A memory, a feeling, a version of myself I needed to express.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>Why This Matters</h2>
+            <p>I didn't create these personas to trick anyone. I created them because I had stories to tell and sounds to explore that didn't fit into one box. Some days I needed the raw aggression of VEXRA's bass music. Other days I needed Jessie Mae's small-town country wisdom. Sometimes I needed Ben James's smooth R&B to process love and loss.</p>
+
+            <p>Male or female, EDM or country, masked or unmasked - these artists are all facets of the same person. Me. Ben Hartless. A producer from Virginia with too many ideas and not enough lifetimes to explore them all.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>The Process</h2>
+            <p>Every song starts with something personal. A memory. A conversation. A feeling I couldn't shake. I spend hours crafting lyrics with Claude, refining every line until it captures exactly what I need to say. I design the sonic direction, build the narrative arc, develop the persona's backstory and voice.</p>
+
+            <p>Then I use Claude Code to organize the projects, manage the metadata, and structure the albums. Suno generates the audio - the vocals, the production, the sound. But the stories? Those are mine. The emotional truth behind every lyric? That's real.</p>
+
+            <p>The AI tools are instruments, not the artist. Think of it like a producer working with session musicians and a recording engineer, except the session musicians happen to be algorithms trained on the entire history of recorded music.</p>
+        </div>
+
+        <div class="about-section">
+            <h2>The Artists</h2>
+            <div class="artist-grid">
+                <div class="artist-name">VEXRA</div>
+                <div class="artist-name">Elena Voss</div>
+                <div class="artist-name">Colt Ramsey</div>
+                <div class="artist-name">Jessie Mae Thornton</div>
+                <div class="artist-name">Ben James</div>
+                <div class="artist-name">MACH-6</div>
+                <div class="artist-name">BLACKRIDGE</div>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <h2>Why "64 West Records"?</h2>
+            <p>Route 64 runs through the heart of Virginia, cutting through mountains and memories. West is the direction you go when you're looking for something new. This label is about the journey - exploring sound, identity, and story without boundaries.</p>
+
+            <p>The porch light's always on because everyone's welcome here. No matter what you think about AI in music, no matter how you found these songs - if the music speaks to you, that's all that matters.</p>
+        </div>
+
+        <div class="signature">
+            <p>- Ben Hartless (HRTLSS)</p>
+            <p>Producer, Songwriter, and every voice you hear</p>
+            <p>Virginia, 2026</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p class="tagline">The porch light's always on.</p>
+        <p>Independent music from Virginia</p>
+        <p>&copy; 2026 64 West Records • Producer: HRTLSS • Songwriter: Ben Hartless</p>
+        <p>Distributed by DistroKid • Music generated with Suno AI • Crafted with Claude & Claude Code</p>
+    </footer>
+
+    <script src="assets/js/global-player.js"></script>
+</body>
+</html>

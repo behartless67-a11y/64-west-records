@@ -31,6 +31,153 @@
             z-index: -1;
         }
 
+        /* Page header */
+        .page-header {
+            text-align: center;
+            padding: 4rem 2rem 3rem 2rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-family: 'Merriweather', serif;
+            color: #d4a574;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Artists container */
+        .artists-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem 2rem;
+        }
+
+        /* Individual artist section */
+        .artist-section {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+
+        .artist-section:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Reverse layout for alternating artists */
+        .artist-section.reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Artist image */
+        .artist-image {
+            flex: 0 0 350px;
+            max-width: 350px;
+        }
+
+        .artist-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .artist-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Artist bio */
+        .artist-bio {
+            flex: 1;
+        }
+
+        .artist-bio h2 {
+            font-size: 2rem;
+            font-family: 'Merriweather', serif;
+            color: #d4a574;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .artist-bio .album-count {
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.8);
+            margin: 0 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .artist-bio .description {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .artist-bio .genre {
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.7);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .artist-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.75rem 2rem;
+            background: rgba(212, 165, 116, 0.2);
+            border: 1px solid rgba(212, 165, 116, 0.4);
+            border-radius: 4px;
+            color: #d4a574;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .artist-link:hover {
+            background: rgba(212, 165, 116, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .artist-section,
+            .artist-section.reverse {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .artist-image {
+                flex: none;
+                max-width: 100%;
+            }
+        }
+
+        /* Compact footer */
+        .site-footer {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+            font-size: 0.85rem;
+        }
+
+        .site-footer .tagline {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d4a574;
+            margin: 0 0 0.5rem 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .site-footer p {
+            margin: 0.25rem 0;
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
@@ -41,104 +188,104 @@
     </nav>
 
     <!-- Header -->
-    <div class="minimal-header">
-        <div class="container">
-            <p class="tagline-bold">Meet the Artists</p>
-            <p class="tagline-sub">The voices of 64 West Records</p>
+    <div class="page-header">
+        <h1>Meet the Artists</h1>
+        <p>The voices of 64 West Records</p>
+    </div>
+
+    <!-- Artists -->
+    <div class="artists-container">
+        <!-- Elena Voss / VEXRA - Image Left -->
+        <div class="artist-section">
+            <div class="artist-image">
+                <img src="assets/images/elena-voss-luminous-cover.png" alt="Elena Voss">
+            </div>
+            <div class="artist-bio">
+                <h2>Elena Voss / VEXRA</h2>
+                <p class="album-count">7 Albums</p>
+                <p class="description">From masked underground bass producer to vulnerable solo artist. Elena Voss spent four albums hiding behind VEXRA before slowly revealing herself across "Human," "Venom Heart," and "Icon." "Luminous" is her first album entirely separate from the persona. EDM, dark pop, hyperpop, industrial bass, and ethereal electronic.</p>
+                <p class="genre">EDM / Dark Pop / Hyperpop / Art Pop</p>
+                <a href="artist-elena-voss.html" class="artist-link">View Artist Page</a>
+            </div>
+        </div>
+
+        <!-- Jessie Mae Thornton - Image Right -->
+        <div class="artist-section reverse">
+            <div class="artist-image">
+                <img src="assets/images/jessie-mae-red-dirt-cover.jpg" alt="Jessie Mae Thornton">
+            </div>
+            <div class="artist-bio">
+                <h2>Jessie Mae Thornton</h2>
+                <p class="album-count">3 Albums</p>
+                <p class="description">From Staunton, Virginia. Daughter of a tobacco farmer and church choir director. Got discovered after a Floyd Country Store performance went viral. Three albums trace her journey from wide-eyed debut to heartbroken healing to triumphant party country. "Porch Light On" inspired the label name.</p>
+                <p class="genre">Modern Country / Americana</p>
+                <a href="artist-jessie-mae-thornton.html" class="artist-link">View Artist Page</a>
+            </div>
+        </div>
+
+        <!-- Colt Ramsey - Image Left -->
+        <div class="artist-section">
+            <div class="artist-image">
+                <img src="assets/images/colt-ramsey-lake-days-cover.jpg" alt="Colt Ramsey">
+            </div>
+            <div class="artist-bio">
+                <h2>Colt Ramsey</h2>
+                <p class="album-count">1 Album</p>
+                <p class="description">28-year-old country singer from Smith Mountain Lake, Virginia. His debut "Lake Days & Late Nights" is summer on the water captured in audio form. Modern country production with trap-influenced 808s and Morgan Wallen's grit meets Kane Brown's crossover appeal. Lake life, Blue Ridge views, and Virginia pride.</p>
+                <p class="genre">Modern Country / Party Country / Lake Life</p>
+                <a href="artist-colt-ramsey.html" class="artist-link">View Artist Page</a>
+            </div>
+        </div>
+
+        <!-- Ben James - Image Right -->
+        <div class="artist-section reverse">
+            <div class="artist-image">
+                <img src="assets/images/ben-james-hey-gurl-cover.jpg" alt="Ben James">
+            </div>
+            <div class="artist-bio">
+                <h2>Ben James</h2>
+                <p class="album-count">1 Album</p>
+                <p class="description">Virginia-born R&B singer with a voice that can break your heart and put it back together in the same breath. Smooth vocals, lush production, and songs about love, longing, vulnerability, and connection. Teddy Swims meets Daniel Caesar. Heartfelt, soulful, and effortlessly emotional.</p>
+                <p class="genre">R&B / Soul</p>
+                <a href="artist-ben-james.html" class="artist-link">View Artist Page</a>
+            </div>
+        </div>
+
+        <!-- MACH-6 - Image Left -->
+        <div class="artist-section">
+            <div class="artist-image">
+                <img src="assets/images/mach6-terminal-velocity-cover.jpg" alt="MACH-6">
+            </div>
+            <div class="artist-bio">
+                <h2>MACH-6</h2>
+                <p class="album-count">1 Album</p>
+                <p class="description">An enigma. No one knows their real name, age, or face. What we do know: they rap faster than anyone alive. Machine-gun syllables over bone-crushing bass and aggressive EDM production. Tech N9ne meets Skrillex. Technical rap mastery meets futuristic electronic soundscapes.</p>
+                <p class="genre">EDM Rap / Chopper Rap</p>
+                <a href="artist-mach6.html" class="artist-link">View Artist Page</a>
+            </div>
+        </div>
+
+        <!-- BLACKRIDGE - Image Right -->
+        <div class="artist-section reverse">
+            <div class="artist-image">
+                <img src="assets/images/blackridge-iron-gospel-cover.jpg" alt="BLACKRIDGE">
+            </div>
+            <div class="artist-bio">
+                <h2>BLACKRIDGE</h2>
+                <p class="album-count">1 Single</p>
+                <p class="description">Four-piece heavy rock band from coal country in Southwest Virginia. Blue-collar metal with Appalachian roots. Black Stone Cherry meets Alice in Chains. Heavy riffs, growling vocals, and lyrics about hard work, hard times, and refusing to back down. Raw, powerful, and unapologetically Appalachian.</p>
+                <p class="genre">Heavy Rock / Southern Metal</p>
+                <a href="artist-blackridge.html" class="artist-link">View Artist Page</a>
+            </div>
         </div>
     </div>
 
-    <!-- Artists Grid -->
-    <section class="albums-grid">
-        <div class="container">
-            <div class="albums-container">
-                <!-- Elena Voss / VEXRA -->
-                <a href="artist-elena-voss.html" class="album-card">
-                    <div class="album-card-art">
-                        <img src="assets/images/elena-voss-luminous-cover.png" alt="Elena Voss">
-                    </div>
-                    <div class="album-card-info">
-                        <h3>Elena Voss / VEXRA</h3>
-                        <p class="album-artist">7 Albums</p>
-                        <p class="album-desc">From masked underground bass producer to vulnerable solo artist. Elena Voss spent four albums hiding behind VEXRA before slowly revealing herself across "Human," "Venom Heart," and "Icon." "Luminous" is her first album entirely separate from the persona. EDM, dark pop, hyperpop, industrial bass, and ethereal electronic.</p>
-                        <p class="album-meta">EDM / Dark Pop / Hyperpop / Art Pop</p>
-                    </div>
-                </a>
-
-                <!-- Jessie Mae Thornton -->
-                <a href="artist-jessie-mae-thornton.html" class="album-card">
-                    <div class="album-card-art">
-                        <img src="assets/images/jessie-mae-red-dirt-cover.jpg" alt="Jessie Mae Thornton">
-                    </div>
-                    <div class="album-card-info">
-                        <h3>Jessie Mae Thornton</h3>
-                        <p class="album-artist">3 Albums</p>
-                        <p class="album-desc">From Staunton, Virginia. Daughter of a tobacco farmer and church choir director. Got discovered after a Floyd Country Store performance went viral. Three albums trace her journey from wide-eyed debut to heartbroken healing to triumphant party country. "Porch Light On" inspired the label name.</p>
-                        <p class="album-meta">Modern Country / Americana</p>
-                    </div>
-                </a>
-
-                <!-- Colt Ramsey -->
-                <a href="artist-colt-ramsey.html" class="album-card">
-                    <div class="album-card-art">
-                        <img src="assets/images/colt-ramsey-lake-days-cover.jpg" alt="Colt Ramsey">
-                    </div>
-                    <div class="album-card-info">
-                        <h3>Colt Ramsey</h3>
-                        <p class="album-artist">1 Album</p>
-                        <p class="album-desc">28-year-old country singer from Smith Mountain Lake, Virginia. His debut "Lake Days & Late Nights" is summer on the water captured in audio form. Modern country production with trap-influenced 808s and Morgan Wallen's grit meets Kane Brown's crossover appeal. Lake life, Blue Ridge views, and Virginia pride.</p>
-                        <p class="album-meta">Modern Country / Party Country / Lake Life</p>
-                    </div>
-                </a>
-
-                <!-- Ben James -->
-                <a href="artist-ben-james.html" class="album-card">
-                    <div class="album-card-art">
-                        <img src="assets/images/ben-james-hey-gurl-cover.jpg" alt="Ben James">
-                    </div>
-                    <div class="album-card-info">
-                        <h3>Ben James</h3>
-                        <p class="album-artist">1 Album</p>
-                        <p class="album-desc">Virginia-born R&B singer with a voice that can break your heart and put it back together in the same breath. Smooth vocals, lush production, and songs about love, longing, vulnerability, and connection. Teddy Swims meets Daniel Caesar. Heartfelt, soulful, and effortlessly emotional.</p>
-                        <p class="album-meta">R&B / Soul</p>
-                    </div>
-                </a>
-
-                <!-- MACH-6 -->
-                <a href="artist-mach6.html" class="album-card">
-                    <div class="album-card-art">
-                        <img src="assets/images/mach6-terminal-velocity-cover.jpg" alt="MACH-6">
-                    </div>
-                    <div class="album-card-info">
-                        <h3>MACH-6</h3>
-                        <p class="album-artist">1 Album</p>
-                        <p class="album-desc">An enigma. No one knows their real name, age, or face. What we do know: they rap faster than anyone alive. Machine-gun syllables over bone-crushing bass and aggressive EDM production. Tech N9ne meets Skrillex. Technical rap mastery meets futuristic electronic soundscapes.</p>
-                        <p class="album-meta">EDM Rap / Chopper Rap</p>
-                    </div>
-                </a>
-
-                <!-- BLACKRIDGE -->
-                <a href="artist-blackridge.html" class="album-card">
-                    <div class="album-card-art">
-                        <img src="assets/images/blackridge-iron-gospel-cover.jpg" alt="BLACKRIDGE">
-                    </div>
-                    <div class="album-card-info">
-                        <h3>BLACKRIDGE</h3>
-                        <p class="album-artist">1 Single</p>
-                        <p class="album-desc">Four-piece heavy rock band from coal country in Southwest Virginia. Blue-collar metal with Appalachian roots. Black Stone Cherry meets Alice in Chains. Heavy riffs, growling vocals, and lyrics about hard work, hard times, and refusing to back down. Raw, powerful, and unapologetically Appalachian.</p>
-                        <p class="album-meta">Heavy Rock / Southern Metal</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2026 64 West Records. Producer: HRTLSS. Songwriter: Ben Hartless.</p>
-            <p>Distributed by DistroKid. Music generated with Suno AI.</p>
-        </div>
+        <p class="tagline">The porch light's always on.</p>
+        <p>Independent music from Virginia</p>
+        <p>&copy; 2026 64 West Records • Producer: HRTLSS • Songwriter: Ben Hartless</p>
+        <p>Distributed by DistroKid • Music generated with Suno AI</p>
     </footer>
 </body>
 </html>
