@@ -39,7 +39,29 @@
             align-items: center;
             gap: 1.5rem;
             padding: 0.5rem 2rem 2rem 2rem;
-            overflow: visible;
+            overflow-x: auto;
+            overflow-y: visible;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 165, 116, 0.5) rgba(0, 0, 0, 0.3);
+        }
+
+        .album-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .album-carousel::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .album-carousel::-webkit-scrollbar-thumb {
+            background: rgba(212, 165, 116, 0.5);
+            border-radius: 4px;
+        }
+
+        .album-carousel::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 165, 116, 0.7);
         }
 
         .album-cover-item {
@@ -820,6 +842,9 @@
             // Add active to selected cover
             albumCovers[index].classList.add('active');
 
+            // Scroll active album into view
+            albumCovers[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
             // Switch tracklist and description
             const albumId = albumCovers[index].dataset.album;
 
@@ -944,6 +969,14 @@
         });
 
         audio.volume = 0.8;
+
+        // Scroll to active album on page load
+        setTimeout(() => {
+            const activeAlbum = document.querySelector('.album-cover-item.active');
+            if (activeAlbum) {
+                activeAlbum.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }, 100);
     </script>
 </body>
 </html>
