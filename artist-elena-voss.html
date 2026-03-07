@@ -497,8 +497,11 @@
         <div class="album-cover-item" data-album="luminous" data-index="6">
             <img src="assets/images/elena-voss-luminous-cover.png" alt="Luminous">
         </div>
-        <div class="album-cover-item active" data-album="skin-contact" data-index="7">
+        <div class="album-cover-item" data-album="skin-contact" data-index="7">
             <img src="assets/images/vexra-skin-contact-cover.png" alt="Skin Contact">
+        </div>
+        <div class="album-cover-item active" data-album="daybreak" data-index="8">
+            <img src="assets/images/elena-voss-daybreak-cover.png" alt="Daybreak">
         </div>
     </div>
 
@@ -751,6 +754,62 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="daybreak-tracklist" class="album-tracklist active">
+                    <h3>Tracklist</h3>
+                    <div class="compact-tracklist">
+                        <div class="compact-track" data-track="elena-voss-daybreak/01 - Dawn Break.mp3">
+                            <span class="compact-track-number">01</span>
+                            <span class="compact-track-title">Dawn Break</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/02 - Release.mp3">
+                            <span class="compact-track-number">02</span>
+                            <span class="compact-track-title">Release</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/03 - Sunlit.mp3">
+                            <span class="compact-track-number">03</span>
+                            <span class="compact-track-title">Sunlit</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/04 - Grounded.mp3">
+                            <span class="compact-track-number">04</span>
+                            <span class="compact-track-title">Grounded</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/05 - Flourish.mp3">
+                            <span class="compact-track-number">05</span>
+                            <span class="compact-track-title">Flourish</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/06 - Sunday Slow.mp3">
+                            <span class="compact-track-number">06</span>
+                            <span class="compact-track-title">Sunday Slow</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/07 - Clarity.mp3">
+                            <span class="compact-track-number">07</span>
+                            <span class="compact-track-title">Clarity</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/08 - Here.mp3">
+                            <span class="compact-track-number">08</span>
+                            <span class="compact-track-title">Here</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/09 - Gratitude.mp3">
+                            <span class="compact-track-number">09</span>
+                            <span class="compact-track-title">Gratitude</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                        <div class="compact-track" data-track="elena-voss-daybreak/10 - Daybreak.mp3">
+                            <span class="compact-track-number">10</span>
+                            <span class="compact-track-title">Daybreak</span>
+                            <button class="compact-track-play">▶</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Dynamic Album Description Container (Column 3) -->
@@ -811,6 +870,14 @@
                     <p>The album flows like desire itself - Elena's "Golden Hour" into Vexra's "Fever Pitch," back to Elena's "Breathe You In," then Vexra's "Skin Hunger." Tender, aggressive, intimate, explicit. Two sides of the same coin. Both personas fully integrated, exploring something simpler than trauma or empowerment: just two people who want each other, completely.</p>
                     <p><strong>Content Warning:</strong> Vexra tracks contain explicit sexual language and themes. Recommended for mature audiences. You'll need a cigarette after this one.</p>
                 </div>
+
+                <div id="daybreak-description" class="album-description-block active">
+                    <h3>Daybreak (2026)</h3>
+                    <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Ethereal Electronic / Art Pop • 10 Tracks</p>
+                    <p>After the intensity of Skin Contact, Elena finds peace. "Daybreak" is her most serene work - morning coffee, soft light, gratitude for simply being alive. This is Elena at her most grounded and present.</p>
+                    <p>The sound is ethereal electronic and art pop (FKA twigs meets Sigur Rós meets Bon Iver) with gentle vocals, organic textures, and warm production. From "Dawn Break" to "Gratitude," these songs explore presence, healing, and the quiet power of contentment.</p>
+                    <p>No drama, no tension - just beauty, breath, and the simple grace of being okay with where you are. This is morning light after a long night. Elena's second solo album under her own name, and her most peaceful statement yet.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -832,7 +899,7 @@
         const albumDescriptions = document.querySelectorAll('.album-description-block');
         const prevAlbumBtn = document.getElementById('prevAlbum');
         const nextAlbumBtn = document.getElementById('nextAlbum');
-        let currentIndex = 7; // Start with Skin Contact
+        let currentIndex = 8; // Start with Daybreak
 
         function switchToAlbum(index) {
             currentIndex = index;
