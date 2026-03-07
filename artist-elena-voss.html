@@ -287,6 +287,71 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .track-player-row {
+            display: none;
+            width: 100%;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0 0 0;
+        }
+
+        .compact-track.playing .track-player-row {
+            display: flex;
+        }
+
+        .track-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .track-progress-fill {
+            height: 100%;
+            background: #d4a574;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .track-time {
+            color: #999;
+            font-size: 0.7rem;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .track-volume {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 60px;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .track-volume::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+        }
+
+        .track-volume::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+            border: none;
+        }
+
         .compact-tracklist {
             width: 100%;
             margin-top: 1rem;
@@ -728,21 +793,7 @@
         </div>
     </div>
 
-    <!-- Audio Player (Fixed at bottom) -->
-    <div class="audio-player" id="audioPlayer">
-        <div class="player-content">
-            <div class="now-playing">
-                <div class="now-playing-title" id="nowPlayingTitle">Select a track to play</div>
-                <div class="now-playing-artist" id="nowPlayingArtist">Elena Voss</div>
-            </div>
-            <div class="player-controls">
-                <button class="control-btn" id="prevBtn">⏮</button>
-                <button class="control-btn" id="playPauseBtn">▶</button>
-                <button class="control-btn" id="nextBtn">⏭</button>
-            </div>
-        </div>
-        <audio id="audioElement" preload="metadata"></audio>
-    </div>
+    <audio id="audioElement"></audio>
 
     <!-- Footer -->
     <footer class="site-footer">
@@ -809,67 +860,90 @@
             });
         }
 
-        // Audio player functionality
-        const audioElement = document.getElementById('audioElement');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const prevTrackBtn = document.getElementById('prevBtn');
-        const nextTrackBtn = document.getElementById('nextBtn');
-        const nowPlayingTitle = document.getElementById('nowPlayingTitle');
-        const nowPlayingArtist = document.getElementById('nowPlayingArtist');
+        // Inline audio player functionality
+        const audio = document.getElementById('audioElement');
+        let currentTrackIndex = -1;
+        let isPlaying = false;
 
-        let currentTrackIndex = 0;
-        let tracks = [];
+        // Create inline player rows for each track
+        document.querySelectorAll('.compact-track').forEach(track => {
+            const row = document.createElement('div');
+            row.className = 'track-player-row';
+            row.innerHTML = `
+                <div class="track-progress">
+                    <div class="track-progress-fill"></div>
+                </div>
+                <span class="track-time">0:00 / 0:00</span>
+                <input type="range" class="track-volume" min="0" max="1" step="0.01" value="0.8">
+            `;
+            track.appendChild(row);
+        });
 
-        // Get all tracks
-        document.querySelectorAll('.compact-track').forEach((track, index) => {
-            const trackFile = track.dataset.track;
-            const trackTitle = track.querySelector('.compact-track-title').textContent;
-            tracks.push({ file: trackFile, title: trackTitle });
+        const tracks = Array.from(document.querySelectorAll('.compact-track'));
 
-            track.querySelector('.compact-track-play').addEventListener('click', function(e) {
-                e.stopPropagation();
-                playTrack(index);
+        function formatTime(s) {
+            if (isNaN(s)) return '0:00';
+            return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
+        }
+
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            tracks.forEach(t => t.classList.remove('playing'));
+            document.querySelectorAll('.compact-track-play').forEach(btn => btn.textContent = '\u25B6');
+            currentTrackIndex = index;
+
+            const track = tracks[index];
+            const filename = track.dataset.track;
+            audio.src = `assets/audio/${filename}`;
+            audio.play();
+            track.classList.add('playing');
+            track.querySelector('.compact-track-play').textContent = '\u23F8';
+            isPlaying = true;
+        }
+
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', (e) => {
+                if (e.target.classList.contains('track-volume') || e.target.classList.contains('track-progress')) return;
+                if (currentTrackIndex === index && isPlaying) {
+                    audio.pause();
+                    track.querySelector('.compact-track-play').textContent = '\u25B6';
+                    isPlaying = false;
+                } else {
+                    playTrack(index);
+                }
+            });
+
+            const progress = track.querySelector('.track-progress');
+            const volumeSlider = track.querySelector('.track-volume');
+
+            progress.addEventListener('click', (e) => {
+                if (currentTrackIndex !== index) return;
+                const rect = progress.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = percent * audio.duration;
+            });
+
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
             });
         });
 
-        function playTrack(index) {
-            currentTrackIndex = index;
-            const track = tracks[index];
-            audioElement.src = `assets/audio/${track.file}`;
-            audioElement.play();
-            nowPlayingTitle.textContent = track.title;
-            playPauseBtn.textContent = '⏸';
-        }
-
-        playPauseBtn.addEventListener('click', function() {
-            if (audioElement.paused) {
-                audioElement.play();
-                this.textContent = '⏸';
-            } else {
-                audioElement.pause();
-                this.textContent = '▶';
-            }
+        audio.addEventListener('timeupdate', () => {
+            if (currentTrackIndex < 0) return;
+            const track = tracks[currentTrackIndex];
+            const fill = track.querySelector('.track-progress-fill');
+            const timeDisplay = track.querySelector('.track-time');
+            fill.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+            timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
         });
 
-        prevBtn.addEventListener('click', function() {
-            if (currentTrackIndex > 0) {
-                playTrack(currentTrackIndex - 1);
-            }
-        });
-
-        nextBtn.addEventListener('click', function() {
+        audio.addEventListener('ended', () => {
             if (currentTrackIndex < tracks.length - 1) {
                 playTrack(currentTrackIndex + 1);
             }
         });
 
-        audioElement.addEventListener('ended', function() {
-            if (currentTrackIndex < tracks.length - 1) {
-                playTrack(currentTrackIndex + 1);
-            } else {
-                playPauseBtn.textContent = '▶';
-            }
-        });
+        audio.volume = 0.8;
     </script>
 </body>
 </html>
