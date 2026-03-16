@@ -198,6 +198,13 @@
             display: none !important;
         }
 
+        /* Make description blocks with Spotify embeds span 2 columns */
+        #beautiful-damage-description.active,
+        #phantom-frequency-description.active,
+        #skin-static-description.active {
+            grid-column: 2 / 4;
+        }
+
         .artist-bio h3, .album-description-block h3, .album-tracklist h3 {
             margin: 0 0 1rem 0;
             color: #d4a574;
