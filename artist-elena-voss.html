@@ -198,10 +198,17 @@
             display: none !important;
         }
 
-        /* Make description blocks with Spotify embeds span 2 columns */
-        #beautiful-damage-description.active,
-        #phantom-frequency-description.active,
-        #skin-static-description.active {
+        /* Hide tracklist container when Spotify album is active */
+        .content-grid:has(#beautiful-damage-description.active) .tracklist-container,
+        .content-grid:has(#phantom-frequency-description.active) .tracklist-container,
+        .content-grid:has(#skin-static-description.active) .tracklist-container {
+            display: none;
+        }
+
+        /* Make description container span 2 columns when Spotify album is active */
+        .content-grid:has(#beautiful-damage-description.active) .description-container,
+        .content-grid:has(#phantom-frequency-description.active) .description-container,
+        .content-grid:has(#skin-static-description.active) .description-container {
             grid-column: 2 / 4;
         }
 
