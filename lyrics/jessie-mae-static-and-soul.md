@@ -1,0 +1,506 @@
+# Static & Soul — Jessie Mae Thornton (Produced by Vexra)
+## 64 West Records
+
+All vocals: Jessie Mae Thornton
+All production: Vexra
+No Vexra vocals — just her sonic fingerprint on every beat.
+
+---
+
+### 1. Bonfire & Bass
+
+**Suno Prompt:** Fun rowdy country-EDM crossover, warm Southern female vocalist with raspy alto, acoustic guitar layered with glitchy synths, 808 bass drops, bonfire energy meets warehouse rave, handclaps becoming electronic claps, building from country to full EDM, 126 BPM
+
+[Verse 1]
+Somebody started a fire in the back of Tommy's field
+Same spot we've been burning since the summer we got real
+About who we are and who we ain't and what we're gonna be
+But tonight ain't about the future it's about the Tennessee
+Honey in the jar and the speakers in the truck
+Somebody plugged a subwoofer in and now we're out of luck
+Cause the bass just hit the treeline and the coyotes shut up
+And the whole damn county knows that something's about to erupt
+
+[Pre-Chorus]
+Started with a match and a couple logs
+Now the ground is shaking and we're waking up the dogs
+
+[Chorus]
+Bonfire and bass that's all we need tonight
+Sparks going up and the bass is coming down right
+Through the field through the dirt through the soles of my boots
+Bonfire and bass Virginia from the roots
+You can take the girl out the country but you can't take the country out the drop
+Bonfire and bass and we ain't gonna stop
+
+[Verse 2]
+Jenny brought a speaker the size of a mini fridge
+And when she turned it on I swear it moved the bridge
+Over Cooper's Creek the fish are probably deaf by now
+But we're dancing in the firelight and nobody cares how
+Loud it gets cause loud is what we came here for
+My boots are in the mud and the bass is on the floor
+Of the universe I swear the stars are vibrating
+Bonfire and bass and the whole field is shaking
+
+[Bridge]
+City kids got their warehouses their strobes and their smoke
+We got a field a fire and a speaker that's broke
+In the best way in the way that makes your chest cave
+Bonfire and bass is the only church I gave
+My Saturday nights to and I'm never looking back
+Country girl bass drop tailgate heart attack
+
+[Outro]
+Bonfire and bass y'all
+Yeah bonfire and bass
+Come find us in the field we'll leave the fire lit
+
+---
+
+### 2. Two Kinds of Loud
+
+**Suno Prompt:** Empowerment country-EDM anthem, fierce warm Southern female vocalist, raspy alto, heavy bass drops on chorus, driving electronic drums with country guitar hooks, feminist energy, arena-ready, 130 BPM
+
+[Verse 1]
+She speaks in frequencies I speak in syllables
+She shakes the building I shake the table
+At Thanksgiving when I say what everybody's thinking
+She drops the bass I drop the truth and both of us are drinking
+From the same damn well of women who were told to pipe it down
+She found her volume in the speakers I found mine in this town
+But the message is the same whether it's bass or it's a drawl
+Don't you ever tell a woman that her voice is too small
+
+[Pre-Chorus]
+They said shh they said smile they said tone it down a notch
+She built a wall of sound I built a wall of talk
+And neither one of us has any plans to stop
+
+[Chorus]
+Two kinds of loud and we ain't turning down for y'all
+She's loud with the bass I'm loud with the drawl
+They told her too aggressive they told me too much
+Two kinds of loud same fire same touch
+She shakes the warehouse I shake the room
+Two kinds of loud and there ain't enough room
+For the people who keep telling us to shrink
+Two kinds of loud and we're louder than you think
+
+[Verse 2]
+I've been told to cross my legs and close my mouth since I was ten
+She's been told to tone it down and fit the mold since god knows when
+But the thing about a woman who's been silenced her whole life
+Is she doesn't get quieter she just sharpens like a knife
+I sharpen mine with words she sharpens hers with sound
+And both of us are cutting through the noise of being ground
+Down to something acceptable to something people like
+Two kinds of loud two kinds of fight
+
+[Bridge]
+This one's for the girl who got shushed in the meeting
+And the girl in the basement whose bass kept repeating
+The same damn thing that none of them would hear
+We are here we are here we are here
+Drawl or drop doesn't matter how it hits
+Two kinds of loud and neither one of us quits
+
+[Outro]
+Louder than you think
+Yeah louder than you think
+Two kinds of loud
+Turn it up
+
+---
+
+### 3. Pretty When I'm Loud (Vexra Remix)
+
+**Suno Prompt:** Country-EDM remix, bold sassy Southern female vocalist over heavy bass drops and glitchy synths, original country attitude with electronic buildup and massive festival drops, fiddle samples through distortion, 132 BPM
+
+[Verse 1]
+He said you'd be so pretty if you didn't talk so much
+I said honey you'd be tolerable if you didn't think that's a clutch
+Pickup line in a bar full of women who've been told
+To be smaller to be softer to fit inside your mold
+I've been loud since the doctor slapped my ass the day I came alive
+And I plan on being louder every year that I survive
+
+[Pre-Chorus]
+You want a quiet girl go find a library
+You want a good time then you better get used to me
+
+[Drop]
+I'm pretty when I'm loud and I'm loud when I'm pretty
+I'm the girl who shuts the bar down in every single city
+I laugh too hard I talk too fast I sing like no one's there
+And if you can't handle the volume baby I don't fucking care
+I'm pretty when I'm loud that's the hill I'm dying on
+I'll be the loudest thing you've ever loved and the best thing that you've gone
+Home thinking about at three AM wondering what you missed
+I'm pretty when I'm loud and I won't be dismissed
+
+[Verse 2]
+My mama told me once that a lady keeps her voice down low
+I said mama have you met me cause that ain't the way I grow
+She laughed and said you're right you came out screaming for the world
+I said and I ain't stopping now I'm a noisy little girl
+In a woman's body with a woman's right to be
+As loud and wild and unapologetic as the sound that lives in me
+
+[Build]
+To every girl who's ever been told shhh
+Who swallowed her opinion like it was too much
+
+[Final Drop]
+Spit it out scream it out let the whole room know
+You're pretty when you're loud baby let it go
+I won't be dismissed
+No I won't be dismissed
+I'm pretty when I'm loud
+Say it with me
+Pretty when I'm loud
+
+---
+
+### 4. Saturday Night Static
+
+**Suno Prompt:** Rowdy country party song meets glitch-hop, playful Southern female vocalist, banjo samples through electronic filters, heavy bass drops, distorted fiddle, bonfire party meets rave energy, chaotic and fun, 128 BPM
+
+[Verse 1]
+Five bucks in my pocket and a sub in the truck
+Daisy dukes and boots and a whole lot of luck
+Pick up the girls on the way through town
+Windows down and the bass so loud
+That the Clocktower's shaking and the old folks are staring
+But we're twenty-three and reckless and we're past the point of caring
+Somebody's cousin got a field and a generator
+And a speaker setup that could wake up the creator
+
+[Pre-Chorus]
+Started as a bonfire ended as a rave
+Billy plugged his guitar in and the signal went sideways
+Three chords through distortion and the whole field went insane
+
+[Chorus]
+Saturday night the static hit the speakers
+Billy's three chords through the bass got deeper
+Field party gone electronic y'all ain't ready
+Saturday night static keep the bonfire steady
+Everybody knows everybody's name
+But tonight the music doesn't sound the same
+It's got a pulse a glitch a heartbeat in the ground
+Saturday night static the loudest little town
+
+[Verse 2]
+Jenny's on the tailgate and the bass moved the truck
+Six inches to the left and she don't give a fuck
+She's dancing like the speaker is playing just for her
+The boy from Waynesboro's just standing there in a blur
+Cause she's backlit by the bonfire with the bass in her chest
+And he's never seen a country girl look like that I guess
+Somebody's mama called and said be home by two
+We said yes ma'am through the static and cracked a brew
+
+[Bridge]
+If you ever find yourself on eighty one
+With a subwoofer and nowhere to run
+Take the exit where the valley starts to shine
+We'll save you a speaker and a spot by the fire line
+Where the country meets the frequency
+Where the gravel meets the bass
+Saturday night static is a hell of a place
+
+[Outro]
+Loudest little town
+Yeah loudest little town
+Saturday night static come get you some
+
+---
+
+### 5. Neon Foxglove
+
+**Suno Prompt:** Dark moody country-electronic, sultry Southern female vocalist, minor key, heavy reverb, slow grinding bass, atmospheric synths over sparse acoustic guitar, dangerous and seductive, dark floral imagery, 100 BPM
+
+[Verse 1]
+I've been called a lot of things by a lot of different men
+Pretty was the first word dangerous was the end
+Of every single sentence once they got to know the roots
+That run beneath the surface of these dresses and these boots
+I didn't learn to bloom this way I grew into the thorns
+And every man who picked me found out beauty isn't warm
+Not the kind I carry not the kind that I was fed
+I'm the flower on the nightstand that you dream about in bed
+But in the morning when the light hits you see the poison spread
+
+[Pre-Chorus]
+Don't blame the garden blame the soil it grew in
+Don't blame the foxglove for the dark that it's been through and
+
+[Chorus]
+I'm a neon foxglove pretty in every room
+String lights or strobes I carry the same perfume
+Of something sweet and something that'll put you in the ground
+Neon foxglove I don't make a sound
+When I'm wrapping around your evening like a vine around a wall
+Neon foxglove gorgeous til the fall
+Touch me if you want but baby here's the truth
+I bloom in the dark and the dark blooms in me too
+
+[Verse 2]
+In the honky tonk they see a girl in cowboy boots who smiles
+In the warehouse they see a silhouette that moves like something wild
+But I'm the same woman in both rooms with the same thorns on my stem
+And the men who love me in the firelight don't love me at two AM
+When the makeup's off the armor's down and the foxglove shows its face
+I'm not pretty I'm not poison I'm just a girl who lost her place
+Between the woman they wanted and the woman that I am
+Neon foxglove blooming anywhere she can
+
+[Bridge]
+My mama was a foxglove too she grew in the shade
+Of a man who never watered her and still expected the parade
+Of beauty on demand of softness on request
+I learned that blooming pretty while you're dying is the family crest
+So I took my thorns to neon rooms where nobody asks why
+A flower keeps on growing in a place without the sky
+
+[Outro]
+The dark blooms in me too
+Yeah the dark blooms in me too
+Neon foxglove
+Handle with care
+
+---
+
+### 6. Ghost Signal
+
+**Suno Prompt:** Atmospheric haunting country-electronic, ethereal Southern female vocalist, glitchy radio static samples, sparse reverbed guitar, swelling synth pads, eerie sub bass, nighttime driving energy, cinematic and lonely, 95 BPM
+
+[Verse 1]
+Two AM and the radio's scanning through the dark
+Every station's just a whisper every signal's just a spark
+That dies before it catches like a match in mountain rain
+I'm driving through the hollow with a frequency of pain
+That I can't quite tune out and I can't quite tune in
+Somewhere between the static there's a voice I used to begin
+Every morning with when I was somebody's someone
+Now I'm nobody's nothing driving nowhere and I'm done
+Pretending that the silence doesn't sound like what I've lost
+
+[Pre-Chorus]
+There's a signal in the static on the ridge past Miller's farm
+Coming through at the frequency of every fire alarm
+I ever pulled inside myself to keep from falling apart
+
+[Chorus]
+Ghost signal are you me
+Coming through the speakers from the girl I used to be
+Ghost signal on the dial
+Somewhere between the country and the exile
+Are you the one who danced are you the one who stayed
+Are you the version of me that wasn't so afraid
+Ghost signal I can almost hear you now
+Through the static through the mountains through the breaking down
+Ghost signal set me free
+Or tell me what you need
+Cause I've been driving all night trying to find your frequency
+
+[Verse 2]
+I pass the church I pass the field I pass the county line
+And every mile the signal gets a little more defined
+Like she's getting closer or maybe I'm just getting near
+The version of myself I left behind somewhere last year
+She sounds like laughter she sounds like three glasses of wine
+On the porch with my best friend saying everything's gonna be fine
+But the static keeps on cutting her out right before the good part
+Ghost signal you're a hell of a way to break a heart
+
+[Bridge]
+Maybe she's not a ghost maybe she's just the girl
+Who lives underneath the one I built to face the world
+Maybe if I stop driving and I stop running from the sound
+I'd realize the ghost signal was never lost she was just drowned
+Out by the noise of trying to be somebody tough
+Maybe the frequency I'm looking for is just the sound of enough
+
+[Outro]
+I can almost hear you now
+Yeah I can almost hear you
+Ghost signal
+I think that's me
+
+---
+
+### 7. Hollow County
+
+**Suno Prompt:** Dark atmospheric country-bass, raw emotional Southern female vocalist, cavernous reverb, minimal production, deep sub bass swells echoing like mountain valleys, sparse piano and guitar, devastating and empty, 90 BPM
+
+[Verse 1]
+The hollow's got a way of holding everything you drop
+Your voice your grief your headlights and the prayers you forgot
+To finish cause the mountain swallowed up the sound
+And the echo coming back is just loneliness rebound
+I've been driving through this county since I learned to work a clutch
+And the hollow never changes but I change too damn much
+I came here full of fire I came here full of plans
+Now I'm just a woman with a steering wheel in her hands
+And a hollow in her chest that matches the one outside
+
+[Pre-Chorus]
+They named this place for what it is a valley carved by time
+And I'm a valley too carved out by every man and every rhyme
+I wrote to make the emptiness sound beautiful instead of true
+
+[Chorus]
+Hollow county hollow heart
+Been carrying both since the fall apart
+The mountains are empty and so am I
+Hollow county under a hollow sky
+I drove here to feel something anything at all
+But the hollow just echoes back the nothing of it all
+Hollow county hold my weight tonight
+I'm too heavy for the world but light enough to drive
+Through the dark through the nothing through the missing of my life
+Hollow county you and me alike
+
+[Verse 2]
+There's a house at the end of the road where the hollow bends
+Where a woman lives alone and she don't need to pretend
+That she's doing fine cause nobody asks her anything
+The hollow doesn't judge you for the silence that you bring
+I want to be her someday just a woman and the trees
+And the sound of absolutely nothing but the evening breeze
+But tonight I'm still too broken to be peaceful I'm too loud
+Inside my head the hollow of my thoughts could fill a crowd
+Of empty churches and empty beds and every empty vow
+
+[Bridge]
+Funny how a place called hollow is the only place that's full
+Of the silence that I need to hear to stop the goddamn pull
+Of the world that wants me smiling when I'm caving in like earth
+Hollow county knows my weight knows my damage knows my worth
+And it doesn't ask me to be anything but here
+Just a woman in a truck with a hollow and a fear
+That one day the hollow county will be all that I am
+But tonight that doesn't sound so bad if I'm being honest damn
+
+[Outro]
+You and me alike
+Yeah you and me alike
+Hollow county
+I'll be back
+
+---
+
+### 8. The Mask & the Porch Light
+
+**Suno Prompt:** Emotional cinematic country-electronic ballad, vulnerable warm Southern female vocalist, soft fingerpicked guitar layered with gentle synth pads, building to powerful emotional chorus, minimal bass, string swells, deeply personal, 78 BPM
+
+[Verse 1]
+There's a woman in a city I've never been to
+Who puts on a mask before she walks into the room
+And fifty thousand people scream a name that isn't hers
+And she gives them everything until the everything just hurts
+I don't know her face I've never heard her real voice
+But I know the weight of hiding like it's not a choice
+Cause I've got my own armor and it glows a different shade
+Mine's a porch light in Virginia hers is a masquerade
+
+[Pre-Chorus]
+She built a fortress out of bass and I built one out of home
+And we're both just standing in the wreckage wondering why we're still alone
+
+[Chorus]
+The mask and the porch light two ways to survive
+Two women who are terrified but too damn proud to hide
+She hides behind the neon I hide behind the door
+She built a name I built a fence but we're running from the same war
+One of us glows in the dark and one of us glows gold
+But we're both just girls who were told
+That we were too much to hold
+The mask and the porch light keeping us alive
+Two different kinds of armor same damn reason why
+
+[Verse 2]
+I leave the light on every night so somebody can find me
+But the truth is I leave it on so I don't feel the dark behind me
+The hollow in the house the quiet in the hall
+The porch light's not for them it's so I don't feel so small
+And I bet she puts the mask on not just so they can't see
+But so she doesn't have to face the face staring back at three
+AM in the bathroom mirror after the crowd goes home
+The mask and the porch light we use so we're not alone
+
+[Bridge]
+What would happen if she turned the mask off in the middle of the show
+And what would happen if I turned the porch light off and let the dark just grow
+Would we be braver or would we just be two women standing bare
+In the terrifying quiet of a world that doesn't care
+As much as we pretend it does when we put the armor on
+The mask and the porch light and the girls underneath are gone
+No not gone just hiding just waiting for the day
+When the mask and the porch light aren't the only things that make us feel okay
+
+[Outro]
+Same damn reason why
+Yeah same damn reason why
+The mask and the porch light
+Two girls just trying to be enough
+
+---
+
+### 9. Tender Machine
+
+**Suno Prompt:** Gentle vulnerable country-electronic closer, soft warm Southern female vocalist, fingerpicked acoustic guitar, minimal soft synth pad, delicate and intimate, emotional resolution, stripped back production, the bass finally quiet, 72 BPM
+
+[Verse 1]
+I've been running from the tender since I figured out it hurts
+Since every open hand I offered came back covered in the dirt
+Of someone else's damage and I told myself be tough
+Be the woman with the calluses who's seen and done enough
+But I'm tired of the armor and I think she might be too
+The one behind the mask who makes the whole room shake on cue
+What if she's not a machine what if I'm not as hard
+As the woman that I built from all the pieces of my scars
+
+[Pre-Chorus]
+What if the bravest thing we ever do
+Is take the armor off and let the tender through
+
+[Chorus]
+I'm too tender and she's too wired
+But the tender and the machine are both just tired
+Of being told that soft is weak and loud is wrong
+Tender machine we've been strong for too long
+What if feeling everything's not the flaw they said
+What if the machine just needs someone to leave the porch light lit
+What if tender's not a weakness but the thing that makes it fit
+Tender machine the bravest thing we did
+Was finally stop pretending that we didn't give a shit
+
+[Verse 2]
+I cried at a song last Tuesday sitting in my truck
+And I didn't try to stop it didn't chalk it up to luck
+Or hormones or the weather or the whiskey from the night before
+I just let it happen like the river meets the shore
+And somewhere in a city there's a woman taking off the mask
+Looking in the mirror asking how long can this last
+Before the fortress and the bass and the persona eat me whole
+What if tender is the frequency that saves a hollow soul
+
+[Bridge]
+This is for the women who are tired of being walls
+Who built themselves so high they can't remember how to fall
+Into somebody's arms or into their own grace
+The tender and the machine and the girl behind the face
+You don't have to be a bonfire to be warm enough to stay
+You don't have to shake the building just to have something to say
+Sometimes the quietest sound in the room is the one that matters most
+Tender machine let go of the ghost
+
+[Outro]
+The bravest thing we did
+Yeah the bravest thing we did
+Was stop pretending
+Tender machine
+Leave the porch light on
