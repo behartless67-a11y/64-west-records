@@ -191,24 +191,29 @@
             border: 1px solid rgba(212, 165, 116, 0.2);
         }
 
-        /* Hide tracklists for albums with Spotify embeds */
+        /* Hide tracklists for albums with Spotify embeds - these tracks don't have audio files */
         #beautiful-damage-tracklist,
         #phantom-frequency-tracklist,
         #skin-static-tracklist {
             display: none !important;
         }
 
-        /* Hide tracklist container when Spotify album is active */
-        .content-grid:has(#beautiful-damage-description.active) .tracklist-container,
-        .content-grid:has(#phantom-frequency-description.active) .tracklist-container,
-        .content-grid:has(#skin-static-description.active) .tracklist-container {
-            display: none;
+        /* Show tracklist-container by default */
+        .tracklist-container {
+            display: block;
         }
 
-        /* Make description container span 2 columns when Spotify album is active */
-        .content-grid:has(#beautiful-damage-description.active) .description-container,
-        .content-grid:has(#phantom-frequency-description.active) .description-container,
-        .content-grid:has(#skin-static-description.active) .description-container {
+        /* Hide tracklist container ONLY when Spotify album is active */
+        .content-grid:has(#beautiful-damage-tracklist.active) .tracklist-container,
+        .content-grid:has(#phantom-frequency-tracklist.active) .tracklist-container,
+        .content-grid:has(#skin-static-tracklist.active) .tracklist-container {
+            display: none !important;
+        }
+
+        /* Make description container span 2 columns when Spotify album tracklist is active */
+        .content-grid:has(#beautiful-damage-tracklist.active) .description-container,
+        .content-grid:has(#phantom-frequency-tracklist.active) .description-container,
+        .content-grid:has(#skin-static-tracklist.active) .description-container {
             grid-column: 2 / 4;
         }
 
