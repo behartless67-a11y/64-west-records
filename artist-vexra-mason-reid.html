@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vexra x Mason Reid | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom background with overlay */
+        body {
+            background-image: url('assets/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav:hover {
+            opacity: 1;
+        }
+
+        .top-nav a {
+            color: #d4a574;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.7;
+        }
+
+        .artist-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem 2rem;
+            max-width: 100%;
+        }
+
+        .artist-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1rem 2rem 2rem 2rem;
+            max-width: 100%;
+            align-items: start;
+        }
+
+        .artist-bio {
+            column-count: 1;
+            margin: 0;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .artist-bio h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-bio p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .artist-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .album-carousel {
+            padding: 0.5rem 2rem 2rem 2rem;
+            max-width: 100%;
+        }
+
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            height: 320px;
+        }
+
+        .album-covers {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .album-cover-item {
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .album-cover-item.active {
+            transform: scale(1);
+            opacity: 1;
+            border-color: #d4a574;
+            box-shadow: 0 8px 32px rgba(212, 165, 116, 0.3);
+        }
+
+        .album-cover-item img {
+            display: block;
+            width: 280px;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .album-tracklist {
+            display: none;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-tracklist.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .album-tracklist h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .compact-track {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem;
+            background: transparent;
+            border-radius: 6px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .compact-track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .compact-track.playing {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track-num {
+            color: #d4a574;
+            font-size: 0.9rem;
+            font-weight: 600;
+            min-width: 25px;
+        }
+
+        .track-name {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .compact-play-btn {
+            background: none;
+            border: none;
+            color: #d4a574;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .compact-play-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .album-description-block {
+            display: none;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-description-block.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .album-description-block h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .album-description-block p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .album-description-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+/* Inline player row */
+        .track-player-row {
+            display: none;
+            width: 100%;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0 0 0;
+        }
+
+        .compact-track.playing .track-player-row {
+            display: flex;
+        }
+
+        .track-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .track-progress-fill {
+            height: 100%;
+            background: #d4a574;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .track-time {
+            color: #999;
+            font-size: 0.7rem;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .track-volume {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 60px;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .track-volume::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+        }
+
+        .track-volume::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* Mobile responsive layout */
+        @media (max-width: 1024px) {
+            .content-grid {
+                display: flex;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 2rem;
+            }
+
+            /* Reorder: tracklist first, bio/description at bottom */
+            .album-tracklist {
+                order: 1;
+            }
+
+            .artist-bio {
+                order: 2;
+            }
+
+            .album-description-block {
+                order: 3;
+            }
+
+            .album-carousel {
+                padding: 0.5rem 1rem 1.5rem 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .track-volume {
+                width: 40px;
+            }
+
+            .content-grid {
+                padding: 0.75rem;
+                gap: 1.25rem;
+            }
+
+            .album-tracklist,
+            .artist-bio,
+            .album-description-block {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="artists.html">Artists</a>
+    </nav>
+
+    <div class="artist-header">
+        <h1 class="artist-name">Vexra x Mason Reid</h1>
+        <p class="artist-tagline">EDM Country Fusion / Neon Honky-Tonk</p>
+    </div>
+
+    <div class="album-carousel">
+        <div class="carousel-container">
+            <div class="album-covers">
+                <div class="album-cover-item active" data-album="neon-honky-tonk">
+                    <img src="assets/images/vexra-mason-reid-neon-honky-tonk-cover.png" alt="Neon Honky-Tonk">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <!-- Artist Bio (Left Column) -->
+        <div class="artist-bio">
+            <h3>About This Collaboration</h3>
+            <p>When Vexra's EDM energy collides with Mason Reid's country soul, something electric happens. "Neon Honky-Tonk" is the sound of two worlds refusing to stay separate—where bass drops meet banjo riffs, where honky-tonk piano stabs ride over trap hi-hats, and where festival main stages merge with dive bar energy.</p>
+            <p>This isn't a compromise between genres—it's a celebration of both. Vexra brings her cyberpunk intensity and progressive house production, while Mason Reid delivers authentic country storytelling and that late-90s Toby Keith swagger. Together, they've created a fusion that honors both traditions while blazing a completely new trail.</p>
+            <p>From the opening "Electric Rodeo" to the epic closer "Sunrise Over Silicon Valley & Shenandoah," this 13-track album proves that country and EDM aren't opposites—they're two sides of the same rebellious spirit.</p>
+        </div>
+
+        <!-- Album Tracklist (Center Column) -->
+        <div class="album-tracklist active" id="neon-honky-tonk-tracklist">
+            <h3>Neon Honky-Tonk</h3>
+            <div class="compact-track" data-track="01 - Vexra x Mason Reid - Electric Rodeo.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">01</span>
+                <span class="track-name">Electric Rodeo</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="02 - Vexra x Mason Reid - Backroads Rave.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">02</span>
+                <span class="track-name">Backroads Rave</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="03 - Vexra x Mason Reid - Whiskey & Wire.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">03</span>
+                <span class="track-name">Whiskey & Wire</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="04 - Vexra x Mason Reid - Neon Revival.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">04</span>
+                <span class="track-name">Neon Revival</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="05 - Vexra x Mason Reid - Cowboys & Strobes.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">05</span>
+                <span class="track-name">Cowboys & Strobes</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="06 - Vexra x Mason Reid - Last Call Anthem.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">06</span>
+                <span class="track-name">Last Call Anthem</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="07 - Vexra x Mason Reid - Boots & Bass.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">07</span>
+                <span class="track-name">Boots & Bass</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="08 - Vexra x Mason Reid - Tailgate Techno.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">08</span>
+                <span class="track-name">Tailgate Techno</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="09 - Vexra x Mason Reid - Neon Heartland.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">09</span>
+                <span class="track-name">Neon Heartland</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="10 - Vexra x Mason Reid - Barn Burner.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">10</span>
+                <span class="track-name">Barn Burner</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="11 - Vexra x Mason Reid - Steel & Synth.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">11</span>
+                <span class="track-name">Steel & Synth</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="12 - Vexra x Mason Reid - Digital Dirt Roads.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">12</span>
+                <span class="track-name">Digital Dirt Roads</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+            <div class="compact-track" data-track="13 - Vexra x Mason Reid - Sunrise Over Silicon Valley & Shenandoah.mp3" data-album="Neon Honky-Tonk">
+                <span class="track-num">13</span>
+                <span class="track-name">Sunrise Over Silicon Valley & Shenandoah</span>
+                <button class="compact-play-btn">▶</button>
+            </div>
+        </div>
+
+        <!-- Album Description (Right Column) -->
+        <div class="album-description-block active" id="neon-honky-tonk-description">
+            <h3>About This Album</h3>
+            <p>"Neon Honky-Tonk" is a genre-defying journey through 13 tracks that prove EDM and country aren't just compatible—they're two expressions of the same rebellious energy. The album opens with the bass house fury of "Electric Rodeo" and builds through progressive anthems, emotional ballads, and aggressive bangers before closing with the epic 8-minute "Sunrise Over Silicon Valley & Shenandoah."</p>
+            <p>This collaboration showcases the full range of what happens when you mix pedal steel guitar with analog synths, when four-on-the-floor kicks meet boot-stomping rhythms, when warehouse raves collide with tailgate parties. Tracks like "Whiskey & Wire" explore the tension between tradition and future, while songs like "Barn Burner" throw caution to the wind and just let the fusion explode.</p>
+            <p>At its core, "Neon Honky-Tonk" is about identity—for anyone who's ever felt caught between two worlds, two sounds, two versions of themselves. It's proof that you don't have to choose. You can honor your roots while reaching for something new. You can be country and techno, analog and digital, past and future—all at once.</p>
+        </div>
+    </div>
+
+    <audio id="audioElement"></audio>
+
+    <script>
+        const audio = document.getElementById('audioElement');
+        let currentTrackIndex = -1;
+        let isPlaying = false;
+
+        document.querySelectorAll('.compact-track').forEach(track => {
+            const row = document.createElement('div');
+            row.className = 'track-player-row';
+            row.innerHTML = `
+                <div class="track-progress">
+                    <div class="track-progress-fill"></div>
+                </div>
+                <span class="track-time">0:00 / 0:00</span>
+                <input type="range" class="track-volume" min="0" max="1" step="0.01" value="0.8">
+            `;
+            track.appendChild(row);
+        });
+
+        const tracks = Array.from(document.querySelectorAll('.compact-track'));
+
+        function formatTime(s) {
+            if (isNaN(s)) return '0:00';
+            return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
+        }
+
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            tracks.forEach(t => t.classList.remove('playing'));
+            document.querySelectorAll('.compact-play-btn').forEach(btn => btn.textContent = '\u25B6');
+            currentTrackIndex = index;
+            const el = tracks[index];
+            el.classList.add('playing');
+            el.querySelector('.compact-play-btn').textContent = '\u275A\u275A';
+            audio.src = `assets/audio/vexra-mason-reid-neon-honky-tonk/${el.dataset.track}`;
+            audio.volume = parseFloat(el.querySelector('.track-volume').value);
+            audio.play();
+            isPlaying = true;
+        }
+
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', (e) => {
+                if (e.target.classList.contains('track-progress') ||
+                    e.target.classList.contains('track-progress-fill') ||
+                    e.target.classList.contains('track-volume')) return;
+                if (currentTrackIndex === index && isPlaying) {
+                    audio.pause(); isPlaying = false;
+                    track.querySelector('.compact-play-btn').textContent = '\u25B6';
+                } else if (currentTrackIndex === index && !isPlaying) {
+                    audio.play(); isPlaying = true;
+                    track.querySelector('.compact-play-btn').textContent = '\u275A\u275A';
+                } else { playTrack(index); }
+            });
+            track.querySelector('.track-progress').addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (currentTrackIndex !== index) playTrack(index);
+                const rect = e.currentTarget.getBoundingClientRect();
+                audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+            });
+            track.querySelector('.track-volume').addEventListener('input', (e) => {
+                e.stopPropagation(); audio.volume = parseFloat(e.target.value);
+            });
+            track.querySelector('.track-volume').addEventListener('click', e => e.stopPropagation());
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (currentTrackIndex < 0) return;
+            const el = tracks[currentTrackIndex];
+            el.querySelector('.track-progress-fill').style.width = (audio.currentTime / audio.duration) * 100 + '%';
+            el.querySelector('.track-time').textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        });
+
+        audio.addEventListener('ended', () => {
+            tracks[currentTrackIndex].classList.remove('playing');
+            tracks[currentTrackIndex].querySelector('.compact-play-btn').textContent = '\u25B6';
+            if (currentTrackIndex < tracks.length - 1) { playTrack(currentTrackIndex + 1); }
+            else { isPlaying = false; currentTrackIndex = -1; }
+        });
+    </script>
+</body>
+</html>
