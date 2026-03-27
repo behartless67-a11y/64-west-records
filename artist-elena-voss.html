@@ -191,29 +191,24 @@
             border: 1px solid rgba(212, 165, 116, 0.2);
         }
 
-        /* Hide tracklists for albums with Spotify embeds - these tracks don't have audio files */
+        /* Hide tracklists for albums with Spotify embeds */
         #beautiful-damage-tracklist,
         #phantom-frequency-tracklist,
         #skin-static-tracklist {
             display: none !important;
         }
 
-        /* Show tracklist-container by default */
-        .tracklist-container {
-            display: block;
+        /* Hide tracklist container when Spotify album is active */
+        .content-grid:has(#beautiful-damage-description.active) .tracklist-container,
+        .content-grid:has(#phantom-frequency-description.active) .tracklist-container,
+        .content-grid:has(#skin-static-description.active) .tracklist-container {
+            display: none;
         }
 
-        /* Hide tracklist container ONLY when Spotify album is active */
-        .content-grid:has(#beautiful-damage-tracklist.active) .tracklist-container,
-        .content-grid:has(#phantom-frequency-tracklist.active) .tracklist-container,
-        .content-grid:has(#skin-static-tracklist.active) .tracklist-container {
-            display: none !important;
-        }
-
-        /* Make description container span 2 columns when Spotify album tracklist is active */
-        .content-grid:has(#beautiful-damage-tracklist.active) .description-container,
-        .content-grid:has(#phantom-frequency-tracklist.active) .description-container,
-        .content-grid:has(#skin-static-tracklist.active) .description-container {
+        /* Make description container span 2 columns when Spotify album is active */
+        .content-grid:has(#beautiful-damage-description.active) .description-container,
+        .content-grid:has(#phantom-frequency-description.active) .description-container,
+        .content-grid:has(#skin-static-description.active) .description-container {
             grid-column: 2 / 4;
         }
 
@@ -225,17 +220,26 @@
             font-family: 'Merriweather', serif;
         }
 
-        /* Mobile/Tablet responsive layout - only switch to single column on actual mobile devices */
+        /* Mobile responsive layout */
+        @media (max-width: 1400px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .artist-bio {
+                column-count: 2;
+            }
+        }
+
         @media (max-width: 1024px) {
+            .artist-bio {
+                column-count: 1;
+            }
+
             .content-grid {
                 display: flex;
                 flex-direction: column;
                 padding: 1rem;
-                gap: 2rem;
-            }
-
-            .artist-bio {
-                column-count: 1;
             }
 
             /* Reorder: tracklist first, bio/description at bottom */
@@ -500,7 +504,7 @@
         <button class="carousel-nav prev" id="prevAlbum">‹</button>
         <button class="carousel-nav next" id="nextAlbum">›</button>
 
-        <div class="album-cover-item active" data-album="beautiful-damage" data-index="0">
+        <div class="album-cover-item" data-album="beautiful-damage" data-index="0">
             <img src="assets/images/vexra-beautiful-damage-cover.jpg" alt="Beautiful Damage">
         </div>
         <div class="album-cover-item" data-album="phantom-frequency" data-index="1">
@@ -524,7 +528,7 @@
         <div class="album-cover-item" data-album="skin-contact" data-index="7">
             <img src="assets/images/vexra-skin-contact-cover.png" alt="Skin Contact">
         </div>
-        <div class="album-cover-item" data-album="daybreak" data-index="8">
+        <div class="album-cover-item active" data-album="daybreak" data-index="8">
             <img src="assets/images/elena-voss-daybreak-cover.png" alt="Daybreak">
         </div>
         <div class="album-cover-item" data-album="signal-fade" data-index="9">
@@ -538,15 +542,6 @@
         </div>
         <div class="album-cover-item" data-album="invincible" data-index="12">
             <img src="assets/images/vexra-invincible-cover.png" alt="Invincible">
-        </div>
-        <div class="album-cover-item" data-album="despues-de-la-medianoche" data-index="13">
-            <img src="assets/images/vexra-despues-de-la-medianoche-cover.png" alt="Después de la Medianoche">
-        </div>
-        <div class="album-cover-item" data-album="morning-light" data-index="14">
-            <img src="assets/images/albums/elena-voss-morning-light.png" alt="Morning Light">
-        </div>
-        <div class="album-cover-item" data-album="neon-honky-tonk" data-index="15">
-            <img src="assets/images/vexra-mason-reid-neon-honky-tonk-cover.png" alt="Neon Honky-Tonk">
         </div>
     </div>
 
@@ -575,7 +570,7 @@
 
             <!-- Dynamic Tracklist Container (Column 2) -->
             <div class="tracklist-container">
-                <div id="beautiful-damage-tracklist" class="album-tracklist active">
+                <div id="beautiful-damage-tracklist" class="album-tracklist">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
                         <div class="compact-track" data-track="01_Beautiful_Damage.mp3"><span class="compact-track-number">01</span><span class="compact-track-title">Beautiful Damage</span><button class="compact-track-play">▶</button></div>
@@ -630,111 +625,111 @@
                 <div id="human-tracklist" class="album-tracklist">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
-                        <div class="compact-track" data-track="vexra-human/01_Human_(VEXRA_Side).mp3"><span class="compact-track-number">01</span><span class="compact-track-title">Human (Vexra Side)</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/02_Morning_Person.mp3"><span class="compact-track-number">02</span><span class="compact-track-title">Morning Person</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/03_Performer.mp3"><span class="compact-track-number">03</span><span class="compact-track-title">Performer</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/04_Voicemail_from_Mom.mp3"><span class="compact-track-number">04</span><span class="compact-track-title">Voicemail from Mom</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/05_Bleed_Through.mp3"><span class="compact-track-number">05</span><span class="compact-track-title">Bleed Through</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/06_Armor_Off.mp3"><span class="compact-track-number">06</span><span class="compact-track-title">Armor Off</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/07_Two_Names.mp3"><span class="compact-track-number">07</span><span class="compact-track-title">Two Names</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/08_Kitchen_Floor.mp3"><span class="compact-track-number">08</span><span class="compact-track-title">Kitchen Floor</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/09_Ghost_of_the_Mask.mp3"><span class="compact-track-number">09</span><span class="compact-track-title">Ghost of the Mask</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/10_Elena.mp3"><span class="compact-track-number">10</span><span class="compact-track-title">Elena</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/11_Collision.mp3"><span class="compact-track-number">11</span><span class="compact-track-title">Collision</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-human/12_Whole.mp3"><span class="compact-track-number">12</span><span class="compact-track-title">Whole</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="01_Human_(VEXRA_Side).mp3"><span class="compact-track-number">01</span><span class="compact-track-title">Human (Vexra Side)</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="02_Morning_Person.mp3"><span class="compact-track-number">02</span><span class="compact-track-title">Morning Person</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="03_Performer.mp3"><span class="compact-track-number">03</span><span class="compact-track-title">Performer</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="04_Voicemail_from_Mom.mp3"><span class="compact-track-number">04</span><span class="compact-track-title">Voicemail from Mom</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="05_Bleed_Through.mp3"><span class="compact-track-number">05</span><span class="compact-track-title">Bleed Through</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="06_Armor_Off.mp3"><span class="compact-track-number">06</span><span class="compact-track-title">Armor Off</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="07_Two_Names.mp3"><span class="compact-track-number">07</span><span class="compact-track-title">Two Names</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="08_Kitchen_Floor.mp3"><span class="compact-track-number">08</span><span class="compact-track-title">Kitchen Floor</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="09_Ghost_of_the_Mask.mp3"><span class="compact-track-number">09</span><span class="compact-track-title">Ghost of the Mask</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="10_Elena.mp3"><span class="compact-track-number">10</span><span class="compact-track-title">Elena</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="11_Collision.mp3"><span class="compact-track-number">11</span><span class="compact-track-title">Collision</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="12_Whole.mp3"><span class="compact-track-number">12</span><span class="compact-track-title">Whole</span><button class="compact-track-play">▶</button></div>
                     </div>
                 </div>
 
                 <div id="venom-heart-tracklist" class="album-tracklist">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
-                        <div class="compact-track" data-track="vexra-venom-heart/Venom Heart.mp3"><span class="compact-track-number">01</span><span class="compact-track-title">Venom Heart</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Appetite.mp3"><span class="compact-track-number">02</span><span class="compact-track-title">Appetite</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/White Room.mp3"><span class="compact-track-number">03</span><span class="compact-track-title">White Room</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Drip.mp3"><span class="compact-track-number">04</span><span class="compact-track-title">Drip</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Sacrilege.mp3"><span class="compact-track-number">05</span><span class="compact-track-title">Sacrilege</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Throat.mp3"><span class="compact-track-number">06</span><span class="compact-track-title">Throat</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Venom IV (Solo).mp3"><span class="compact-track-number">07</span><span class="compact-track-title">Venom IV (Solo)</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Pretty When I Bite.mp3"><span class="compact-track-number">08</span><span class="compact-track-title">Pretty When I Bite</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Sweat & Scripture.mp3"><span class="compact-track-number">09</span><span class="compact-track-title">Sweat & Scripture</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Devour.mp3"><span class="compact-track-number">10</span><span class="compact-track-title">Devour</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Afterglow.mp3"><span class="compact-track-number">11</span><span class="compact-track-title">Afterglow</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-venom-heart/Free (The Final Light).mp3"><span class="compact-track-number">12</span><span class="compact-track-title">Free (The Final Light)</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Venom Heart.mp3"><span class="compact-track-number">01</span><span class="compact-track-title">Venom Heart</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Appetite.mp3"><span class="compact-track-number">02</span><span class="compact-track-title">Appetite</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="White Room.mp3"><span class="compact-track-number">03</span><span class="compact-track-title">White Room</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Drip.mp3"><span class="compact-track-number">04</span><span class="compact-track-title">Drip</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Sacrilege.mp3"><span class="compact-track-number">05</span><span class="compact-track-title">Sacrilege</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Throat.mp3"><span class="compact-track-number">06</span><span class="compact-track-title">Throat</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Venom IV (Solo).mp3"><span class="compact-track-number">07</span><span class="compact-track-title">Venom IV (Solo)</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Pretty When I Bite.mp3"><span class="compact-track-number">08</span><span class="compact-track-title">Pretty When I Bite</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Sweat & Scripture.mp3"><span class="compact-track-number">09</span><span class="compact-track-title">Sweat & Scripture</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Devour.mp3"><span class="compact-track-number">10</span><span class="compact-track-title">Devour</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Afterglow.mp3"><span class="compact-track-number">11</span><span class="compact-track-title">Afterglow</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Free (The Final Light).mp3"><span class="compact-track-number">12</span><span class="compact-track-title">Free (The Final Light)</span><button class="compact-track-play">▶</button></div>
                     </div>
                 </div>
 
                 <div id="icon-tracklist" class="album-tracklist">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
-                        <div class="compact-track" data-track="vexra-icon/Radio Edit.mp3"><span class="compact-track-number">01</span><span class="compact-track-title">Radio Edit</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/Sellout.mp3"><span class="compact-track-number">02</span><span class="compact-track-title">Sellout</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/Platinum.mp3"><span class="compact-track-number">03</span><span class="compact-track-title">Platinum</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/Industry Plant.mp3"><span class="compact-track-number">04</span><span class="compact-track-title">Industry Plant</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/Pop Star.mp3"><span class="compact-track-number">05</span><span class="compact-track-title">Pop Star</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/Mainstream Damage.mp3"><span class="compact-track-number">06</span><span class="compact-track-title">Mainstream Damage</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/TikTok.mp3"><span class="compact-track-number">07</span><span class="compact-track-title">TikTok</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/Festival Headliner.mp3"><span class="compact-track-number">08</span><span class="compact-track-title">Festival Headliner</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/Icon.mp3"><span class="compact-track-number">09</span><span class="compact-track-title">Icon</span><button class="compact-track-play">▶</button></div>
-                        <div class="compact-track" data-track="vexra-icon/Billboard.mp3"><span class="compact-track-number">10</span><span class="compact-track-title">Billboard</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Radio Edit.mp3"><span class="compact-track-number">01</span><span class="compact-track-title">Radio Edit</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Sellout.mp3"><span class="compact-track-number">02</span><span class="compact-track-title">Sellout</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Platinum.mp3"><span class="compact-track-number">03</span><span class="compact-track-title">Platinum</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Industry Plant.mp3"><span class="compact-track-number">04</span><span class="compact-track-title">Industry Plant</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Pop Star.mp3"><span class="compact-track-number">05</span><span class="compact-track-title">Pop Star</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Mainstream Damage.mp3"><span class="compact-track-number">06</span><span class="compact-track-title">Mainstream Damage</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="TikTok.mp3"><span class="compact-track-number">07</span><span class="compact-track-title">TikTok</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Festival Headliner.mp3"><span class="compact-track-number">08</span><span class="compact-track-title">Festival Headliner</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Icon.mp3"><span class="compact-track-number">09</span><span class="compact-track-title">Icon</span><button class="compact-track-play">▶</button></div>
+                        <div class="compact-track" data-track="Billboard.mp3"><span class="compact-track-number">10</span><span class="compact-track-title">Billboard</span><button class="compact-track-play">▶</button></div>
                     </div>
                 </div>
 
-                <div id="luminous-tracklist" class="album-tracklist">
+                <div id="luminous-tracklist" class="album-tracklist active">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
-                        <div class="compact-track" data-track="elena-voss-luminous/Luminous.mp3">
+                        <div class="compact-track" data-track="Luminous.mp3">
                             <span class="compact-track-number">01</span>
                             <span class="compact-track-title">Luminous</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Weightless.mp3">
+                        <div class="compact-track" data-track="Weightless.mp3">
                             <span class="compact-track-number">02</span>
                             <span class="compact-track-title">Weightless</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Golden Hour.mp3">
+                        <div class="compact-track" data-track="Golden Hour.mp3">
                             <span class="compact-track-number">03</span>
                             <span class="compact-track-title">Golden Hour</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Mirror.mp3">
+                        <div class="compact-track" data-track="Mirror.mp3">
                             <span class="compact-track-number">04</span>
                             <span class="compact-track-title">Mirror</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Tethered.mp3">
+                        <div class="compact-track" data-track="Tethered.mp3">
                             <span class="compact-track-number">05</span>
                             <span class="compact-track-title">Tethered</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Bloom.mp3">
+                        <div class="compact-track" data-track="Bloom.mp3">
                             <span class="compact-track-number">06</span>
                             <span class="compact-track-title">Bloom</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Exhale.mp3">
+                        <div class="compact-track" data-track="Exhale.mp3">
                             <span class="compact-track-number">07</span>
                             <span class="compact-track-title">Exhale</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Shimmer.mp3">
+                        <div class="compact-track" data-track="Shimmer.mp3">
                             <span class="compact-track-number">08</span>
                             <span class="compact-track-title">Shimmer</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Still Life.mp3">
+                        <div class="compact-track" data-track="Still Life.mp3">
                             <span class="compact-track-number">09</span>
                             <span class="compact-track-title">Still Life</span>
                             <button class="compact-track-play">▶</button>
                         </div>
-                        <div class="compact-track" data-track="elena-voss-luminous/Clear.mp3">
+                        <div class="compact-track" data-track="Clear.mp3">
                             <span class="compact-track-number">10</span>
                             <span class="compact-track-title">Clear</span>
                             <button class="compact-track-play">▶</button>
                         </div>
                     </div>
                 </div>
-                <div id="skin-contact-tracklist" class="album-tracklist">
+                <div id="skin-contact-tracklist" class="album-tracklist active">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
                         <div class="compact-track" data-track="vexra-skin-contact/01 - Golden Hour.mp3">
@@ -800,7 +795,7 @@
                     </div>
                 </div>
 
-                <div id="daybreak-tracklist" class="album-tracklist">
+                <div id="daybreak-tracklist" class="album-tracklist active">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
                         <div class="compact-track" data-track="elena-voss-daybreak/01 - Dawn Break.mp3">
@@ -1135,214 +1130,20 @@
                             <button class="compact-track-play">▶</button>
                         </div>
                     </div>
-
-                <!-- Morning Light Album Tracklist -->
-                <div id="morning-light-tracklist" class="album-tracklist">
-                    <h3>Tracklist</h3>
-                    <div class="compact-tracklist">
-                        <div class="compact-track" data-track="elena-voss-morning-light/01 - Elena Voss - Waking Slow.mp3">
-                            <span class="compact-track-number">01</span>
-                            <span class="compact-track-title">Waking Slow</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/02 - Elena Voss - Tea & Silence.mp3">
-                            <span class="compact-track-number">02</span>
-                            <span class="compact-track-title">Tea & Silence</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/03 - Elena Voss - Open Windows.mp3">
-                            <span class="compact-track-number">03</span>
-                            <span class="compact-track-title">Open Windows</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/04 - Elena Voss - Barefoot Morning.mp3">
-                            <span class="compact-track-number">04</span>
-                            <span class="compact-track-title">Barefoot Morning</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/05 - Elena Voss - Garden Songs.mp3">
-                            <span class="compact-track-number">05</span>
-                            <span class="compact-track-title">Garden Songs</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/06 - Elena Voss - Soft Strength.mp3">
-                            <span class="compact-track-number">06</span>
-                            <span class="compact-track-title">Soft Strength</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/07 - Elena Voss - Honey Light.mp3">
-                            <span class="compact-track-number">07</span>
-                            <span class="compact-track-title">Honey Light</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/08 - Elena Voss - Roots Deeper.mp3">
-                            <span class="compact-track-number">08</span>
-                            <span class="compact-track-title">Roots Deeper</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/09 - Elena Voss - Sunday Pages.mp3">
-                            <span class="compact-track-number">09</span>
-                            <span class="compact-track-title">Sunday Pages</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="elena-voss-morning-light/10 - Elena Voss - Morning Light.mp3">
-                            <span class="compact-track-number">10</span>
-                            <span class="compact-track-title">Morning Light</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- Neon Honky-Tonk Tracklist -->
-                <div id="neon-honky-tonk-tracklist" class="album-tracklist">
-                    <h3>Tracklist</h3>
-                    <div class="compact-tracklist">
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/01 - Vexra x Mason Reid - Electric Rodeo.mp3">
-                            <span class="compact-track-number">01</span>
-                            <span class="compact-track-title">Electric Rodeo</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/02 - Vexra x Mason Reid - Backroads Rave.mp3">
-                            <span class="compact-track-number">02</span>
-                            <span class="compact-track-title">Backroads Rave</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/03 - Vexra x Mason Reid - Whiskey & Wire.mp3">
-                            <span class="compact-track-number">03</span>
-                            <span class="compact-track-title">Whiskey & Wire</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/04 - Vexra x Mason Reid - Neon Revival.mp3">
-                            <span class="compact-track-number">04</span>
-                            <span class="compact-track-title">Neon Revival</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/05 - Vexra x Mason Reid - Cowboys & Strobes.mp3">
-                            <span class="compact-track-number">05</span>
-                            <span class="compact-track-title">Cowboys & Strobes</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/06 - Vexra x Mason Reid - Last Call Anthem.mp3">
-                            <span class="compact-track-number">06</span>
-                            <span class="compact-track-title">Last Call Anthem</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/07 - Vexra x Mason Reid - Boots & Bass.mp3">
-                            <span class="compact-track-number">07</span>
-                            <span class="compact-track-title">Boots & Bass</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/08 - Vexra x Mason Reid - Tailgate Techno.mp3">
-                            <span class="compact-track-number">08</span>
-                            <span class="compact-track-title">Tailgate Techno</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/09 - Vexra x Mason Reid - Neon Heartland.mp3">
-                            <span class="compact-track-number">09</span>
-                            <span class="compact-track-title">Neon Heartland</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/10 - Vexra x Mason Reid - Barn Burner.mp3">
-                            <span class="compact-track-number">10</span>
-                            <span class="compact-track-title">Barn Burner</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/11 - Vexra x Mason Reid - Steel & Synth.mp3">
-                            <span class="compact-track-number">11</span>
-                            <span class="compact-track-title">Steel & Synth</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/12 - Vexra x Mason Reid - Digital Dirt Roads.mp3">
-                            <span class="compact-track-number">12</span>
-                            <span class="compact-track-title">Digital Dirt Roads</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-mason-reid-neon-honky-tonk/13 - Vexra x Mason Reid - Sunrise Over Silicon Valley & Shenandoah.mp3">
-                            <span class="compact-track-number">13</span>
-                            <span class="compact-track-title">Sunrise Over Silicon Valley & Shenandoah</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Después de la Medianoche Album Tracklist -->
-                <div id="despues-de-la-medianoche-tracklist" class="album-tracklist">
-                    <h3>Tracklist</h3>
-                    <div class="compact-tracklist">
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/01 - Vexra - 9 PM (Anticipación).mp3">
-                            <span class="compact-track-number">01</span>
-                            <span class="compact-track-title">9 PM (Anticipación)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/02 - Vexra - 10 PM (En Camino).mp3">
-                            <span class="compact-track-number">02</span>
-                            <span class="compact-track-title">10 PM (En Camino)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/03 - Vexra - 11 PM (La Entrada).mp3">
-                            <span class="compact-track-number">03</span>
-                            <span class="compact-track-title">11 PM (La Entrada)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/04 - Vexra - Medianoche.mp3">
-                            <span class="compact-track-number">04</span>
-                            <span class="compact-track-title">Medianoche</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/05 - Vexra - 1 AM (Primera Chispa).mp3">
-                            <span class="compact-track-number">05</span>
-                            <span class="compact-track-title">1 AM (Primera Chispa)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/06 - Vexra - 2 AM (Fuego y Hielo).mp3">
-                            <span class="compact-track-number">06</span>
-                            <span class="compact-track-title">2 AM (Fuego y Hielo)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/07 - Vexra - 3 AM (Sin Control).mp3">
-                            <span class="compact-track-number">07</span>
-                            <span class="compact-track-title">3 AM (Sin Control)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/08 - Vexra - 4 AM (Entre Sombras).mp3">
-                            <span class="compact-track-number">08</span>
-                            <span class="compact-track-title">4 AM (Entre Sombras)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/09 - Vexra - 5 AM (Última Oportunidad).mp3">
-                            <span class="compact-track-number">09</span>
-                            <span class="compact-track-title">5 AM (Última Oportunidad)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/10 - Vexra - 6 AM (Amanecer Cruel).mp3">
-                            <span class="compact-track-number">10</span>
-                            <span class="compact-track-title">6 AM (Amanecer Cruel)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/11 - Vexra - 7 AM (Realidad).mp3">
-                            <span class="compact-track-number">11</span>
-                            <span class="compact-track-title">7 AM (Realidad)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                        <div class="compact-track" data-track="vexra-despues-de-la-medianoche/12 - Vexra - 8 AM (Hasta La Próxima).mp3">
-                            <span class="compact-track-number">12</span>
-                            <span class="compact-track-title">8 AM (Hasta La Próxima)</span>
-                            <button class="compact-track-play">▶</button>
-                        </div>
-                    </div>
-                </div>
 
             </div>
 
             <!-- Dynamic Album Description Container (Column 3) -->
             <div class="description-container">
-                <div id="beautiful-damage-description" class="album-description-block active">
+                <div id="beautiful-damage-description" class="album-description-block">
                     <h3>Beautiful Damage (2024)</h3>
                     <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">EDM / Bass Music • 10 Tracks</p>
                     <p>Vexra's explosive debut. A masked, anonymous force arrives with raw, chaotic bass music that refuses to be ignored. Heavy drops, aggressive sound design, and an unapologetic energy that defined a new underground sound.</p>
                     <div style="margin-top: 1.5rem;">
                         <h4 style="color: #d4a574; font-size: 1.1rem; margin-bottom: 0.75rem;">Listen on Spotify</h4>
-                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/64iqc2khECtbdPatcLWmcH?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/64iqc2khECtbdPatcLWmcH?utm_source=generator" width="100%" height="650" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                     <a href="lyrics/vexra-beautiful-damage.html" class="lyrics-button" style="display: inline-block; margin-top: 1rem;">View Full Lyrics</a>
                 </div>
@@ -1353,7 +1154,7 @@
                     <p>Vexra goes deeper and darker. The sophomore album pushes boundaries with drum & bass, tech house, and experimental production. Heavier, more atmospheric, and even more unpredictable than the debut.</p>
                     <div style="margin-top: 1.5rem;">
                         <h4 style="color: #d4a574; font-size: 1.1rem; margin-bottom: 0.75rem;">Listen on Spotify</h4>
-                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/3QokCXgCslztqSqIASSG9O?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/3QokCXgCslztqSqIASSG9O?utm_source=generator" width="100%" height="650" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                     <a href="lyrics/vexra-phantom-frequency.html" class="lyrics-button" style="display: inline-block; margin-top: 1rem;">View Full Lyrics</a>
                 </div>
@@ -1364,7 +1165,7 @@
                     <p>Vexra is done hiding. This is where the mask begins to crack. Raw, unfiltered, explicit, and confrontational, the album strips away pretense with industrial basslines and distorted aggression. The persona is starting to collapse.</p>
                     <div style="margin-top: 1.5rem;">
                         <h4 style="color: #d4a574; font-size: 1.1rem; margin-bottom: 0.75rem;">Listen on Spotify</h4>
-                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/4ANPrhIZyjMGT2sG8xo8uo?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/album/4ANPrhIZyjMGT2sG8xo8uo?utm_source=generator" width="100%" height="650" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                     </div>
                     <a href="lyrics/vexra-skin-static.html" class="lyrics-button" style="display: inline-block; margin-top: 1rem;">View Full Lyrics</a>
                 </div>
@@ -1390,14 +1191,14 @@
                     <a href="lyrics/vexra-icon.html" class="lyrics-button" style="display: inline-block; margin-top: 1rem;">View Full Lyrics</a>
                 </div>
 
-                <div id="luminous-description" class="album-description-block">
+                <div id="luminous-description" class="album-description-block active">
                     <h3>Luminous (2026)</h3>
                     <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Ethereal Electronic / Art Pop • 10 Tracks</p>
                     <p>"Luminous" is Elena's first solo album under her own name, stepping away from Vexra entirely. After proving she could dominate the mainstream with "Icon," she makes art on her own terms. The sound is ethereal electronic and art pop (FKA twigs meets James Blake meets Imogen Heap) with layered harmonies, glitchy textures, and warmth underneath. The album explores the peace that comes after integration: being present, mature love, finding beauty in stillness, and confidence that doesn't need volume. This is a different kind of power. Not aggression, but the strength that comes from being whole.</p>
                     <a href="lyrics/elena-voss-luminous.html" class="lyrics-button" style="display: inline-block; margin-top: 1rem;">View Full Lyrics</a>
                 </div>
 
-                <div id="skin-contact-description" class="album-description-block">
+                <div id="skin-contact-description" class="album-description-block active">
                     <h3>Skin Contact (2026)</h3>
                     <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Dual Persona Album: Ethereal Electronic & Industrial Bass • 12 Tracks</p>
                     <p>The first true dual-persona album. Elena and Vexra alternate tracks to explore the full spectrum of adult desire between two consenting people. Elena brings ethereal, romantic, sensual production (FKA twigs meets James Blake). Vexra delivers aggressive, explicit, dark industrial bass (HEALTH meets REZZ). From tender first touches to passion that leaves marks. From whispered vulnerability to raw hunger.</p>
@@ -1405,7 +1206,7 @@
                     <p><strong>Content Warning:</strong> Vexra tracks contain explicit sexual language and themes. Recommended for mature audiences. You'll need a cigarette after this one.</p>
                 </div>
 
-                <div id="daybreak-description" class="album-description-block">
+                <div id="daybreak-description" class="album-description-block active">
                     <h3>Daybreak (2026)</h3>
                     <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Ethereal Electronic / Art Pop • 10 Tracks</p>
                     <p>After the intensity of Skin Contact, Elena finds peace. "Daybreak" is her most serene work - morning coffee, soft light, gratitude for simply being alive. This is Elena at her most grounded and present.</p>
@@ -1445,26 +1246,6 @@
                     <p style="margin-top: 1rem; font-style: italic; color: #d4a574;">Bonus Track: "Salvaje" (Wild) brings bilingual fire at 150 BPM — aggressive English-Spanish code-switching combining Vexra's EDM power with Latin trap intensity for the ultimate workout finale.</p>
                 </div>
 
-
-                <div id="despues-de-la-medianoche-description" class="album-description-block">
-                    <h3>Después de la Medianoche (2026)</h3>
-                    <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Dark Industrial Bass / Latin EDM / Bilingual • 12 Tracks</p>
-                    <p>Vexra's most ambitious concept album—a 12-track journey through one night, from 9 PM to 8 AM. Each track represents one hour as inhibitions drop and the real you emerges. Fierce bilingual vocals code-switch between Spanish and English as control slips away. High-energy industrial bass meets Latin percussion in this dangerously seductive exploration of nocturnal transformation.</p>
-                </div>
-
-
-                <div id="morning-light-description" class="album-description-block">
-                    <h3>Morning Light (2026)</h3>
-                    <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Acoustic Singer-Songwriter / Indie Folk • 10 Tracks</p>
-                    <p>Elena's first fully acoustic album—stripped down to just voice, guitar, and piano. No electronics, no production tricks, just pure vulnerability. These are the songs she sings on Sunday mornings when the world is quiet. An intimate journey through gentle awakenings, healing rituals, and the quiet strength found in stillness.</p>
-                </div>
-                <div id="neon-honky-tonk-description" class="album-description-block">
-                    <h3>Neon Honky-Tonk (2026)</h3>
-                    <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">EDM Country Fusion / Collaboration with Mason Reid • 13 Tracks</p>
-                    <p>What happens when Vexra's neon-soaked industrial bass meets Mason Reid's 90s country soul? A genre-obliterating 13-track EP that shouldn't work but absolutely does. Twangy steel guitar loops dance over 808s. Honky-tonk piano collides with warehouse reverb. EDM drops crash into country choruses.</p>
-                    <p style="margin-top: 1rem;">From the adrenaline-fueled opener "Electric Rodeo" to the 8-minute closing epic "Sunrise Over Silicon Valley & Shenandoah," this is a fearless experiment in sonic fusion. It's simultaneously a love letter to classic country and a middle finger to genre boundaries.</p>
-                </div>
-
             </div>
         </div>
     </div>
@@ -1486,7 +1267,7 @@
         const albumDescriptions = document.querySelectorAll('.album-description-block');
         const prevAlbumBtn = document.getElementById('prevAlbum');
         const nextAlbumBtn = document.getElementById('nextAlbum');
-        let currentIndex = 0; // Start with Beautiful Damage
+        let currentIndex = 8; // Start with Daybreak
 
         function switchToAlbum(index) {
             currentIndex = index;
