@@ -220,26 +220,17 @@
             font-family: 'Merriweather', serif;
         }
 
-        /* Mobile responsive layout */
-        @media (max-width: 1400px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            .artist-bio {
-                column-count: 2;
-            }
-        }
-
+        /* Mobile/Tablet responsive layout - only switch to single column on actual mobile devices */
         @media (max-width: 1024px) {
-            .artist-bio {
-                column-count: 1;
-            }
-
             .content-grid {
                 display: flex;
                 flex-direction: column;
                 padding: 1rem;
+                gap: 2rem;
+            }
+
+            .artist-bio {
+                column-count: 1;
             }
 
             /* Reorder: tracklist first, bio/description at bottom */
