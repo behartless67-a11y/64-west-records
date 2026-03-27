@@ -504,7 +504,7 @@
         <button class="carousel-nav prev" id="prevAlbum">‹</button>
         <button class="carousel-nav next" id="nextAlbum">›</button>
 
-        <div class="album-cover-item" data-album="beautiful-damage" data-index="0">
+        <div class="album-cover-item active" data-album="beautiful-damage" data-index="0">
             <img src="assets/images/vexra-beautiful-damage-cover.jpg" alt="Beautiful Damage">
         </div>
         <div class="album-cover-item" data-album="phantom-frequency" data-index="1">
@@ -528,7 +528,7 @@
         <div class="album-cover-item" data-album="skin-contact" data-index="7">
             <img src="assets/images/vexra-skin-contact-cover.png" alt="Skin Contact">
         </div>
-        <div class="album-cover-item active" data-album="daybreak" data-index="8">
+        <div class="album-cover-item" data-album="daybreak" data-index="8">
             <img src="assets/images/elena-voss-daybreak-cover.png" alt="Daybreak">
         </div>
         <div class="album-cover-item" data-album="signal-fade" data-index="9">
@@ -579,7 +579,7 @@
 
             <!-- Dynamic Tracklist Container (Column 2) -->
             <div class="tracklist-container">
-                <div id="beautiful-damage-tracklist" class="album-tracklist">
+                <div id="beautiful-damage-tracklist" class="album-tracklist active">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
                         <div class="compact-track" data-track="01_Beautiful_Damage.mp3"><span class="compact-track-number">01</span><span class="compact-track-title">Beautiful Damage</span><button class="compact-track-play">▶</button></div>
@@ -683,7 +683,7 @@
                     </div>
                 </div>
 
-                <div id="luminous-tracklist" class="album-tracklist active">
+                <div id="luminous-tracklist" class="album-tracklist">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
                         <div class="compact-track" data-track="Luminous.mp3">
@@ -738,7 +738,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="skin-contact-tracklist" class="album-tracklist active">
+                <div id="skin-contact-tracklist" class="album-tracklist">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
                         <div class="compact-track" data-track="vexra-skin-contact/01 - Golden Hour.mp3">
@@ -804,7 +804,7 @@
                     </div>
                 </div>
 
-                <div id="daybreak-tracklist" class="album-tracklist active">
+                <div id="daybreak-tracklist" class="album-tracklist">
                     <h3>Tracklist</h3>
                     <div class="compact-tracklist">
                         <div class="compact-track" data-track="elena-voss-daybreak/01 - Dawn Break.mp3">
@@ -1340,7 +1340,7 @@
 
             <!-- Dynamic Album Description Container (Column 3) -->
             <div class="description-container">
-                <div id="beautiful-damage-description" class="album-description-block">
+                <div id="beautiful-damage-description" class="album-description-block active">
                     <h3>Beautiful Damage (2024)</h3>
                     <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">EDM / Bass Music • 10 Tracks</p>
                     <p>Vexra's explosive debut. A masked, anonymous force arrives with raw, chaotic bass music that refuses to be ignored. Heavy drops, aggressive sound design, and an unapologetic energy that defined a new underground sound.</p>
@@ -1394,14 +1394,14 @@
                     <a href="lyrics/vexra-icon.html" class="lyrics-button" style="display: inline-block; margin-top: 1rem;">View Full Lyrics</a>
                 </div>
 
-                <div id="luminous-description" class="album-description-block active">
+                <div id="luminous-description" class="album-description-block">
                     <h3>Luminous (2026)</h3>
                     <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Ethereal Electronic / Art Pop • 10 Tracks</p>
                     <p>"Luminous" is Elena's first solo album under her own name, stepping away from Vexra entirely. After proving she could dominate the mainstream with "Icon," she makes art on her own terms. The sound is ethereal electronic and art pop (FKA twigs meets James Blake meets Imogen Heap) with layered harmonies, glitchy textures, and warmth underneath. The album explores the peace that comes after integration: being present, mature love, finding beauty in stillness, and confidence that doesn't need volume. This is a different kind of power. Not aggression, but the strength that comes from being whole.</p>
                     <a href="lyrics/elena-voss-luminous.html" class="lyrics-button" style="display: inline-block; margin-top: 1rem;">View Full Lyrics</a>
                 </div>
 
-                <div id="skin-contact-description" class="album-description-block active">
+                <div id="skin-contact-description" class="album-description-block">
                     <h3>Skin Contact (2026)</h3>
                     <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Dual Persona Album: Ethereal Electronic & Industrial Bass • 12 Tracks</p>
                     <p>The first true dual-persona album. Elena and Vexra alternate tracks to explore the full spectrum of adult desire between two consenting people. Elena brings ethereal, romantic, sensual production (FKA twigs meets James Blake). Vexra delivers aggressive, explicit, dark industrial bass (HEALTH meets REZZ). From tender first touches to passion that leaves marks. From whispered vulnerability to raw hunger.</p>
@@ -1409,7 +1409,7 @@
                     <p><strong>Content Warning:</strong> Vexra tracks contain explicit sexual language and themes. Recommended for mature audiences. You'll need a cigarette after this one.</p>
                 </div>
 
-                <div id="daybreak-description" class="album-description-block active">
+                <div id="daybreak-description" class="album-description-block">
                     <h3>Daybreak (2026)</h3>
                     <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Ethereal Electronic / Art Pop • 10 Tracks</p>
                     <p>After the intensity of Skin Contact, Elena finds peace. "Daybreak" is her most serene work - morning coffee, soft light, gratitude for simply being alive. This is Elena at her most grounded and present.</p>
@@ -1490,7 +1490,7 @@
         const albumDescriptions = document.querySelectorAll('.album-description-block');
         const prevAlbumBtn = document.getElementById('prevAlbum');
         const nextAlbumBtn = document.getElementById('nextAlbum');
-        let currentIndex = 8; // Start with Daybreak
+        let currentIndex = 0; // Start with Beautiful Damage
 
         function switchToAlbum(index) {
             currentIndex = index;
