@@ -61,6 +61,51 @@
             opacity: 0.7;
         }
 
+        .album-carousel {
+            position: relative;
+            height: 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0.5rem 4rem 2rem 4rem;
+            overflow-x: auto;
+            overflow-y: visible;
+            scroll-behavior: smooth;
+        }
+
+        .album-cover-item {
+            width: 240px;
+            height: 240px;
+            min-width: 240px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .album-cover-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .album-cover-item.active {
+            transform: scale(1.1);
+            box-shadow: 0 20px 60px rgba(212, 165, 116, 0.8);
+            z-index: 10;
+            opacity: 1;
+        }
+
+        .dynamic-content {
+            max-width: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 1rem 2rem;
+        }
+
         .artist-header {
             text-align: center;
             padding: 2rem 2rem 1rem 2rem;
@@ -118,40 +163,80 @@
             border: 1px solid rgba(212, 165, 116, 0.2);
         }
 
-        .tracklist-container h3 {
+        .tracklist-container, .description-container {
+            margin: 0;
+            padding: 0;
+        }
+
+        .album-tracklist, .album-description-block {
+            display: none;
+        }
+
+        .album-tracklist.active, .album-description-block.active {
+            display: block;
+        }
+
+        .album-tracklist {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-description-block {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-description-block h3 {
             color: #d4a574;
             font-size: 1.5rem;
             margin-top: 0;
-            margin-bottom: 1.5rem;
             font-family: 'Merriweather', serif;
         }
 
-        .track {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
+        .compact-tracklist {
+            width: 100%;
+            margin-top: 1rem;
         }
 
-        .track:hover {
+        .compact-track {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .compact-track:hover {
             background: rgba(212, 165, 116, 0.1);
         }
 
-        .track-number {
+        .compact-track.playing {
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .compact-track-number {
             font-weight: 700;
             color: #d4a574;
             min-width: 2rem;
+            font-size: 0.9rem;
         }
 
-        .track-name {
+        .compact-track-title {
             flex: 1;
+            font-size: 0.95rem;
         }
 
-        .track-play {
+        .compact-track-play {
             background: rgba(212, 165, 116, 0.2);
             border: 1px solid rgba(212, 165, 116, 0.4);
             color: #d4a574;
@@ -163,8 +248,73 @@
             transition: all 0.3s;
         }
 
-        .track-play:hover {
+        .compact-track-play:hover {
             background: rgba(212, 165, 116, 0.3);
+        }
+
+        .track-player-row {
+            display: none;
+            width: 100%;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0 0 0;
+        }
+
+        .compact-track.playing .track-player-row {
+            display: flex;
+        }
+
+        .track-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .track-progress-fill {
+            height: 100%;
+            background: #d4a574;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .track-time {
+            color: #999;
+            font-size: 0.7rem;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .track-volume {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 60px;
+            height: 4px;
+            background: rgba(212, 165, 116, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .track-volume::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+        }
+
+        .track-volume::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #d4a574;
+            cursor: pointer;
+            border: none;
         }
 
         .description-container {
@@ -191,91 +341,6 @@
             color: #8a7c94;
             margin-bottom: 1rem;
             font-size: 0.95rem;
-        }
-
-        /* Audio Player */
-        .audio-player {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(20, 20, 20, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            border-top: 1px solid rgba(212, 165, 116, 0.3);
-            display: none;
-            z-index: 1000;
-        }
-
-        .audio-player.active {
-            display: block;
-        }
-
-        .player-controls {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .player-track-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .player-track-title {
-            color: #d4a574;
-            font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 0.25rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .player-track-artist {
-            color: #8a7c94;
-            font-size: 0.85rem;
-        }
-
-        .player-button {
-            background: rgba(212, 165, 116, 0.2);
-            border: 1px solid rgba(212, 165, 116, 0.4);
-            color: #d4a574;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .player-button:hover {
-            background: rgba(212, 165, 116, 0.3);
-        }
-
-        .player-progress {
-            flex: 2;
-            height: 6px;
-            background: rgba(212, 165, 116, 0.2);
-            border-radius: 3px;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .player-progress-bar {
-            height: 100%;
-            background: #d4a574;
-            border-radius: 3px;
-            width: 0%;
-            transition: width 0.1s;
-        }
-
-        .player-time {
-            color: #8a7c94;
-            font-size: 0.85rem;
-            min-width: 80px;
-            text-align: center;
         }
 
         @media (max-width: 1400px) {
@@ -335,7 +400,17 @@
         <p class="artist-tagline">Dark Alternative Pop • 1 Album</p>
     </div>
 
-    <div class="content-grid">
+    <!-- Album Carousel -->
+    <div style="position: relative;">
+        <div class="album-carousel">
+            <div class="album-cover-item active" data-album="wildfire-season" data-index="0">
+                <img src="assets/images/harlow-wildfire-season-cover.png" alt="Wildfire Season">
+            </div>
+        </div>
+    </div>
+
+    <div class="dynamic-content">
+        <div class="content-grid">
         <!-- Column 1: Artist Bio -->
         <div class="artist-bio">
             <h3>About HARLOW</h3>
@@ -346,84 +421,78 @@
 
         <!-- Column 2: Tracklist -->
         <div class="tracklist-container">
-            <h3>Wildfire Season (2026)</h3>
-            <div class="track" data-track="harlow-wildfire-season/01 - HARLOW - Matchstick.mp3">
-                <span class="track-number">01</span>
-                <span class="track-name">Matchstick</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/02 - HARLOW - Smoke Signals.mp3">
-                <span class="track-number">02</span>
-                <span class="track-name">Smoke Signals</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/03 - HARLOW - Burn It Down.mp3">
-                <span class="track-number">03</span>
-                <span class="track-name">Burn It Down</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/04 - HARLOW - Inferno.mp3">
-                <span class="track-number">04</span>
-                <span class="track-name">Inferno</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/05 - HARLOW - Playing with Fire.mp3">
-                <span class="track-number">05</span>
-                <span class="track-name">Playing with Fire</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/06 - HARLOW - Ember & Ash.mp3">
-                <span class="track-number">06</span>
-                <span class="track-name">Ember & Ash</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/07 - HARLOW - Controlled Burn.mp3">
-                <span class="track-number">07</span>
-                <span class="track-name">Controlled Burn</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/08 - HARLOW - Phoenix Rising.mp3">
-                <span class="track-number">08</span>
-                <span class="track-name">Phoenix Rising</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/09 - HARLOW - From the Ashes.mp3">
-                <span class="track-number">09</span>
-                <span class="track-name">From the Ashes</span>
-                <button class="track-play">▶ Play</button>
-            </div>
-            <div class="track" data-track="harlow-wildfire-season/10 - HARLOW - Fireproof.mp3">
-                <span class="track-number">10</span>
-                <span class="track-name">Fireproof</span>
-                <button class="track-play">▶ Play</button>
+            <div id="wildfire-season-tracklist" class="album-tracklist active">
+                <h4 style="color: #d4a574; margin-bottom: 1rem;">Tracks</h4>
+                <div class="compact-tracklist">
+                    <div class="compact-track" data-track="harlow-wildfire-season/01 - HARLOW - Matchstick.mp3">
+                        <span class="compact-track-number">01</span>
+                        <span class="compact-track-title">Matchstick</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/02 - HARLOW - Smoke Signals.mp3">
+                        <span class="compact-track-number">02</span>
+                        <span class="compact-track-title">Smoke Signals</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/03 - HARLOW - Burn It Down.mp3">
+                        <span class="compact-track-number">03</span>
+                        <span class="compact-track-title">Burn It Down</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/04 - HARLOW - Inferno.mp3">
+                        <span class="compact-track-number">04</span>
+                        <span class="compact-track-title">Inferno</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/05 - HARLOW - Playing with Fire.mp3">
+                        <span class="compact-track-number">05</span>
+                        <span class="compact-track-title">Playing with Fire</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/06 - HARLOW - Ember & Ash.mp3">
+                        <span class="compact-track-number">06</span>
+                        <span class="compact-track-title">Ember & Ash</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/07 - HARLOW - Controlled Burn.mp3">
+                        <span class="compact-track-number">07</span>
+                        <span class="compact-track-title">Controlled Burn</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/08 - HARLOW - Phoenix Rising.mp3">
+                        <span class="compact-track-number">08</span>
+                        <span class="compact-track-title">Phoenix Rising</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/09 - HARLOW - From the Ashes.mp3">
+                        <span class="compact-track-number">09</span>
+                        <span class="compact-track-title">From the Ashes</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="harlow-wildfire-season/10 - HARLOW - Fireproof.mp3">
+                        <span class="compact-track-number">10</span>
+                        <span class="compact-track-title">Fireproof</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Column 3: Album Description -->
         <div class="description-container">
-            <h3>Wildfire Season</h3>
-            <p class="album-info">Dark Alternative Pop • 10 Tracks</p>
-            <p>HARLOW's explosive debut album is a 10-track journey of transformation through fire. From the spark that starts everything ("Matchstick") to the final declaration of being unbreakable ("Fireproof"), every song is a battle cry.</p>
-            <p>With Bishop Briggs-inspired raspy vocals, gospel-influenced runs, and minimalist percussion-driven production, "Wildfire Season" is dark pop with teeth. Stomping tribal drums, heavy sub-bass, and atmospheric synths create a soundscape that's as powerful as it is vulnerable.</p>
-            <p>This is music for burning it all down and rising from the ashes. No apologies. No turning back.</p>
+            <div id="wildfire-season-description" class="album-description-block active">
+                <h3>Wildfire Season (2026)</h3>
+                <p class="album-info">Dark Alternative Pop • 10 Tracks</p>
+                <p>HARLOW's explosive debut album is a 10-track journey of transformation through fire. From the spark that starts everything ("Matchstick") to the final declaration of being unbreakable ("Fireproof"), every song is a battle cry.</p>
+                <p>With Bishop Briggs-inspired raspy vocals, gospel-influenced runs, and minimalist percussion-driven production, "Wildfire Season" is dark pop with teeth. Stomping tribal drums, heavy sub-bass, and atmospheric synths create a soundscape that's as powerful as it is vulnerable.</p>
+                <p>This is music for burning it all down and rising from the ashes. No apologies. No turning back.</p>
+            </div>
         </div>
+    </div>
     </div>
 
-    <!-- Audio Player -->
-    <div class="audio-player" id="audioPlayer">
-        <div class="player-controls">
-            <div class="player-track-info">
-                <div class="player-track-title" id="playerTitle">Track Title</div>
-                <div class="player-track-artist">HARLOW</div>
-            </div>
-            <button class="player-button" id="playPauseBtn">▶ Play</button>
-            <div class="player-progress" id="progressBar">
-                <div class="player-progress-bar" id="progressFill"></div>
-            </div>
-            <div class="player-time" id="playerTime">0:00 / 0:00</div>
-        </div>
-        <audio id="audioElement"></audio>
-    </div>
+    <!-- Hidden Audio Element -->
+    <audio id="audioElement"></audio>
 
     <!-- Footer -->
     <footer class="site-footer">
@@ -434,73 +503,90 @@
     </footer>
 
     <script>
-        // Audio Player JavaScript
-        const tracks = document.querySelectorAll('.track');
-        const audioPlayer = document.getElementById('audioPlayer');
-        const audioElement = document.getElementById('audioElement');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const progressBar = document.getElementById('progressBar');
-        const progressFill = document.getElementById('progressFill');
-        const playerTitle = document.getElementById('playerTitle');
-        const playerTime = document.getElementById('playerTime');
+        // Inline audio player functionality
+        const audio = document.getElementById('audioElement');
+        let currentTrackIndex = -1;
+        let isPlaying = false;
 
-        let currentTrack = null;
+        // Create inline player rows for each track
+        document.querySelectorAll('.compact-track').forEach(track => {
+            const row = document.createElement('div');
+            row.className = 'track-player-row';
+            row.innerHTML = `
+                <div class="track-progress">
+                    <div class="track-progress-fill"></div>
+                </div>
+                <span class="track-time">0:00 / 0:00</span>
+                <input type="range" class="track-volume" min="0" max="1" step="0.01" value="0.8">
+            `;
+            track.appendChild(row);
+        });
 
-        tracks.forEach(track => {
-            track.querySelector('.track-play').addEventListener('click', (e) => {
-                e.stopPropagation();
-                const trackPath = track.getAttribute('data-track');
-                const trackName = track.querySelector('.track-name').textContent;
-                loadTrack(trackPath, trackName);
+        const tracks = Array.from(document.querySelectorAll('.compact-track'));
+
+        function formatTime(s) {
+            if (isNaN(s)) return '0:00';
+            return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
+        }
+
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            tracks.forEach(t => t.classList.remove('playing'));
+            document.querySelectorAll('.compact-track-play').forEach(btn => btn.textContent = '\u25B6');
+            currentTrackIndex = index;
+
+            const track = tracks[index];
+            const filename = track.dataset.track;
+            audio.src = `assets/audio/${filename}`;
+            audio.play();
+            track.classList.add('playing');
+            track.querySelector('.compact-track-play').textContent = '\u23F8';
+            isPlaying = true;
+        }
+
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', (e) => {
+                if (e.target.classList.contains('track-volume') || e.target.classList.contains('track-progress')) return;
+                if (currentTrackIndex === index && isPlaying) {
+                    audio.pause();
+                    track.querySelector('.compact-track-play').textContent = '\u25B6';
+                    isPlaying = false;
+                } else {
+                    playTrack(index);
+                }
             });
 
-            track.addEventListener('click', () => {
-                const trackPath = track.getAttribute('data-track');
-                const trackName = track.querySelector('.track-name').textContent;
-                loadTrack(trackPath, trackName);
+            const progress = track.querySelector('.track-progress');
+            const volumeSlider = track.querySelector('.track-volume');
+
+            progress.addEventListener('click', (e) => {
+                if (currentTrackIndex !== index) return;
+                const rect = progress.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = percent * audio.duration;
+            });
+
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
             });
         });
 
-        function loadTrack(path, name) {
-            currentTrack = path;
-            audioElement.src = `assets/audio/${path}`;
-            playerTitle.textContent = name;
-            audioPlayer.classList.add('active');
-            audioElement.play();
-            playPauseBtn.textContent = '⏸ Pause';
-        }
+        audio.addEventListener('timeupdate', () => {
+            if (currentTrackIndex < 0) return;
+            const track = tracks[currentTrackIndex];
+            const fill = track.querySelector('.track-progress-fill');
+            const timeDisplay = track.querySelector('.track-time');
+            fill.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+            timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        });
 
-        playPauseBtn.addEventListener('click', () => {
-            if (audioElement.paused) {
-                audioElement.play();
-                playPauseBtn.textContent = '⏸ Pause';
-            } else {
-                audioElement.pause();
-                playPauseBtn.textContent = '▶ Play';
+        audio.addEventListener('ended', () => {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(currentTrackIndex + 1);
             }
         });
 
-        audioElement.addEventListener('timeupdate', () => {
-            const progress = (audioElement.currentTime / audioElement.duration) * 100;
-            progressFill.style.width = `${progress}%`;
-
-            const currentMin = Math.floor(audioElement.currentTime / 60);
-            const currentSec = Math.floor(audioElement.currentTime % 60).toString().padStart(2, '0');
-            const durationMin = Math.floor(audioElement.duration / 60);
-            const durationSec = Math.floor(audioElement.duration % 60).toString().padStart(2, '0');
-
-            playerTime.textContent = `${currentMin}:${currentSec} / ${durationMin}:${durationSec}`;
-        });
-
-        progressBar.addEventListener('click', (e) => {
-            const rect = progressBar.getBoundingClientRect();
-            const percent = (e.clientX - rect.left) / rect.width;
-            audioElement.currentTime = percent * audioElement.duration;
-        });
-
-        audioElement.addEventListener('ended', () => {
-            playPauseBtn.textContent = '▶ Play';
-        });
+        audio.volume = 0.8;
     </script>
 </body>
 </html>
