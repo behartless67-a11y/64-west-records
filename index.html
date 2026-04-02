@@ -676,6 +676,100 @@
         <p>Distributed by DistroKid • Music generated with Suno AI</p>
     </footer>
 
+    <script>
+        // Mobile detection and redirect to simple listen pages
+        (function() {
+            // Check if mobile device
+            function isMobile() {
+                return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+                    || window.innerWidth <= 768;
+            }
+
+            // Album mapping: album title or artist page -> listen page slug
+            const albumToListenPage = {
+                'vexra-reflect': 'listen-vexra-reflect.html',
+                'vexra-overdrive': 'listen-vexra-overdrive.html',
+                'vexra-skin-contact': 'listen-vexra-skin-contact.html',
+                'vexra-invincible': 'listen-vexra-invincible.html',
+                'vexra-despues-de-la-medianoche': 'listen-vexra-despues-de-la-medianoche.html',
+                'neon-honky-tonk': 'listen-vexra-mason-reid-neon-honky-tonk.html',
+                'elena-voss-signal-fade': 'listen-elena-voss-signal-fade.html',
+                'elena-voss-raices': 'listen-elena-voss-raices.html',
+                'elena-voss-morning-light': 'listen-elena-voss-morning-light.html',
+                'elena-voss-daybreak': 'listen-elena-voss-daybreak.html',
+                'harlow-wildfire-season': 'listen-harlow-wildfire-season.html',
+                'cassidy-james-late-checkout': 'listen-cassidy-james-late-checkout.html',
+                'cassidy-james-no-filter': 'listen-cassidy-james-no-filter.html',
+                'violet-reign-sophisticated-chaos': 'listen-violet-reign-sophisticated-chaos.html',
+                'the-holler-sound-roots-ridges': 'listen-the-holler-sound-roots-ridges.html',
+                'ash-iron-burn-throne': 'listen-ash-iron-burn-throne.html',
+                '3-31': 'listen-3-31.html',
+                'jessie-mae-velvet-honey': 'listen-jessie-mae-velvet-honey.html',
+                'jessie-mae-learning-to-let-go': 'listen-jessie-mae-learning-to-let-go.html',
+                'mason-reid-early-start': 'listen-mason-reid-early-start.html',
+                'sunday-supply-coastal': 'listen-sunday-supply-coastal.html',
+                'sunday-supply-key-west-to-crozet': 'listen-sunday-supply-key-west-to-crozet.html',
+                'sunday-supply': 'listen-sunday-supply.html',
+                'sunday-revival-almost-here': 'listen-sunday-revival-almost-here.html',
+                'tyler-jake-aged-perfection': 'listen-tyler-jake-aged-perfection.html',
+                'tyler-jake-backyard-sessions': 'listen-tyler-jake-backyard-sessions.html',
+                'tyler-hayes-first-warm-weekend': 'listen-tyler-hayes-first-warm-weekend.html',
+                'mach6-golden-era': 'listen-mach6-golden-era.html',
+                'mach6-california-terminal': 'listen-mach6-california-terminal.html',
+                'mach6-codeine-terminal': 'listen-mach6-codeine-terminal.html',
+                'mach6-dirty-south': 'listen-mach6-dirty-south.html',
+                'blackridge-unbreakable': 'listen-blackridge-unbreakable.html',
+                'after-dark': 'listen-after-dark.html',
+                'summer-sessions': 'listen-summer-sessions.html',
+                'survivors': 'listen-survivors.html'
+            };
+
+            if (isMobile()) {
+                // Intercept all gallery item clicks
+                document.addEventListener('click', function(e) {
+                    const galleryItem = e.target.closest('.gallery-item');
+                    if (galleryItem) {
+                        e.preventDefault();
+
+                        const href = galleryItem.getAttribute('href');
+
+                        // Try to extract album slug from various patterns
+                        let listenPage = null;
+
+                        // Check if href contains album identifier
+                        for (const [key, page] of Object.entries(albumToListenPage)) {
+                            if (href.includes(key) || href.includes(key.replace(/-/g, ' '))) {
+                                listenPage = page;
+                                break;
+                            }
+                        }
+
+                        // If no listen page found, check by image src as backup
+                        if (!listenPage) {
+                            const img = galleryItem.querySelector('img');
+                            if (img) {
+                                const imgSrc = img.getAttribute('src');
+                                for (const [key, page] of Object.entries(albumToListenPage)) {
+                                    if (imgSrc.includes(key)) {
+                                        listenPage = page;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        // Redirect to listen page if found, otherwise go to original href
+                        if (listenPage) {
+                            window.location.href = listenPage;
+                        } else {
+                            window.location.href = href;
+                        }
+                    }
+                });
+            }
+        })();
+    </script>
+
     <script src="assets/js/global-player.js"></script>
 </body>
 </html>
