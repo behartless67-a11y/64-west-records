@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunday Revival - Almost Here</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .player-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-art {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .album-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .album-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin-bottom: 0.5rem;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-name {
+            font-size: 1.3rem;
+            color: rgba(212, 165, 116, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .album-meta {
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.6);
+        }
+
+        .tracklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .track {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track.playing {
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .track-number {
+            color: rgba(212, 165, 116, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+            width: 2rem;
+            text-align: center;
+        }
+
+        .track-title {
+            color: #e0e0e0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .track-play {
+            background: rgba(212, 165, 116, 0.2);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .track-play:hover {
+            background: rgba(212, 165, 116, 0.3);
+            transform: scale(1.05);
+        }
+
+        .main-player {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .main-player audio {
+            width: 100%;
+        }
+
+        .now-playing {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.7);
+        }
+
+        .label-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .label-link a {
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .label-link a:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .player-container {
+                padding: 1.5rem;
+            }
+
+            .album-title {
+                font-size: 1.5rem;
+            }
+
+            .artist-name {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <img src="assets/images/sunday-revival-almost-here.png" alt="Almost Here" class="album-art">
+
+        <div class="album-info">
+            <h1 class="album-title">Almost Here</h1>
+            <p class="artist-name">Sunday Revival</p>
+            <p class="album-meta">Gospel / Southern Rock • 10 Tracks • 2026</p>
+        </div>
+
+        <div class="main-player" id="mainPlayer" style="display: none;">
+            <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <div class="tracklist">
+            <div class="track" data-track="sunday-revival-almost-here/01 - Sunday Revival - Sunday Afternoon.mp3" data-title="Sunday Afternoon">
+                <span class="track-number">01</span>
+                <span class="track-title">Sunday Afternoon</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/02 - Sunday Revival - Too Much Wine (Not Enough Time).mp3" data-title="Too Much Wine (Not Enough Time)">
+                <span class="track-number">02</span>
+                <span class="track-title">Too Much Wine (Not Enough Time)</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/03 - Sunday Revival - Golden Hour Friends.mp3" data-title="Golden Hour Friends">
+                <span class="track-number">03</span>
+                <span class="track-title">Golden Hour Friends</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/04 - Sunday Revival - The Waiting.mp3" data-title="The Waiting">
+                <span class="track-number">04</span>
+                <span class="track-title">The Waiting</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/05 - Sunday Revival - Life Gets In The Way.mp3" data-title="Life Gets In The Way">
+                <span class="track-number">05</span>
+                <span class="track-title">Life Gets In The Way</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/06 - Sunday Revival - Front Porch Light.mp3" data-title="Front Porch Light">
+                <span class="track-number">06</span>
+                <span class="track-title">Front Porch Light</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/07 - Sunday Revival - Almost Here.mp3" data-title="Almost Here">
+                <span class="track-number">07</span>
+                <span class="track-title">Almost Here</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/08 - Sunday Revival - Every Sunday.mp3" data-title="Every Sunday">
+                <span class="track-number">08</span>
+                <span class="track-title">Every Sunday</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/09 - Sunday Revival - Welcome Home.mp3" data-title="Welcome Home">
+                <span class="track-number">09</span>
+                <span class="track-title">Welcome Home</span>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="sunday-revival-almost-here/10 - Sunday Revival - One More Glass.mp3" data-title="One More Glass">
+                <span class="track-number">10</span>
+                <span class="track-title">One More Glass</span>
+                <button class="track-play">▶</button>
+            </div>
+        </div>
+
+        <div class="label-link">
+            <a href="index.html">64 West Records • The porch light's always on.</a>
+        </div>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const mainPlayer = document.getElementById('mainPlayer');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const tracks = document.querySelectorAll('.track');
+
+        tracks.forEach(track => {
+            track.addEventListener('click', function() {
+                const filename = this.getAttribute('data-track');
+                const title = this.getAttribute('data-title');
+                const trackNumber = this.querySelector('.track-number').textContent;
+
+                // Update player
+                audioPlayer.src = `assets/audio/${filename}`;
+                audioPlayer.play();
+                mainPlayer.style.display = 'block';
+                nowPlaying.textContent = `Now Playing: ${trackNumber}. ${title}`;
+
+                // Update visual state
+                tracks.forEach(t => t.classList.remove('playing'));
+                this.classList.add('playing');
+
+                // Smooth scroll to player
+                mainPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+
+        // Auto-play next track when current ends
+        audioPlayer.addEventListener('ended', function() {
+            const currentTrack = document.querySelector('.track.playing');
+            if (currentTrack && currentTrack.nextElementSibling) {
+                const nextTrack = Array.from(tracks).find(t =>
+                    t.classList.contains('track') &&
+                    t.previousElementSibling === currentTrack
+                );
+                if (nextTrack) {
+                    nextTrack.click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
