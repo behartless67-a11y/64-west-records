@@ -120,64 +120,41 @@
             transform: scale(1.2);
         }
 
-        .player {
+        .main-player {
             background: rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
             padding: 1.5rem;
-            border: 1px solid rgba(212, 165, 116, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            margin-bottom: 1.5rem;
         }
 
-        .current-track {
+        .main-player audio {
+            width: 100%;
+        }
+
+        .now-playing {
             text-align: center;
             margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.7);
+        }
+
+        .label-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .label-link a {
             color: #d4a574;
-            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
         }
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .control-btn {
-            background: none;
-            border: none;
-            color: #d4a574;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            transition: all 0.2s;
-        }
-
-        .control-btn:hover {
+        .label-link a:hover {
             color: #e0c097;
-            transform: scale(1.1);
-        }
-
-        .progress-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(212, 165, 116, 0.2);
-            border-radius: 3px;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, #d4a574, #e0c097);
-            border-radius: 3px;
-            width: 0%;
-            transition: width 0.1s;
-        }
-
-        .time-display {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: rgba(212, 165, 116, 0.6);
         }
 
         @media (max-width: 768px) {
@@ -203,6 +180,11 @@
             <div class="album-title">Quiet Hours</div>
             <div class="artist-name">Eleanor Pine</div>
             <div class="album-meta">Indie Folk • Atmospheric • 2026 • 10 Tracks</div>
+        </div>
+
+        <div class="main-player" id="mainPlayer" style="display: none;">
+            <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
+            <audio id="audioPlayer" controls></audio>
         </div>
 
         <div class="tracklist">
@@ -258,109 +240,51 @@
             </div>
         </div>
 
-        <div class="player">
-            <div class="current-track" id="currentTrack">Select a track</div>
-            <div class="controls">
-                <button class="control-btn" id="prevBtn">⏮</button>
-                <button class="control-btn" id="playPauseBtn">▶</button>
-                <button class="control-btn" id="nextBtn">⏭</button>
-            </div>
-            <div class="progress-container" id="progressContainer">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <div class="time-display">
-                <span id="currentTime">0:00</span>
-                <span id="duration">0:00</span>
-            </div>
+        <div class="label-link">
+            <a href="index.html">64 West Records • The porch light's always on.</a>
         </div>
-
-        <audio id="audioPlayer"></audio>
     </div>
 
     <script>
-        const audio = document.getElementById('audioPlayer');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressBar = document.getElementById('progressBar');
-        const progressContainer = document.getElementById('progressContainer');
-        const currentTime = document.getElementById('currentTime');
-        const duration = document.getElementById('duration');
-        const currentTrack = document.getElementById('currentTrack');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const mainPlayer = document.getElementById('mainPlayer');
+        const nowPlaying = document.getElementById('nowPlaying');
         const tracks = document.querySelectorAll('.track');
 
-        let currentIndex = 0;
+        tracks.forEach(track => {
+            track.addEventListener('click', function() {
+                const filename = this.getAttribute('data-track');
+                const title = this.getAttribute('data-title');
+                const trackNumber = this.querySelector('.track-number').textContent;
 
-        tracks.forEach((track, index) => {
-            track.addEventListener('click', () => {
-                currentIndex = index;
-                loadTrack(currentIndex);
-                audio.play();
+                // Update player
+                audioPlayer.src = `assets/audio/${filename}`;
+                audioPlayer.play();
+                mainPlayer.style.display = 'block';
+                nowPlaying.textContent = `Now Playing: ${trackNumber}. ${title}`;
+
+                // Update visual state
+                tracks.forEach(t => t.classList.remove('playing'));
+                this.classList.add('playing');
+
+                // Smooth scroll to player
+                mainPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
         });
 
-        function loadTrack(index) {
-            const track = tracks[index];
-            const filename = track.dataset.track;
-            const title = track.dataset.title;
-
-            audio.src = `assets/audio/${filename}`;
-            currentTrack.textContent = title;
-
-            tracks.forEach(t => t.classList.remove('playing'));
-            track.classList.add('playing');
-
-            playPauseBtn.textContent = '⏸';
-        }
-
-        playPauseBtn.addEventListener('click', () => {
-            if (audio.paused) {
-                if (!audio.src) {
-                    loadTrack(0);
+        // Auto-play next track when current ends
+        audioPlayer.addEventListener('ended', function() {
+            const currentTrack = document.querySelector('.track.playing');
+            if (currentTrack && currentTrack.nextElementSibling) {
+                const nextTrack = Array.from(tracks).find(t =>
+                    t.classList.contains('track') &&
+                    t.previousElementSibling === currentTrack
+                );
+                if (nextTrack) {
+                    nextTrack.click();
                 }
-                audio.play();
-                playPauseBtn.textContent = '⏸';
-            } else {
-                audio.pause();
-                playPauseBtn.textContent = '▶';
             }
         });
-
-        prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + tracks.length) % tracks.length;
-            loadTrack(currentIndex);
-            audio.play();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % tracks.length;
-            loadTrack(currentIndex);
-            audio.play();
-        });
-
-        audio.addEventListener('timeupdate', () => {
-            const progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.style.width = progress + '%';
-            currentTime.textContent = formatTime(audio.currentTime);
-            duration.textContent = formatTime(audio.duration);
-        });
-
-        audio.addEventListener('ended', () => {
-            nextBtn.click();
-        });
-
-        progressContainer.addEventListener('click', (e) => {
-            const rect = progressContainer.getBoundingClientRect();
-            const percent = (e.clientX - rect.left) / rect.width;
-            audio.currentTime = percent * audio.duration;
-        });
-
-        function formatTime(seconds) {
-            if (isNaN(seconds)) return '0:00';
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return mins + ':' + (secs < 10 ? '0' : '') + secs;
-        }
     </script>
 </body>
 </html>
