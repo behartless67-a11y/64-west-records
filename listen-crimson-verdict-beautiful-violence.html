@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crimson Verdict - Beautiful Violence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .player-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-art {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .album-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .album-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin-bottom: 0.5rem;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-name {
+            font-size: 1.3rem;
+            color: rgba(212, 165, 116, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        .album-meta {
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.6);
+        }
+
+        .tracklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .track {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track.playing {
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .track-number {
+            color: rgba(212, 165, 116, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .track-title {
+            color: #e0e0e0;
+            font-weight: 500;
+        }
+
+        .track-duration {
+            color: rgba(212, 165, 116, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .main-player {
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .now-playing {
+            font-size: 0.9rem;
+            color: #d4a574;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        audio {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .player-container {
+                padding: 1.5rem;
+            }
+
+            .album-title {
+                font-size: 1.5rem;
+            }
+
+            .artist-name {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <img src="assets/images/crimson-verdict-beautiful-violence.jpg" alt="Beautiful Violence" class="album-art">
+
+        <div class="album-info">
+            <h1 class="album-title">Beautiful Violence</h1>
+            <div class="artist-name">Crimson Verdict</div>
+            <div class="album-meta">Heavy Metal • 2026 • 12 Tracks • Explicit</div>
+        </div>
+
+        <div class="main-player" id="mainPlayer" style="display: none;">
+            <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <div class="tracklist" id="tracklist">
+            <div class="track" data-track="crimson-verdict-beautiful-violence/01 - Crimson Verdict - Blood Sermon.mp3">
+                <span class="track-number">01</span>
+                <span class="track-title">Blood Sermon</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/02 - Crimson Verdict - Possessed.mp3">
+                <span class="track-number">02</span>
+                <span class="track-title">Possessed</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/03 - Crimson Verdict - Witching Hour.mp3">
+                <span class="track-number">03</span>
+                <span class="track-title">Witching Hour</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/04 - Crimson Verdict - Pretty When I Scream.mp3">
+                <span class="track-number">04</span>
+                <span class="track-title">Pretty When I Scream</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/05 - Crimson Verdict - Sick Devotion.mp3">
+                <span class="track-number">05</span>
+                <span class="track-title">Sick Devotion</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/06 - Crimson Verdict - Carnage Lullaby.mp3">
+                <span class="track-number">06</span>
+                <span class="track-title">Carnage Lullaby</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/07 - Crimson Verdict - Crown of Thorns.mp3">
+                <span class="track-number">07</span>
+                <span class="track-title">Crown of Thorns</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/08 - Crimson Verdict - Beautiful Monster.mp3">
+                <span class="track-number">08</span>
+                <span class="track-title">Beautiful Monster</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/09 - Crimson Verdict - Burn the Saints.mp3">
+                <span class="track-number">09</span>
+                <span class="track-title">Burn the Saints</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/10 - Crimson Verdict - Queen of Nightmares.mp3">
+                <span class="track-number">10</span>
+                <span class="track-title">Queen of Nightmares</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/11 - Crimson Verdict - Worship the Ruin.mp3">
+                <span class="track-number">11</span>
+                <span class="track-title">Worship the Ruin</span>
+                <span class="track-duration">▶</span>
+            </div>
+            <div class="track" data-track="crimson-verdict-beautiful-violence/12 - Crimson Verdict - Kingdom of Ash.mp3">
+                <span class="track-number">12</span>
+                <span class="track-title">Kingdom of Ash</span>
+                <span class="track-duration">▶</span>
+            </div>
+        </div>
+
+        <a href="artist-crimson-verdict.html" class="back-link">← Back to Crimson Verdict</a>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const mainPlayer = document.getElementById('mainPlayer');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const tracks = document.querySelectorAll('.track');
+
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', () => {
+                const trackPath = track.getAttribute('data-track');
+                const trackTitle = track.querySelector('.track-title').textContent;
+
+                audioPlayer.src = `assets/audio/${trackPath}`;
+                audioPlayer.play();
+
+                mainPlayer.style.display = 'block';
+                nowPlaying.textContent = `Now Playing: ${trackTitle}`;
+
+                tracks.forEach(t => t.classList.remove('playing'));
+                track.classList.add('playing');
+            });
+        });
+
+        audioPlayer.addEventListener('ended', () => {
+            const currentPlaying = document.querySelector('.track.playing');
+            if (currentPlaying && currentPlaying.nextElementSibling) {
+                currentPlaying.nextElementSibling.click();
+            }
+        });
+    </script>
+</body>
+</html>
