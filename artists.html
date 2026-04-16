@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artists | 64 West Records</title>
-    <!-- Updated 2026-03-03 -->
+    <!-- Updated 2026-04-15 - Card Grid Layout -->
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,111 +63,136 @@
             opacity: 0.8;
         }
 
-        /* Artists container */
+        /* Artists grid container */
         .artists-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem 4rem 2rem;
         }
 
-        /* Individual artist section */
-        .artist-section {
-            display: flex;
-            gap: 3rem;
-            margin-bottom: 4rem;
-            align-items: center;
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
         }
 
-        .artist-section:last-child {
-            margin-bottom: 0;
+        /* Artist card */
+        .artist-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* Reverse layout for alternating artists */
-        .artist-section.reverse {
-            flex-direction: row-reverse;
+        .artist-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(212, 165, 116, 0.4);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
         }
 
         /* Artist image */
-        .artist-image {
-            flex: 0 0 350px;
-            max-width: 350px;
+        .artist-card-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.4);
         }
 
-        .artist-image img {
+        .artist-card-image img {
             width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            height: 100%;
+            object-fit: cover;
             transition: transform 0.3s ease;
         }
 
-        .artist-image img:hover {
-            transform: scale(1.02);
+        .artist-card:hover .artist-card-image img {
+            transform: scale(1.05);
         }
 
-        /* Artist bio */
-        .artist-bio {
-            flex: 1;
+        /* Artist card content */
+        .artist-card-content {
+            padding: 1.5rem;
         }
 
-        .artist-bio h2 {
-            font-size: 2rem;
+        .artist-card-content h2 {
+            font-size: 1.5rem;
             font-family: 'Merriweather', serif;
             color: #d4a574;
             margin: 0 0 0.5rem 0;
         }
 
-        .artist-bio .album-count {
-            font-size: 0.9rem;
+        .artist-card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .album-count {
             color: rgba(212, 165, 116, 0.8);
-            margin: 0 0 1rem 0;
             font-weight: 600;
         }
 
-        .artist-bio .description {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 1rem;
-            opacity: 0.9;
-        }
-
-        .artist-bio .genre {
-            font-size: 0.9rem;
-            color: rgba(212, 165, 116, 0.7);
+        .genre {
+            color: rgba(212, 165, 116, 0.6);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
+        .artist-bio-snippet {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.85;
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
         .artist-link {
             display: inline-block;
-            margin-top: 1rem;
-            padding: 0.75rem 2rem;
-            background: rgba(212, 165, 116, 0.2);
-            border: 1px solid rgba(212, 165, 116, 0.4);
+            padding: 0.6rem 1.5rem;
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
             border-radius: 4px;
             color: #d4a574;
             text-decoration: none;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
         .artist-link:hover {
-            background: rgba(212, 165, 116, 0.3);
-            transform: translateY(-2px);
+            background: rgba(212, 165, 116, 0.25);
+            transform: translateX(3px);
+        }
+
+        /* Coming soon badge */
+        .coming-soon {
+            display: inline-block;
+            background: rgba(212, 165, 116, 0.2);
+            border: 1px solid rgba(212, 165, 116, 0.4);
+            border-radius: 3px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #d4a574;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .artist-section,
-            .artist-section.reverse {
-                flex-direction: column;
-                gap: 2rem;
+        @media (max-width: 968px) {
+            .artists-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
-            .artist-image {
-                flex: none;
-                max-width: 100%;
+            .page-header h1 {
+                font-size: 2rem;
             }
         }
 
@@ -207,202 +232,266 @@
         <p>The voices of 64 West Records</p>
     </div>
 
-    <!-- Artists -->
+    <!-- Artists Grid -->
     <div class="artists-container">
-        <!-- Elena Voss / Vexra - Image Left -->
-        <div class="artist-section">
-            <div class="artist-image">
-                <img src="assets/images/elena-voss-luminous-cover.png" alt="Elena Voss">
-            </div>
-            <div class="artist-bio">
-                <h2>Elena Voss / Vexra</h2>
-                <p class="album-count">16 Albums</p>
-                <p class="description">From masked underground bass producer to vulnerable solo artist. Elena Voss spent four albums hiding behind Vexra before slowly revealing herself across "Human," "Venom Heart," and "Icon." "Luminous" was her first album entirely separate from the persona. The journey continues with "Morning Light" (acoustic), "Daybreak" (empowerment), "Signal Fade" (transformation), "Raíces" (Latin roots), "Después de la Medianoche" (bilingual night cycle), "Invincible" (workout anthems), and "Neon Honky-Tonk" (EDM-country fusion with Mason Reid). EDM, dark pop, hyperpop, industrial bass, ethereal electronic, and acoustic singer-songwriter.</p>
-                <p class="genre">EDM / Dark Pop / Hyperpop / Art Pop</p>
-                <a href="artist-elena-voss.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
+        <div class="artists-grid">
 
-        <!-- Jessie Mae Thornton - Image Right -->
-        <div class="artist-section reverse">
-            <div class="artist-image">
-                <img src="assets/images/jessie-mae-red-dirt-cover.jpg" alt="Jessie Mae Thornton">
+            <!-- Elena Voss / Vexra -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/elena-voss-luminous-cover.png" alt="Elena Voss">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Elena Voss / Vexra</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">16 Albums</span>
+                        <span class="genre">EDM / Dark Pop / Art Pop</span>
+                    </div>
+                    <p class="artist-bio-snippet">From masked underground bass producer to vulnerable solo artist. Elena Voss spent four albums hiding behind Vexra before slowly revealing herself. EDM, dark pop, hyperpop, industrial bass, ethereal electronic, and acoustic singer-songwriter.</p>
+                    <a href="artist-elena-voss.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>Jessie Mae Thornton</h2>
-                <p class="album-count">6 Albums</p>
-                <p class="description">From Staunton, Virginia. Daughter of a tobacco farmer and church choir director. Got discovered after a Floyd Country Store performance went viral. Six albums trace her evolution from wide-eyed debut to heartbroken healing to triumphant party country to vulnerable self-discovery. Includes crossover "Static & Soul" with Vexra and her most romantic album yet "Velvet & Honey." "Porch Light On" inspired the label name.</p>
-                <p class="genre">Modern Country / Americana</p>
-                <a href="artist-jessie-mae-thornton.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- Crimson Verdict - Image Left -->
-        <div class="artist-section">
-            <div class="artist-image">
-                <img src="assets/images/crimson-verdict-beautiful-violence.jpg" alt="Crimson Verdict">
+            <!-- Jessie Mae Thornton -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/jessie-mae-red-dirt-cover.jpg" alt="Jessie Mae Thornton">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Jessie Mae Thornton</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">6 Albums</span>
+                        <span class="genre">Modern Country / Americana</span>
+                    </div>
+                    <p class="artist-bio-snippet">From Staunton, Virginia. Daughter of a tobacco farmer and church choir director. Got discovered after a Floyd Country Store performance went viral. Six albums trace her evolution from wide-eyed debut to triumphant party country.</p>
+                    <a href="artist-jessie-mae-thornton.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>Crimson Verdict</h2>
-                <p class="album-count">2 Albums</p>
-                <p class="description">Powerful female-fronted hard rock/metal hybrid blending Halestorm's organic guitar-driven sound with In This Moment's theatrical intensity. Raspy, whiskey-soaked vocals that can belt, scream, and whisper with equal power. From empowerment anthems ("Burn the Throne") to dark industrial metal with occult themes ("Beautiful Violence"), Crimson Verdict refuses to be boxed into one genre. Arena-ready choruses, crushing riffs, and lyrics for survivors, warriors, and those who embrace their inner monster.</p>
-                <p class="genre">Hard Rock / Heavy Metal / Industrial / Theatrical Metal</p>
-                <a href="artist-crimson-verdict.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- Colt Ramsey - Image Left -->
-        <div class="artist-section">
-            <div class="artist-image">
-                <img src="assets/images/colt-ramsey-lake-days-cover.jpg" alt="Colt Ramsey">
+            <!-- Crimson Verdict -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/crimson-verdict-beautiful-violence.jpg" alt="Crimson Verdict">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Crimson Verdict</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">2 Albums</span>
+                        <span class="genre">Hard Rock / Heavy Metal</span>
+                    </div>
+                    <p class="artist-bio-snippet">Powerful female-fronted hard rock/metal hybrid blending Halestorm's organic guitar-driven sound with In This Moment's theatrical intensity. Raspy, whiskey-soaked vocals that can belt, scream, and whisper with equal power.</p>
+                    <a href="artist-crimson-verdict.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>Colt Ramsey</h2>
-                <p class="album-count">1 Album</p>
-                <p class="description">28-year-old country singer from Smith Mountain Lake, Virginia. His debut "Lake Days & Late Nights" is summer on the water captured in audio form. Modern country production with trap-influenced 808s and Morgan Wallen's grit meets Kane Brown's crossover appeal. Lake life, Blue Ridge views, and Virginia pride.</p>
-                <p class="genre">Modern Country / Party Country / Lake Life</p>
-                <a href="artist-colt-ramsey.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- Ben James - Image Right -->
-        <div class="artist-section reverse">
-            <div class="artist-image">
-                <img src="assets/images/ben-james-hey-gurl-cover.jpg" alt="Ben James">
+            <!-- Colt Ramsey -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/colt-ramsey-lake-days-cover.jpg" alt="Colt Ramsey">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Colt Ramsey</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">1 Album</span>
+                        <span class="genre">Modern Country / Lake Life</span>
+                    </div>
+                    <p class="artist-bio-snippet">28-year-old country singer from Smith Mountain Lake, Virginia. His debut "Lake Days & Late Nights" is summer on the water captured in audio form. Modern country production with trap-influenced 808s.</p>
+                    <a href="artist-colt-ramsey.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>Ben James</h2>
-                <p class="album-count">1 Album</p>
-                <p class="description">Virginia-born R&B singer with a voice that can break your heart and put it back together in the same breath. Smooth vocals, lush production, and songs about love, longing, vulnerability, and connection. Teddy Swims meets Daniel Caesar. Heartfelt, soulful, and effortlessly emotional.</p>
-                <p class="genre">R&B / Soul</p>
-                <a href="artist-ben-james.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- MACH-6 - Image Left -->
-        <div class="artist-section">
-            <div class="artist-image">
-                <img src="assets/images/mach6-terminal-velocity-cover.jpg" alt="MACH-6">
+            <!-- Ben James -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/ben-james-hey-gurl-cover.jpg" alt="Ben James">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Ben James</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">1 Album</span>
+                        <span class="genre">R&B / Soul</span>
+                    </div>
+                    <p class="artist-bio-snippet">Virginia-born R&B singer with a voice that can break your heart and put it back together in the same breath. Smooth vocals, lush production, and songs about love, longing, vulnerability, and connection.</p>
+                    <a href="artist-ben-james.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>MACH-6</h2>
-                <p class="album-count">1 Album</p>
-                <p class="description">An enigma. No one knows their real name, age, or face. What we do know: they rap faster than anyone alive. Machine-gun syllables over bone-crushing bass and aggressive EDM production. Tech N9ne meets Skrillex. Technical rap mastery meets futuristic electronic soundscapes.</p>
-                <p class="genre">EDM Rap / Chopper Rap</p>
-                <a href="artist-mach6.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- BLACKRIDGE - Image Right -->
-        <div class="artist-section reverse">
-            <div class="artist-image">
-                <img src="assets/images/blackridge-iron-gospel-cover.jpg" alt="BLACKRIDGE">
+            <!-- MACH-6 -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/mach6-terminal-velocity-cover.jpg" alt="MACH-6">
+                </div>
+                <div class="artist-card-content">
+                    <h2>MACH-6</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">1 Album</span>
+                        <span class="genre">EDM Rap / Chopper Rap</span>
+                    </div>
+                    <p class="artist-bio-snippet">An enigma. No one knows their real name, age, or face. What we do know: they rap faster than anyone alive. Machine-gun syllables over bone-crushing bass and aggressive EDM production.</p>
+                    <a href="artist-mach6.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>BLACKRIDGE</h2>
-                <p class="album-count">1 Single</p>
-                <p class="description">Four-piece heavy rock band from coal country in Southwest Virginia. Blue-collar metal with Appalachian roots. Black Stone Cherry meets Alice in Chains. Heavy riffs, growling vocals, and lyrics about hard work, hard times, and refusing to back down. Raw, powerful, and unapologetically Appalachian.</p>
-                <p class="genre">Heavy Rock / Southern Metal</p>
-                <a href="artist-blackridge.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- VOIDRUNNER - Image Left -->
-        <div class="artist-section">
-            <div class="artist-image">
-                <img src="assets/images/voidrunner-no-brakes-cover.jpg" alt="VOIDRUNNER">
+            <!-- BLACKRIDGE -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/blackridge-iron-gospel-cover.jpg" alt="BLACKRIDGE">
+                </div>
+                <div class="artist-card-content">
+                    <h2>BLACKRIDGE</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">1 Single</span>
+                        <span class="genre">Heavy Rock / Southern Metal</span>
+                    </div>
+                    <p class="artist-bio-snippet">Four-piece heavy rock band from coal country in Southwest Virginia. Blue-collar metal with Appalachian roots. Black Stone Cherry meets Alice in Chains. Heavy riffs, growling vocals, and lyrics about hard work.</p>
+                    <a href="artist-blackridge.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>VOIDRUNNER</h2>
-                <p class="album-count">1 Album</p>
-                <p class="description">Born from the blackout. Built for the redline. VOIDRUNNER is pure adrenaline in audio form , aggressive EDM, hardstyle kicks, trap bass, and vocals that hit like a freight train. No face, no name, just BPM. "No Brakes" is a 12-track assault designed for the runners, the fighters, and anyone who refuses to slow down.</p>
-                <p class="genre">Aggressive EDM / Hardstyle / Trap Bass</p>
-                <a href="artist-voidrunner.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- Tyler Hayes & Jake Morrison - Image Right -->
-        <div class="artist-section reverse">
-            <div class="artist-image">
-                <img src="assets/images/tyler-jake-aged-perfection-cover.png" alt="Tyler Hayes & Jake Morrison">
+            <!-- VOIDRUNNER -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/voidrunner-no-brakes-cover.jpg" alt="VOIDRUNNER">
+                </div>
+                <div class="artist-card-content">
+                    <h2>VOIDRUNNER</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">1 Album</span>
+                        <span class="genre">Aggressive EDM / Hardstyle</span>
+                    </div>
+                    <p class="artist-bio-snippet">Born from the blackout. Built for the redline. VOIDRUNNER is pure adrenaline in audio form, aggressive EDM, hardstyle kicks, trap bass, and vocals that hit like a freight train. No face, no name, just BPM.</p>
+                    <a href="artist-voidrunner.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>Tyler Hayes & Jake Morrison</h2>
-                <p class="album-count">3 Albums</p>
-                <p class="description">Best friends from Charlottesville, Virginia. Both 42, married with kids. Started writing songs at a brewery after their softball league got rained out. Three albums from comedy country ("Aged to Perfection" - party country for people who can't party like they used to) to spring celebration ("First Warm Weekend" - Virginia's first warm day traditions) to summer party anthems ("Backyard Sessions" - legendary BBQs and cornhole championships). Dan + Shay harmonies meet real life friendship.</p>
-                <p class="genre">Modern Country / Comedy Country</p>
-                <a href="artist-tyler-jake.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- Sunday Supply - Image Left -->
-        <div class="artist-section">
-            <div class="artist-image">
-                <img src="assets/images/sunday-supply-key-west-to-crozet.png" alt="Sunday Supply">
+            <!-- Tyler Hayes & Jake Morrison -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/tyler-jake-aged-perfection-cover.png" alt="Tyler Hayes & Jake Morrison">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Tyler Hayes & Jake Morrison</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">3 Albums</span>
+                        <span class="genre">Modern Country / Comedy Country</span>
+                    </div>
+                    <p class="artist-bio-snippet">Best friends from Charlottesville, Virginia. Both 42, married with kids. Started writing songs at a brewery after their softball league got rained out. Dan + Shay harmonies meet real life friendship.</p>
+                    <a href="artist-tyler-jake.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>Sunday Supply</h2>
-                <p class="album-count">2 Albums</p>
-                <p class="description">Five-piece Americana/Southern rock band from Crozet, Virginia. Built around high school sweethearts who never stopped making music together. Their sound channels Zac Brown Band energy meets Jason Isbell storytelling with yacht rock smoothness. From mountain sunsets ("Key West to Crozet") to ocean horizons ("Coastal"), they create upbeat anthems with emotional weight and authentic storytelling.</p>
-                <p class="genre">Americana / Southern Rock / Party Country</p>
-                <a href="artist-sunday-supply.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- HARLOW - Image Right -->
-        <div class="artist-section reverse">
-            <div class="artist-image">
-                <img src="assets/images/harlow-wildfire-season-cover.png" alt="HARLOW">
+            <!-- Sunday Supply -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/sunday-supply-key-west-to-crozet.png" alt="Sunday Supply">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Sunday Supply</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">2 Albums</span>
+                        <span class="genre">Americana / Southern Rock</span>
+                    </div>
+                    <p class="artist-bio-snippet">Five-piece Americana/Southern rock band from Crozet, Virginia. Built around high school sweethearts who never stopped making music together. Their sound channels Zac Brown Band energy meets Jason Isbell storytelling.</p>
+                    <a href="artist-sunday-supply.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>HARLOW</h2>
-                <p class="album-count">1 Album</p>
-                <p class="description">Raw power meets vulnerability. Dark alternative pop artist with Bishop Briggs-inspired raspy vocals and gospel-influenced soul. Her debut "Wildfire Season" is a 10-track journey of transformation through fire, burning down what doesn't serve you and rising from the ashes stronger. Minimalist percussion-driven production, heavy sub-bass, atmospheric synths, and a voice that unleashes its full power. No polish, no pretense, just raw emotion and defiant empowerment.</p>
-                <p class="genre">Dark Alternative Pop / Electropop / Industrial Pop</p>
-                <a href="artist-harlow.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- Cassidy James - Image Left -->
-        <div class="artist-section">
-            <div class="artist-image">
-                <img src="assets/images/cassidy-james-lc-2026.png" alt="Cassidy James">
+            <!-- HARLOW -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/harlow-wildfire-season-cover.png" alt="HARLOW">
+                </div>
+                <div class="artist-card-content">
+                    <h2>HARLOW</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">1 Album</span>
+                        <span class="genre">Dark Alternative Pop</span>
+                    </div>
+                    <p class="artist-bio-snippet">Raw power meets vulnerability. Dark alternative pop artist with Bishop Briggs-inspired raspy vocals and gospel-influenced soul. Her debut "Wildfire Season" is a 10-track journey of transformation through fire.</p>
+                    <a href="artist-harlow.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-bio">
-                <h2>Cassidy James</h2>
-                <p class="album-count">2 Albums</p>
-                <p class="description">The queen of innuendo-driven pop maximalism. Cassidy James weaponizes hotel and travel metaphors into catchy, suggestive anthems that never cross into explicit territory, letting your imagination do all the work. Debut album "Late Checkout" features 12 tracks of clever wordplay over 70s disco funk revival production: vintage Moog synths, funky slap bass, live strings, punchy horns. Vocally ranges from breathy intimate verses to explosive belted choruses. Self-aware, funny, confident energy channeling contemporary pop's playful sexuality. Room service becomes foreplay, minibar tabs measure commitment, do not disturb signs declare intent. The soundtrack to your next extended hotel stay.</p>
-                <p class="genre">Pop / Disco Funk Pop / 70s Revival</p>
-                <a href="artist-cassidy-james.html" class="artist-link">View Artist Page</a>
-            </div>
-        </div>
 
-        <!-- Violet Reign - Image Right -->
-        <div class="artist-section reverse">
-            <div class="artist-bio">
-                <h2>Violet Reign</h2>
-                <p class="album-count">1 Album</p>
-                <p class="description">Sophisticated chaos personified. A powerful neo-soul voice that embodies contradictions, maximalist yet refined, rebellious yet elegant, powerful yet vulnerable. Debut album "Sophisticated Chaos" blends Prince's genre-bending maximalism, Anita Baker's sophisticated restraint, Beyoncé's commanding power, and Tupac's revolutionary consciousness. Live funk bass, warm Rhodes piano, soaring strings, punchy horns meet hip-hop drums. Vocals range from smooth sung verses to powerful belts to confident rap flows to intimate spoken word. Mature empowerment, elegant rebellion, social consciousness, and Black excellence wrapped in sophisticated production.</p>
-                <p class="genre">Neo-Soul / Funk-Soul-Rap Fusion / Conscious R&B</p>
-                <a href="artist-violet-reign.html" class="artist-link">View Artist Page</a>
+            <!-- Cassidy James -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/cassidy-james-lc-2026.png" alt="Cassidy James">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Cassidy James</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">2 Albums</span>
+                        <span class="genre">Pop / Disco Funk Pop</span>
+                    </div>
+                    <p class="artist-bio-snippet">The queen of innuendo-driven pop maximalism. Cassidy James weaponizes hotel and travel metaphors into catchy, suggestive anthems. Room service becomes foreplay, minibar tabs measure commitment.</p>
+                    <a href="artist-cassidy-james.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-image">
-                <img src="assets/images/violet-reign-sophisticated-chaos.png" alt="Violet Reign">
-            </div>
-        </div>
 
-        <!-- The Holler Sound - Image Right -->
-        <div class="artist-section reverse">
-            <div class="artist-bio">
-                <h2>The Holler Sound</h2>
-                <p class="album-count">1 Album</p>
-                <p class="description">Mountain dub pioneers proving Blue Ridge and Blue Mountains speak the same language. Brother Marcus (vocals/guitar) and Lena Mae (vocals/fiddle) lead authentic fusion of Jamaican roots reggae and Appalachian music. Debut album "Roots & Ridges" features banjo playing reggae skank, fiddle replacing brass section, mountain harmonies over dub bass, one-drop rhythm anchoring front porch melodies. Organic instruments only, banjo, fiddle, acoustic guitar, mandolin, deep dub bass, reggae drums. Conscious lyrics celebrating what mountain people and island people share: survival, resilience, music as medicine. Bob Marley meets bluegrass. Jah bless the holler.</p>
-                <p class="genre">Reggae Fusion / Appalachian Roots / Mountain Dub</p>
-                <a href="artist-the-holler-sound.html" class="artist-link">View Artist Page</a>
+            <!-- Violet Reign -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/violet-reign-sophisticated-chaos.png" alt="Violet Reign">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Violet Reign</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">1 Album</span>
+                        <span class="genre">Neo-Soul / Funk-Soul-Rap</span>
+                    </div>
+                    <p class="artist-bio-snippet">Sophisticated chaos personified. A powerful neo-soul voice that embodies contradictions, maximalist yet refined, rebellious yet elegant, powerful yet vulnerable. Prince meets Anita Baker meets Beyonce meets Tupac.</p>
+                    <a href="artist-violet-reign.html" class="artist-link">View Albums</a>
+                </div>
             </div>
-            <div class="artist-image">
-                <img src="assets/images/the-holler-sound-roots-ridges.png" alt="The Holler Sound">
+
+            <!-- The Holler Sound -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/the-holler-sound-roots-ridges.png" alt="The Holler Sound">
+                </div>
+                <div class="artist-card-content">
+                    <h2>The Holler Sound</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">1 Album</span>
+                        <span class="genre">Reggae Fusion / Mountain Dub</span>
+                    </div>
+                    <p class="artist-bio-snippet">Mountain dub pioneers proving Blue Ridge and Blue Mountains speak the same language. Brother Marcus and Lena Mae lead authentic fusion of Jamaican roots reggae and Appalachian music. Bob Marley meets bluegrass.</p>
+                    <a href="artist-the-holler-sound.html" class="artist-link">View Albums</a>
+                </div>
             </div>
+
+            <!-- Scarlett Reid - NEW -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/scarlett-reid-fade-to-black-cover.jpg" alt="Scarlett Reid">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Scarlett Reid</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">0 Albums</span>
+                        <span class="genre">Cinematic Soul</span>
+                    </div>
+                    <p class="artist-bio-snippet">Richmond VA powerhouse vocalist. Old Hollywood glamour meets modern heartbreak. Think Adele's emotional depth with a vintage aesthetic and cinematic production.</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </div>
+            </div>
+
+            <!-- Winter Sage - NEW -->
+            <div class="artist-card">
+                <div class="artist-card-image">
+                    <img src="assets/images/winter-sage-thaw-cover.jpg" alt="Winter Sage">
+                </div>
+                <div class="artist-card-content">
+                    <h2>Winter Sage</h2>
+                    <div class="artist-card-meta">
+                        <span class="album-count">0 Albums</span>
+                        <span class="genre">Indie Folk</span>
+                    </div>
+                    <p class="artist-bio-snippet">Shenandoah Valley artist. Raw vulnerability and Appalachian roots. Stripped-down acoustic folk with haunting vocals and honest storytelling from the mountains.</p>
+                    <span class="coming-soon">Coming Soon</span>
+                </div>
+            </div>
+
         </div>
     </div>
 
