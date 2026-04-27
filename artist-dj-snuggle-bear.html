@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Snuggle Bear | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('assets/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav:hover {
+            opacity: 1;
+        }
+
+        .top-nav a {
+            color: #d4a574;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.7;
+        }
+
+        .artist-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem 2rem;
+            max-width: 100%;
+        }
+
+        .artist-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1rem 2rem 2rem 2rem;
+            max-width: 100%;
+            align-items: start;
+        }
+
+        .artist-bio {
+            column-count: 1;
+            margin: 0;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .artist-bio h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-bio p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .artist-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .album-carousel {
+            padding: 0.5rem 2rem 2rem 2rem;
+            max-width: 100%;
+        }
+
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            height: 320px;
+        }
+
+        .carousel-button {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        .carousel-button:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: scale(1.1);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            position: relative;
+            height: 100%;
+        }
+
+        .album-cover-item {
+            flex: 0 0 300px;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0.4;
+            transform: scale(0.85);
+            height: 300px;
+        }
+
+        .album-cover-item.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 5;
+        }
+
+        .album-cover-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .tracklist-container {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-tracklist {
+            display: none;
+        }
+
+        .album-tracklist.active {
+            display: block;
+        }
+
+        .album-tracklist h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .compact-tracklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .compact-track {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 6px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .compact-track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .compact-track-number {
+            color: rgba(212, 165, 116, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+            width: 2rem;
+            text-align: center;
+        }
+
+        .compact-track-title {
+            color: #e0e0e0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .compact-track-play {
+            background: rgba(212, 165, 116, 0.2);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .compact-track-play:hover {
+            background: rgba(212, 165, 116, 0.3);
+            transform: scale(1.05);
+        }
+
+        .inline-player {
+            grid-column: 1 / -1;
+            margin-top: 0.5rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .inline-player audio {
+            width: 100%;
+        }
+
+        .description-container {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-description-block {
+            display: none;
+        }
+
+        .album-description-block.active {
+            display: block;
+        }
+
+        .album-description-block h3 {
+            margin: 0 0 0.5rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .album-description-block .album-info {
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .album-description-block p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+            font-size: 0.85rem;
+        }
+
+        .site-footer .tagline {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d4a574;
+            margin: 0 0 0.5rem 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .site-footer p {
+            margin: 0.25rem 0;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="artists.html">Artists</a>
+    </nav>
+
+    <div class="artist-header">
+        <h1 class="artist-name">DJ Snuggle Bear</h1>
+        <p class="artist-tagline">Children's Music • Sing-Along Songs • For Boys and Girls of All Ages</p>
+    </div>
+
+    <!-- Album Carousel -->
+    <div class="album-carousel">
+        <div class="carousel-container">
+            <button class="carousel-button prev" onclick="prevAlbum()">‹</button>
+            <div class="carousel-track">
+                <div class="album-cover-item active" data-album="snuggle-bear-sings-for-chris" data-index="0">
+                    <img src="assets/images/albums/dj-snuggle-bear-sings-for-chris.png" alt="Snuggle Bear Sings for Chris!">
+                </div>
+            </div>
+            <button class="carousel-button next" onclick="nextAlbum()">›</button>
+        </div>
+    </div>
+
+    <!-- Three Column Layout -->
+    <div class="content-grid">
+        <!-- Left Column: Artist Bio -->
+        <div class="artist-bio">
+            <h3>About DJ Snuggle Bear</h3>
+            <p>DJ Snuggle Bear is a beloved children's entertainer, friend to boys and girls everywhere, and a very, very good bear. He has been making sing-along songs for as long as anyone can remember, and possibly for longer than that.</p>
+            <p>His music features ukuleles, glockenspiels, kazoos, hand claps, and a chorus of cheerful little voices. Every song is designed to be easy to remember and almost impossible to forget. Snuggle Bear sings about counting birdies, brushing your teeth, the friendly Mr. Sun, and the importance of locking your windows at night.</p>
+            <p>Critics have called Snuggle Bear's music "deeply memorable," "stuck in my head for three days," and "please make it stop." Children love him. Parents are confused by him. He doesn't care either way, because Snuggle Bear is here for the boys and girls.</p>
+            <p>Snuggle Bear is always watching, always smiling, and always happy to make a new friend. Are you a new friend?</p>
+        </div>
+
+        <!-- Middle Column: Tracklists -->
+        <div class="tracklist-container">
+            <!-- Snuggle Bear Sings for Chris Tracklist -->
+            <div id="snuggle-bear-sings-for-chris-tracklist" class="album-tracklist active">
+                <h3>Tracklist</h3>
+                <div class="compact-tracklist">
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/01 - DJ Snuggle Bear - Hi Hi Hi (It's Snuggle Bear).mp3">
+                        <span class="compact-track-number">01</span>
+                        <span class="compact-track-title">Hi Hi Hi! (It's Snuggle Bear!)</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/02 - DJ Snuggle Bear - The Chris Song.mp3">
+                        <span class="compact-track-number">02</span>
+                        <span class="compact-track-title">The Chris Song</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/03 - DJ Snuggle Bear - My Friend in the Wall.mp3">
+                        <span class="compact-track-number">03</span>
+                        <span class="compact-track-title">My Friend in the Wall</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/04 - DJ Snuggle Bear - Count the Birdies.mp3">
+                        <span class="compact-track-number">04</span>
+                        <span class="compact-track-title">Count the Birdies</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/05 - DJ Snuggle Bear - Brushy Brush.mp3">
+                        <span class="compact-track-number">05</span>
+                        <span class="compact-track-title">Brushy Brush (Doesn't Matter Anyway)</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/06 - DJ Snuggle Bear - Mr Sun Says Hello.mp3">
+                        <span class="compact-track-number">06</span>
+                        <span class="compact-track-title">Mr. Sun Says Hello</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/07 - DJ Snuggle Bear - Yummy in My Tummy.mp3">
+                        <span class="compact-track-number">07</span>
+                        <span class="compact-track-title">Yummy in My Tummy</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/08 - DJ Snuggle Bear - The Animal Parade.mp3">
+                        <span class="compact-track-number">08</span>
+                        <span class="compact-track-title">The Animal Parade (Goodbye!)</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/09 - DJ Snuggle Bear - Don't Look Behind You Christopher.mp3">
+                        <span class="compact-track-number">09</span>
+                        <span class="compact-track-title">Don't Look Behind You, Christopher</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="dj-snuggle-bear-sings-for-chris/10 - DJ Snuggle Bear - Goodnight Christopher.mp3">
+                        <span class="compact-track-number">10</span>
+                        <span class="compact-track-title">Goodnight Christopher (Sleep Tight)</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Album Descriptions -->
+        <div class="description-container">
+            <!-- Snuggle Bear Sings for Chris Description -->
+            <div id="snuggle-bear-sings-for-chris-description" class="album-description-block active">
+                <h3>Snuggle Bear Sings for Chris! (2026)</h3>
+                <p class="album-info">Children's Music / Sing-Along • 10 Tracks • Dedicated to Chris</p>
+                <p>DJ Snuggle Bear's debut album is a sing-along celebration made just for one very special boy: Chris. Across ten ridiculously catchy tracks, Snuggle Bear teaches Chris about counting, hygiene, healthy snacks, friendly animals, and the importance of locking your windows.</p>
+                <p>The music is pure preschool sunshine: bouncy ukuleles, sparkly glockenspiels, hand claps, kazoos, and a cheerful chorus of little voices. Every song is engineered to be impossible to forget, with hooks that will live rent-free in Chris's head until the end of time.</p>
+                <p>Highlights include the joyful greeting song "Hi Hi Hi!", the heartwarming personalized "The Chris Song," the bedtime favorite "My Friend in the Wall," and the tender closing lullaby "Goodnight Christopher" where Snuggle Bear reminds Chris that he is always there. Always.</p>
+                <p>This is the perfect album for car rides, bath time, and lying awake at three in the morning wondering if you locked the windows. A gift of love. A gift you can never give back.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p class="tagline">The porch light's always on.</p>
+        <p>Independent music from Virginia</p>
+        <p>&copy; 2026 64 West Records • Producer: HRTLSS • Songwriter: Ben Hartless</p>
+        <p>Distributed by DistroKid • Music generated with Suno AI</p>
+    </footer>
+
+    <script>
+        let currentAlbumIndex = 0;
+        const albums = document.querySelectorAll('.album-cover-item');
+        const totalAlbums = albums.length;
+
+        function updateCarousel() {
+            albums.forEach((album, index) => {
+                album.classList.remove('active');
+                if (index === currentAlbumIndex) {
+                    album.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('.album-tracklist').forEach((tracklist, index) => {
+                tracklist.classList.remove('active');
+                if (index === currentAlbumIndex) {
+                    tracklist.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('.album-description-block').forEach((description, index) => {
+                description.classList.remove('active');
+                if (index === currentAlbumIndex) {
+                    description.classList.add('active');
+                }
+            });
+        }
+
+        function prevAlbum() {
+            currentAlbumIndex = (currentAlbumIndex - 1 + totalAlbums) % totalAlbums;
+            updateCarousel();
+        }
+
+        function nextAlbum() {
+            currentAlbumIndex = (currentAlbumIndex + 1) % totalAlbums;
+            updateCarousel();
+        }
+
+        albums.forEach((album, index) => {
+            album.addEventListener('click', () => {
+                currentAlbumIndex = index;
+                updateCarousel();
+            });
+        });
+
+        document.querySelectorAll('.compact-track').forEach(track => {
+            track.addEventListener('click', function(e) {
+                if (e.target.classList.contains('compact-track-play')) {
+                    e.stopPropagation();
+                    const trackElement = this;
+                    const filename = this.getAttribute('data-track');
+
+                    document.querySelectorAll('.inline-player').forEach(player => player.remove());
+
+                    const playerDiv = document.createElement('div');
+                    playerDiv.className = 'inline-player';
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.autoplay = true;
+                    audio.src = `assets/audio/${filename}`;
+                    playerDiv.appendChild(audio);
+
+                    trackElement.parentNode.insertBefore(playerDiv, trackElement.nextSibling);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
