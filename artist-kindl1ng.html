@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDL1NG | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('assets/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav:hover {
+            opacity: 1;
+        }
+
+        .top-nav a {
+            color: #d4a574;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.7;
+        }
+
+        .artist-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem 2rem;
+            max-width: 100%;
+        }
+
+        .artist-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+            letter-spacing: 0.05em;
+        }
+
+        .artist-tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .artist-bio {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .artist-bio h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-bio p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .albums-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .album-block {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .album-cover {
+            width: 280px;
+            height: 280px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+        }
+
+        .album-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .album-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .album-meta {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .album-description {
+            line-height: 1.8;
+        }
+
+        .listen-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: rgba(212, 165, 116, 0.2);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+            align-self: flex-start;
+        }
+
+        .listen-button:hover {
+            background: rgba(212, 165, 116, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .coming-soon-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(212, 165, 116, 0.08);
+            border: 1px solid rgba(212, 165, 116, 0.15);
+            color: rgba(212, 165, 116, 0.7);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-style: italic;
+            align-self: flex-start;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .album-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .album-cover {
+                margin: 0 auto;
+            }
+
+            .artist-name {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="artists.html">Artists</a>
+        <a href="about.html">About</a>
+    </div>
+
+    <div class="artist-header">
+        <h1 class="artist-name">KINDL1NG</h1>
+        <p class="artist-tagline">Collaborative Folk-Electronic • A 64 West Records Project</p>
+    </div>
+
+    <div class="content-grid">
+        <div class="artist-bio">
+            <h3>About</h3>
+            <p>KINDL1NG is the collaborative folk-electronic project of 64 West Records. Each album gathers the label's roster around a unifying theme, trading verses across genres and pairing established artists with new debuts. Folk and electronic, intimate and atmospheric, songs that belong on a porch and songs that belong in a warehouse.</p>
+            <p>The —light series began with Porchlight, expanded with Hearthlight, and now steps out into the city with Streetlight. Three albums, one growing collective, the same light shifting through different windows.</p>
+            <p>KINDL1NG features rotating lineups including Vexra, Elena Voss, Sunday Supply, Tyler Hayes & Jake Morrison, Jessie Mae Thornton, HARLOW, Cassidy James, and new male voices Atlas Reign, August Pine, and Cole Hartwell making their label debut on Streetlight.</p>
+        </div>
+
+        <div class="albums-section">
+            <div class="album-block">
+                <div class="album-content">
+                    <img src="assets/images/albums/kindl1ng-streetlight-cover.png" alt="Streetlight" class="album-cover">
+                    <div class="album-info">
+                        <h2 class="album-title">Streetlight</h2>
+                        <p class="album-meta">Collaborative Folk-Electronic • Urban Indie • 2026 • 12 Tracks</p>
+                        <p class="album-description">STREETLIGHT is the third KINDL1NG album, and the first to leave the porch. Where Porchlight and Hearthlight gathered around warm interior light, Streetlight follows the night out into the city. Twelve collaborative tracks across the 64 West roster, joined by three new male voices making their label debut: Atlas Reign, August Pine, and Cole Hartwell.</p>
+                        <p class="album-description">From Vexra and Atlas Reign trading verses on a rain-slicked crosswalk in "Wet Pavement" to Tyler Hayes & Jake Morrison harmonizing through forty miles of empty highway on "Dashboard Glow," from Elena Voss and August Pine listening to each other through apartment plaster in "Across the Hall" to Sunday Supply walking home into the sunrise on "Walking Home," every track is a different angle on the same warm yellow light. Folk-electronic at its core, but the lamp is the city now.</p>
+                        <a href="listen-kindl1ng-streetlight.html" class="listen-button">Listen to Album →</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="album-block">
+                <div class="album-content">
+                    <img src="assets/images/kindling-hearthlight-cover.png" alt="Hearthlight" class="album-cover">
+                    <div class="album-info">
+                        <h2 class="album-title">Hearthlight</h2>
+                        <p class="album-meta">Collaborative Folk-Electronic • 2026 • 12 Tracks</p>
+                        <p class="album-description">The second KINDL1NG album, gathered around the fire. Hearthlight turns inward where Porchlight looked outward, finding the songs that belong by the wood stove on a winter evening. Lush harmonies, warm instrumentation, and the particular intimacy of music made for company.</p>
+                        <span class="coming-soon-tag">Streaming page coming soon</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="album-block">
+                <div class="album-content">
+                    <img src="assets/images/kindling-porchlight-cover.png" alt="Porchlight" class="album-cover">
+                    <div class="album-info">
+                        <h2 class="album-title">Porchlight</h2>
+                        <p class="album-meta">Collaborative Folk-Electronic • 2026 • 12 Tracks</p>
+                        <p class="album-description">The KINDL1NG project's debut. Porchlight is the welcome album, the front-step gathering, the songs that travel across the yard on a summer evening. The first time the 64 West roster came together as a collective, trading verses on a porch instead of trading singles in the studio.</p>
+                        <span class="coming-soon-tag">Streaming page coming soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
