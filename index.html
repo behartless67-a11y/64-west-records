@@ -1144,17 +1144,34 @@
             const genreFilter = document.getElementById('genreFilter');
             const items = document.querySelectorAll('.gallery-item');
 
+            // Map any specific genre meta text to one of ~9 broader buckets.
+            // Order matters — first match wins, so most-specific markers go first.
+            function getGenreBucket(metaText) {
+                const t = metaText.toLowerCase();
+                if (t.includes('children') || t.includes('kids')) return "Children's";
+                if (t.includes('latin') || t.includes('reggaeton') || t.includes('bilingual') || t.includes('telenovela')) return "Latin";
+                if (t.includes('hip-hop') || t.includes('boom-bap') || t.includes('rap')) return "Hip-Hop";
+                if (t.includes('folk-electronic') || t.includes('edm') || t.includes('bass') || t.includes('synthwave') || t.includes('cyberpunk') || t.includes('techno') || t.includes('electronic') || t.includes('dnb') || t.includes('drum and bass') || t.includes('dubstep') || t.includes('hyperpop') || t.includes('industrial') || t.includes('club')) return "Electronic / EDM";
+                if (t.includes('country') || t.includes('americana') || t.includes('bluegrass')) return "Country / Americana";
+                if (t.includes('metal')) return "Metal";
+                if (t.includes('rock')) return "Rock";
+                if (t.includes('soul') || t.includes('r&b') || t.includes('gospel')) return "Soul / R&B";
+                if (t.includes('indie') || t.includes('folk')) return "Indie / Folk";
+                if (t.includes('pop')) return "Pop";
+                return "Other";
+            }
+
             const artistCounts = {};
             const genreCounts = {};
 
-            // Read each gallery item's artist + genre, tag the element with data attrs
+            // Read each gallery item's artist + genre bucket, tag the element with data attrs
             items.forEach(item => {
                 const artistEl = item.querySelector('.gallery-artist');
                 const metaEl = item.querySelector('.gallery-meta');
                 const artist = artistEl ? artistEl.textContent.trim() : '';
                 const metaText = metaEl ? metaEl.textContent.trim() : '';
-                // Take everything before the bullet as the genre tag
-                const genre = metaText.split('•')[0].trim();
+                const rawGenre = metaText.split('•')[0].trim();
+                const genre = getGenreBucket(rawGenre);
 
                 item.dataset.artist = artist;
                 item.dataset.genre = genre;
@@ -1171,11 +1188,11 @@
                 artistFilter.appendChild(opt);
             });
 
-            // Populate genre dropdown alphabetically
+            // Populate genre dropdown alphabetically with counts
             Object.keys(genreCounts).sort((a, b) => a.localeCompare(b)).forEach(genre => {
                 const opt = document.createElement('option');
                 opt.value = genre;
-                opt.textContent = genre;
+                opt.textContent = genre + ' (' + genreCounts[genre] + ')';
                 genreFilter.appendChild(opt);
             });
 
