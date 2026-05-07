@@ -171,13 +171,94 @@
         .gallery-grid {
             padding-top: 2rem;
         }
+
+        /* Inline nav filter dropdowns */
+        .top-nav {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-filter-side {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .filter-select {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 165, 116, 0.25);
+            color: #d4a574;
+            padding: 0.35rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: border-color 0.3s, background 0.3s;
+            min-width: 160px;
+        }
+
+        .filter-select:hover,
+        .filter-select:focus {
+            border-color: rgba(212, 165, 116, 0.6);
+            background: rgba(0, 0, 0, 0.7);
+            outline: none;
+        }
+
+        .filter-select option {
+            background: #1a1a1a;
+            color: #d4a574;
+        }
+
+        /* Hide filtered-out items */
+        .gallery-item.hidden-by-filter {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center !important;
+            }
+
+            .nav-filter-side {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .filter-select {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="top-nav">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="artists.html">Artists</a>
+        <div class="nav-filter-side">
+            <select class="filter-select" id="artistFilter" aria-label="Filter by artist">
+                <option value="">All Artists</option>
+            </select>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="artists.html">Bios</a>
+        </div>
+        <div class="nav-filter-side">
+            <select class="filter-select" id="genreFilter" aria-label="Filter by genre">
+                <option value="">All Genres</option>
+            </select>
+        </div>
     </nav>
 
     <!-- Minimal Header -->
@@ -1055,5 +1136,62 @@
     </script>
 
     <script src="assets/js/global-player.js"></script>
+
+    <!-- Gallery filter logic -->
+    <script>
+        (function() {
+            const artistFilter = document.getElementById('artistFilter');
+            const genreFilter = document.getElementById('genreFilter');
+            const items = document.querySelectorAll('.gallery-item');
+
+            const artistCounts = {};
+            const genreCounts = {};
+
+            // Read each gallery item's artist + genre, tag the element with data attrs
+            items.forEach(item => {
+                const artistEl = item.querySelector('.gallery-artist');
+                const metaEl = item.querySelector('.gallery-meta');
+                const artist = artistEl ? artistEl.textContent.trim() : '';
+                const metaText = metaEl ? metaEl.textContent.trim() : '';
+                // Take everything before the bullet as the genre tag
+                const genre = metaText.split('•')[0].trim();
+
+                item.dataset.artist = artist;
+                item.dataset.genre = genre;
+
+                if (artist) artistCounts[artist] = (artistCounts[artist] || 0) + 1;
+                if (genre) genreCounts[genre] = (genreCounts[genre] || 0) + 1;
+            });
+
+            // Populate artist dropdown alphabetically with album counts
+            Object.keys(artistCounts).sort((a, b) => a.localeCompare(b)).forEach(artist => {
+                const opt = document.createElement('option');
+                opt.value = artist;
+                opt.textContent = artist + ' (' + artistCounts[artist] + ')';
+                artistFilter.appendChild(opt);
+            });
+
+            // Populate genre dropdown alphabetically
+            Object.keys(genreCounts).sort((a, b) => a.localeCompare(b)).forEach(genre => {
+                const opt = document.createElement('option');
+                opt.value = genre;
+                opt.textContent = genre;
+                genreFilter.appendChild(opt);
+            });
+
+            function applyFilter() {
+                const selectedArtist = artistFilter.value;
+                const selectedGenre = genreFilter.value;
+                items.forEach(item => {
+                    const matchesArtist = !selectedArtist || item.dataset.artist === selectedArtist;
+                    const matchesGenre = !selectedGenre || item.dataset.genre === selectedGenre;
+                    item.classList.toggle('hidden-by-filter', !(matchesArtist && matchesGenre));
+                });
+            }
+
+            artistFilter.addEventListener('change', applyFilter);
+            genreFilter.addEventListener('change', applyFilter);
+        })();
+    </script>
 </body>
 </html>
