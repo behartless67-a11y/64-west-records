@@ -76,6 +76,18 @@
             gap: 2rem;
         }
 
+        /* Three columns on big screens */
+        @media (min-width: 1400px) {
+            .artists-container {
+                max-width: 1500px;
+            }
+
+            .artists-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.75rem;
+            }
+        }
+
         /* Artist card */
         .artist-card {
             background: rgba(0, 0, 0, 0.6);
