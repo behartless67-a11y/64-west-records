@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDL1NG - Sweet Loud Summer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .player-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-art {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+
+        .album-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .album-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin-bottom: 0.5rem;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-name {
+            font-size: 1.3rem;
+            color: rgba(212, 165, 116, 0.8);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .album-meta {
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.6);
+        }
+
+        .tracklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .track {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track.playing {
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .track-number {
+            color: rgba(212, 165, 116, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            min-width: 0;
+        }
+
+        .track-title {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        .track-feat {
+            color: rgba(212, 165, 116, 0.55);
+            font-size: 0.78rem;
+            font-style: italic;
+        }
+
+        .track-play {
+            background: none;
+            border: none;
+            color: #d4a574;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: transform 0.2s;
+        }
+
+        .track-play:hover {
+            transform: scale(1.2);
+        }
+
+        .main-player {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .main-player audio {
+            width: 100%;
+        }
+
+        .now-playing {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.7);
+        }
+
+        .label-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .label-link a {
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .label-link a:hover {
+            color: #e0c097;
+        }
+
+        @media (max-width: 768px) {
+            .player-container {
+                padding: 1.5rem;
+            }
+
+            .album-title {
+                font-size: 1.5rem;
+            }
+
+            .artist-name {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <img src="assets/images/albums/kindl1ng-sweet-loud-summer-cover.png" alt="Sweet Loud Summer" class="album-art">
+
+        <div class="album-info">
+            <div class="album-title">Sweet Loud Summer</div>
+            <div class="artist-name">KINDL1NG</div>
+            <div class="album-meta">Melodic Bass / Future Bass / Folk-Electronic • 2026 • 16 Tracks</div>
+        </div>
+
+        <div class="main-player" id="mainPlayer" style="display: none;">
+            <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <div class="tracklist">
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/01 - KINDL1NG - First Day Off.mp3" data-title="First Day Off">
+                <span class="track-number">01</span>
+                <div class="track-info">
+                    <span class="track-title">First Day Off</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/02 - KINDL1NG (feat. Vexra) - June Open Roads.mp3" data-title="June Open Roads">
+                <span class="track-number">02</span>
+                <div class="track-info">
+                    <span class="track-title">June Open Roads</span>
+                    <span class="track-feat">feat. Vexra</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/03 - KINDL1NG (feat. HARLOW) - Mainstage Sunrise.mp3" data-title="Mainstage Sunrise">
+                <span class="track-number">03</span>
+                <div class="track-info">
+                    <span class="track-title">Mainstage Sunrise</span>
+                    <span class="track-feat">feat. HARLOW</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/04 - KINDL1NG (feat. Cameron Lake) - Drop the Sun.mp3" data-title="Drop the Sun">
+                <span class="track-number">04</span>
+                <div class="track-info">
+                    <span class="track-title">Drop the Sun</span>
+                    <span class="track-feat">feat. Cameron Lake</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/05 - KINDL1NG (feat. Vexra) - Saturday Headliner.mp3" data-title="Saturday Headliner">
+                <span class="track-number">05</span>
+                <div class="track-info">
+                    <span class="track-title">Saturday Headliner</span>
+                    <span class="track-feat">feat. Vexra</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/06 - KINDL1NG (feat. Mason Reid) - Wristband Tan.mp3" data-title="Wristband Tan">
+                <span class="track-number">06</span>
+                <div class="track-info">
+                    <span class="track-title">Wristband Tan</span>
+                    <span class="track-feat">feat. Mason Reid</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/07 - KINDL1NG (feat. Marigold) - Field of Friends.mp3" data-title="Field of Friends">
+                <span class="track-number">07</span>
+                <div class="track-info">
+                    <span class="track-title">Field of Friends</span>
+                    <span class="track-feat">feat. Marigold</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/08 - KINDL1NG (feat. Cassidy James) - Drive to the Lake.mp3" data-title="Drive to the Lake">
+                <span class="track-number">08</span>
+                <div class="track-info">
+                    <span class="track-title">Drive to the Lake</span>
+                    <span class="track-feat">feat. Cassidy James</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/09 - KINDL1NG (feat. Sunday Supply) - Pontoon at Golden Hour.mp3" data-title="Pontoon at Golden Hour">
+                <span class="track-number">09</span>
+                <div class="track-info">
+                    <span class="track-title">Pontoon at Golden Hour</span>
+                    <span class="track-feat">feat. Sunday Supply</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/10 - KINDL1NG (feat. Eleanor Pine) - Dock Lights.mp3" data-title="Dock Lights">
+                <span class="track-number">10</span>
+                <div class="track-info">
+                    <span class="track-title">Dock Lights</span>
+                    <span class="track-feat">feat. Eleanor Pine</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/11 - KINDL1NG (feat. Tyler Hayes & Jake Morrison) - Cabin in August.mp3" data-title="Cabin in August">
+                <span class="track-number">11</span>
+                <div class="track-info">
+                    <span class="track-title">Cabin in August</span>
+                    <span class="track-feat">feat. Tyler Hayes &amp; Jake Morrison</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/12 - KINDL1NG (feat. Fern Holloway) - Three-County Drive.mp3" data-title="Three-County Drive">
+                <span class="track-number">12</span>
+                <div class="track-info">
+                    <span class="track-title">Three-County Drive</span>
+                    <span class="track-feat">feat. Fern Holloway</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/13 - KINDL1NG (feat. Olive June) - Backyard Stars.mp3" data-title="Backyard Stars">
+                <span class="track-number">13</span>
+                <div class="track-info">
+                    <span class="track-title">Backyard Stars</span>
+                    <span class="track-feat">feat. Olive June</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/14 - KINDL1NG (feat. Jessie Mae Thornton) - Lake Bonfire.mp3" data-title="Lake Bonfire">
+                <span class="track-number">14</span>
+                <div class="track-info">
+                    <span class="track-title">Lake Bonfire</span>
+                    <span class="track-feat">feat. Jessie Mae Thornton</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/15 - KINDL1NG (feat. Atlas Reign) - August Stays Inside.mp3" data-title="August Stays Inside">
+                <span class="track-number">15</span>
+                <div class="track-info">
+                    <span class="track-title">August Stays Inside</span>
+                    <span class="track-feat">feat. Atlas Reign</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-sweet-loud-summer/16 - KINDL1NG - Last Drive Home.mp3" data-title="Last Drive Home">
+                <span class="track-number">16</span>
+                <div class="track-info">
+                    <span class="track-title">Last Drive Home</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+        </div>
+
+        <div class="label-link">
+            <a href="index.html">64 West Records • The porch light's always on.</a>
+        </div>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const mainPlayer = document.getElementById('mainPlayer');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const tracks = document.querySelectorAll('.track');
+
+        tracks.forEach(track => {
+            track.addEventListener('click', function() {
+                const filename = this.getAttribute('data-track');
+                const title = this.getAttribute('data-title');
+                const trackNumber = this.querySelector('.track-number').textContent;
+
+                audioPlayer.src = `assets/audio/${filename}`;
+                audioPlayer.play();
+                mainPlayer.style.display = 'block';
+                nowPlaying.textContent = `Now Playing: ${trackNumber}. ${title}`;
+
+                tracks.forEach(t => t.classList.remove('playing'));
+                this.classList.add('playing');
+
+                mainPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+
+        audioPlayer.addEventListener('ended', function() {
+            const currentTrack = document.querySelector('.track.playing');
+            if (currentTrack) {
+                const currentIndex = Array.from(tracks).indexOf(currentTrack);
+                if (currentIndex >= 0 && currentIndex < tracks.length - 1) {
+                    tracks[currentIndex + 1].click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
