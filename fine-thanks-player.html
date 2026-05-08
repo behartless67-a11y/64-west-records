@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine Thanks - Moderately Inconvenienced</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.25rem;
+            color: #fff;
+        }
+
+        .header h2 {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #999;
+        }
+
+        .tracklist {
+            list-style: none;
+        }
+
+        .track {
+            background: #252525;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: background 0.2s;
+        }
+
+        .track:hover {
+            background: #2a2a2a;
+        }
+
+        .track-button {
+            width: 100%;
+            padding: 1rem;
+            background: none;
+            border: none;
+            color: #e0e0e0;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1rem;
+        }
+
+        .track-number {
+            color: #666;
+            font-size: 0.9rem;
+            min-width: 2rem;
+        }
+
+        .track-title {
+            flex: 1;
+            font-weight: 400;
+        }
+
+        .track-play {
+            color: #999;
+            font-size: 1.2rem;
+            transition: color 0.2s;
+        }
+
+        .track:hover .track-play {
+            color: #fff;
+        }
+
+        .track.playing {
+            background: #2d2d2d;
+            border-left: 3px solid #fff;
+        }
+
+        .track.playing .track-play {
+            color: #fff;
+        }
+
+        .player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #000;
+            padding: 1rem;
+            border-top: 1px solid #333;
+            display: none;
+        }
+
+        .player.active {
+            display: block;
+        }
+
+        .player-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .now-playing {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: #999;
+        }
+
+        .now-playing strong {
+            color: #fff;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .play-pause {
+            background: #fff;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .play-pause:active {
+            transform: scale(0.95);
+        }
+
+        .progress-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #fff;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .time {
+            font-size: 0.8rem;
+            color: #666;
+            min-width: 4rem;
+            text-align: right;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 0.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.25rem;
+            }
+
+            .track-button {
+                padding: 0.75rem;
+            }
+
+            .player {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Fine Thanks</h1>
+            <h2>Moderately Inconvenienced</h2>
+        </div>
+
+        <ul class="tracklist" id="tracklist">
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/01 - Fine Thanks - Out of Office.mp3">
+                <button class="track-button">
+                    <span class="track-number">01</span>
+                    <span class="track-title">Out of Office</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/02 - Fine Thanks - Swipe Left on Everything.mp3">
+                <button class="track-button">
+                    <span class="track-number">02</span>
+                    <span class="track-title">Swipe Left on Everything</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/03 - Fine Thanks - My Flatmate's Boyfriend.mp3">
+                <button class="track-button">
+                    <span class="track-number">03</span>
+                    <span class="track-title">My Flatmate's Boyfriend</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/04 - Fine Thanks - Algorithm.mp3">
+                <button class="track-button">
+                    <span class="track-number">04</span>
+                    <span class="track-title">Algorithm</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/05 - Fine Thanks - Tesco at Midnight.mp3">
+                <button class="track-button">
+                    <span class="track-number">05</span>
+                    <span class="track-title">Tesco at Midnight</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/06 - Fine Thanks - Bad Haircut.mp3">
+                <button class="track-button">
+                    <span class="track-number">06</span>
+                    <span class="track-title">Bad Haircut</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/07 - Fine Thanks - Group Chat Meltdown.mp3">
+                <button class="track-button">
+                    <span class="track-number">07</span>
+                    <span class="track-title">Group Chat Meltdown</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/08 - Fine Thanks - My Mum's on Instagram.mp3">
+                <button class="track-button">
+                    <span class="track-number">08</span>
+                    <span class="track-title">My Mum's on Instagram</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/09 - Fine Thanks - Tube Strike.mp3">
+                <button class="track-button">
+                    <span class="track-number">09</span>
+                    <span class="track-title">Tube Strike</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/10 - Fine Thanks - Adulting Is Bullshit.mp3">
+                <button class="track-button">
+                    <span class="track-number">10</span>
+                    <span class="track-title">Adulting Is Bullshit</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+            <li class="track" data-track="fine-thanks-moderately-inconvenienced/11 - Fine Thanks - I'm Fine.mp3">
+                <button class="track-button">
+                    <span class="track-number">11</span>
+                    <span class="track-title">I'm Fine</span>
+                    <span class="track-play">▶</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="player" id="player">
+        <div class="player-content">
+            <div class="now-playing" id="nowPlaying">
+                Now Playing: <strong id="currentTrack"></strong>
+            </div>
+            <div class="controls">
+                <button class="play-pause" id="playPause">▶</button>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="time" id="time">0:00 / 0:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="audio"></audio>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const player = document.getElementById('player');
+        const playPauseBtn = document.getElementById('playPause');
+        const currentTrackEl = document.getElementById('currentTrack');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const timeEl = document.getElementById('time');
+        const tracks = document.querySelectorAll('.track');
+
+        let currentTrackIndex = -1;
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function playTrack(trackElement, index) {
+            const trackPath = trackElement.dataset.track;
+            const trackTitle = trackElement.querySelector('.track-title').textContent;
+
+            audio.src = `assets/audio/${trackPath}`;
+            audio.play();
+
+            currentTrackIndex = index;
+            currentTrackEl.textContent = trackTitle;
+            player.classList.add('active');
+
+            tracks.forEach(t => t.classList.remove('playing'));
+            trackElement.classList.add('playing');
+
+            updatePlayButton();
+        }
+
+        function updatePlayButton() {
+            playPauseBtn.textContent = audio.paused ? '▶' : '⏸';
+        }
+
+        tracks.forEach((track, index) => {
+            track.querySelector('.track-button').addEventListener('click', () => {
+                if (track.classList.contains('playing') && !audio.paused) {
+                    audio.pause();
+                    updatePlayButton();
+                } else if (track.classList.contains('playing') && audio.paused) {
+                    audio.play();
+                    updatePlayButton();
+                } else {
+                    playTrack(track, index);
+                }
+            });
+        });
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                if (currentTrackIndex === -1) {
+                    playTrack(tracks[0], 0);
+                } else {
+                    audio.play();
+                }
+            } else {
+                audio.pause();
+            }
+            updatePlayButton();
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = `${percent}%`;
+                timeEl.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(tracks[currentTrackIndex + 1], currentTrackIndex + 1);
+            } else {
+                updatePlayButton();
+            }
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = percent * audio.duration;
+        });
+    </script>
+</body>
+</html>
