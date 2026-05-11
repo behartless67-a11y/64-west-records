@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turn Up Syndicate - No Off Switch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .player-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-art {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+
+        .album-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .album-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin-bottom: 0.5rem;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-name {
+            font-size: 1.3rem;
+            color: rgba(212, 165, 116, 0.8);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .album-meta {
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.6);
+        }
+
+        .main-player {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .main-player audio {
+            width: 100%;
+        }
+
+        .now-playing {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.7);
+        }
+
+        .tracklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .track {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track.playing {
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .track-number {
+            color: rgba(212, 165, 116, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            min-width: 0;
+        }
+
+        .track-title {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        .track-feat {
+            color: rgba(212, 165, 116, 0.55);
+            font-size: 0.78rem;
+            font-style: italic;
+        }
+
+        .track-play {
+            background: none;
+            border: none;
+            color: #d4a574;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: transform 0.2s;
+        }
+
+        .track-play:hover {
+            transform: scale(1.2);
+        }
+
+        .label-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .label-link a {
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .label-link a:hover {
+            color: #e0c097;
+        }
+
+        @media (max-width: 768px) {
+            .player-container {
+                padding: 1.5rem;
+            }
+
+            .album-title {
+                font-size: 1.5rem;
+            }
+
+            .artist-name {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <img src="assets/images/albums/turn-up-syndicate-no-off-switch-cover.png" alt="No Off Switch" class="album-art">
+
+        <div class="album-info">
+            <div class="album-title">No Off Switch</div>
+            <div class="artist-name">TURN UP SYNDICATE</div>
+            <div class="album-meta">Crunk / Party Rap • 2026 • 14 Tracks • Explicit</div>
+        </div>
+
+        <div class="main-player" id="mainPlayer">
+            <div class="now-playing" id="nowPlaying">Select a track to play</div>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <div class="tracklist">
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/01 - Turn Up Syndicate - Syndicate Anthem.mp3" data-title="Syndicate Anthem">
+                <span class="track-number">01</span>
+                <div class="track-info">
+                    <span class="track-title">Syndicate Anthem</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/02 - Turn Up Syndicate - Bounce.mp3" data-title="Bounce">
+                <span class="track-number">02</span>
+                <div class="track-info">
+                    <span class="track-title">Bounce</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/03 - Turn Up Syndicate - Get Wild.mp3" data-title="Get Wild">
+                <span class="track-number">03</span>
+                <div class="track-info">
+                    <span class="track-title">Get Wild</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/04 - Turn Up Syndicate - Turn It Up.mp3" data-title="Turn It Up">
+                <span class="track-number">04</span>
+                <div class="track-info">
+                    <span class="track-title">Turn It Up</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/05 - Turn Up Syndicate - All Night.mp3" data-title="All Night">
+                <span class="track-number">05</span>
+                <div class="track-info">
+                    <span class="track-title">All Night</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/06 - Turn Up Syndicate - Shots Shots Shots.mp3" data-title="Shots Shots Shots">
+                <span class="track-number">06</span>
+                <div class="track-info">
+                    <span class="track-title">Shots Shots Shots</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/07 - Turn Up Syndicate - Bass Drop.mp3" data-title="Bass Drop">
+                <span class="track-number">07</span>
+                <div class="track-info">
+                    <span class="track-title">Bass Drop</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/08 - Turn Up Syndicate - Lose Control.mp3" data-title="Lose Control">
+                <span class="track-number">08</span>
+                <div class="track-info">
+                    <span class="track-title">Lose Control</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/09 - Turn Up Syndicate - Go Hard.mp3" data-title="Go Hard">
+                <span class="track-number">09</span>
+                <div class="track-info">
+                    <span class="track-title">Go Hard</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/10 - Turn Up Syndicate - Tear the Roof.mp3" data-title="Tear the Roof">
+                <span class="track-number">10</span>
+                <div class="track-info">
+                    <span class="track-title">Tear the Roof</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/11 - Turn Up Syndicate - Shake It.mp3" data-title="Shake It">
+                <span class="track-number">11</span>
+                <div class="track-info">
+                    <span class="track-title">Shake It</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/12 - Turn Up Syndicate - No Sleep.mp3" data-title="No Sleep">
+                <span class="track-number">12</span>
+                <div class="track-info">
+                    <span class="track-title">No Sleep</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/13 - Turn Up Syndicate - Syndicate Outro.mp3" data-title="Syndicate Outro">
+                <span class="track-number">13</span>
+                <div class="track-info">
+                    <span class="track-title">Syndicate Outro</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="turn-up-syndicate-no-off-switch/14 - MACH-6 feat Turn Up Syndicate - Supersonic.mp3" data-title="Supersonic">
+                <span class="track-number">14</span>
+                <div class="track-info">
+                    <span class="track-title">Supersonic</span>
+                    <span class="track-feat">feat. MACH-6</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+        </div>
+
+        <div class="label-link">
+            <a href="index.html">64 West Records • The porch light's always on.</a>
+        </div>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const mainPlayer = document.getElementById('mainPlayer');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const tracks = document.querySelectorAll('.track');
+
+        tracks.forEach(track => {
+            track.addEventListener('click', function() {
+                const filename = this.getAttribute('data-track');
+                const title = this.getAttribute('data-title');
+                const trackNumber = this.querySelector('.track-number').textContent;
+
+                audioPlayer.src = `assets/audio/${filename}`;
+                audioPlayer.play();
+                mainPlayer.style.display = 'block';
+                nowPlaying.textContent = `Now Playing: ${trackNumber}. ${title}`;
+
+                tracks.forEach(t => t.classList.remove('playing'));
+                this.classList.add('playing');
+
+                mainPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+
+        audioPlayer.addEventListener('ended', function() {
+            const currentTrack = document.querySelector('.track.playing');
+            if (currentTrack) {
+                const currentIndex = Array.from(tracks).indexOf(currentTrack);
+                if (currentIndex >= 0 && currentIndex < tracks.length - 1) {
+                    tracks[currentIndex + 1].click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
