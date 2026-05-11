@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turn Up Syndicate | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('assets/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav:hover {
+            opacity: 1;
+        }
+
+        .top-nav a {
+            color: #d4a574;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.7;
+        }
+
+        .artist-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem 2rem;
+            max-width: 100%;
+        }
+
+        .artist-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+            letter-spacing: 0.1em;
+        }
+
+        .artist-tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .artist-bio {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .artist-bio h3 {
+            color: #d4a574;
+            margin-top: 0;
+            font-size: 1.2rem;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-bio p {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .albums-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .album-section {
+            padding: 2rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-header {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .album-cover {
+            width: 250px;
+            height: 250px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .album-info h2 {
+            color: #d4a574;
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+            font-family: 'Merriweather', serif;
+        }
+
+        .album-meta {
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .album-description {
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .tracklist {
+            margin-top: 2rem;
+        }
+
+        .tracklist h3 {
+            color: #d4a574;
+            margin-bottom: 1rem;
+        }
+
+        .track {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            padding: 0.75rem;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .track:hover {
+            background: rgba(212, 165, 116, 0.05);
+        }
+
+        .track-number {
+            opacity: 0.5;
+            font-weight: 600;
+            width: 2rem;
+        }
+
+        .track-title {
+            font-weight: 500;
+        }
+
+        .track-play {
+            background: #d4a574;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .track-play:hover {
+            opacity: 0.8;
+        }
+
+        .inline-player {
+            grid-column: 1 / -1;
+            margin-top: 0.5rem;
+            padding: 1rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 4px;
+        }
+
+        .inline-player audio {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="artists.html">Artists</a>
+    </nav>
+
+    <div class="artist-header">
+        <h1 class="artist-name">TURN UP SYNDICATE</h1>
+        <p class="artist-tagline">Crunk Rap Collective</p>
+    </div>
+
+    <div class="content-grid">
+        <aside class="artist-bio">
+            <h3>About</h3>
+            <p>Turn Up Syndicate is a three-member crunk rap group bringing aggressive party energy and heavy 808 bass to 64 West Records. The crew consists of <strong>808 Czar</strong> (commanding mid-range authority), <strong>Pyro</strong> (rapid-fire chaotic wildcard), and <strong>Quake</strong> (deep bass heavy hitter).</p>
+
+            <p>Each member brings distinct vocal style and energy. 808 Czar leads with classic crunk authority, Pyro delivers explosive fast-paced chaos, and Quake shakes foundations with grinding bass power. Together they create relentless party anthems with YEAH/WHAT/OKAY adlibs and speaker-rattling production.</p>
+
+            <p><strong>Style:</strong> Crunk, Party Rap, Bass Music<br>
+            <strong>Members:</strong> 808 Czar, Pyro, Quake<br>
+            <strong>Debut:</strong> 2026</p>
+        </aside>
+
+        <main class="albums-container">
+            <!-- Album: No Off Switch -->
+            <section class="album-section">
+                <div class="album-header">
+                    <img src="assets/images/albums/turn-up-syndicate-no-off-switch-cover.png" alt="No Off Switch" class="album-cover">
+                    <div class="album-info">
+                        <h2>No Off Switch</h2>
+                        <p class="album-meta">2026 • Crunk / Party Rap • 14 Tracks • Explicit</p>
+                        <p class="album-description">The debut album from Turn Up Syndicate delivers 14 tracks of pure crunk party energy. Each member gets solo showcase tracks while three posse cuts feature all three going off together. Heavy 808s, aggressive YEAH/WHAT/OKAY adlibs, and relentless party anthems from start to finish. Features a bonus track with MACH-6 bringing ultra-fast chopper rap to crunk energy on "Supersonic."</p>
+                    </div>
+                </div>
+
+                <div class="tracklist">
+                    <h3>Tracks</h3>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/01 - Turn Up Syndicate - Syndicate Anthem.mp3">
+                        <span class="track-number">01</span>
+                        <span class="track-title">Syndicate Anthem</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/02 - Turn Up Syndicate - Bounce.mp3">
+                        <span class="track-number">02</span>
+                        <span class="track-title">Bounce</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/03 - Turn Up Syndicate - Get Wild.mp3">
+                        <span class="track-number">03</span>
+                        <span class="track-title">Get Wild</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/04 - Turn Up Syndicate - Turn It Up.mp3">
+                        <span class="track-number">04</span>
+                        <span class="track-title">Turn It Up</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/06 - Turn Up Syndicate - Shots Shots Shots.mp3">
+                        <span class="track-number">06</span>
+                        <span class="track-title">Shots Shots Shots</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/07 - Turn Up Syndicate - Bass Drop.mp3">
+                        <span class="track-number">07</span>
+                        <span class="track-title">Bass Drop</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/08 - Turn Up Syndicate - Lose Control.mp3">
+                        <span class="track-number">08</span>
+                        <span class="track-title">Lose Control</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/09 - Turn Up Syndicate - Go Hard.mp3">
+                        <span class="track-number">09</span>
+                        <span class="track-title">Go Hard</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/10 - Turn Up Syndicate - Tear the Roof.mp3">
+                        <span class="track-number">10</span>
+                        <span class="track-title">Tear the Roof</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/11 - Turn Up Syndicate - Shake It.mp3">
+                        <span class="track-number">11</span>
+                        <span class="track-title">Shake It</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/12 - Turn Up Syndicate - No Sleep.mp3">
+                        <span class="track-number">12</span>
+                        <span class="track-title">No Sleep</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/13 - Turn Up Syndicate - Syndicate Outro.mp3">
+                        <span class="track-number">13</span>
+                        <span class="track-title">Syndicate Outro</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                    <div class="track" data-track="turn-up-syndicate-no-off-switch/14 - MACH-6 feat Turn Up Syndicate - Supersonic.mp3">
+                        <span class="track-number">14</span>
+                        <span class="track-title">Supersonic (feat. MACH-6)</span>
+                        <button class="track-play">▶</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Inline player functionality
+        document.querySelectorAll('.track').forEach(track => {
+            const button = track.querySelector('.track-play');
+            let player = null;
+
+            button.addEventListener('click', () => {
+                if (player) {
+                    player.remove();
+                    player = null;
+                    button.textContent = '▶';
+                    return;
+                }
+
+                // Close other players
+                document.querySelectorAll('.inline-player').forEach(p => p.remove());
+                document.querySelectorAll('.track-play').forEach(b => b.textContent = '▶');
+
+                const audioFile = track.dataset.track;
+                player = document.createElement('div');
+                player.className = 'inline-player';
+                player.innerHTML = `<audio controls autoplay><source src="assets/audio/${audioFile}" type="audio/mpeg"></audio>`;
+                track.appendChild(player);
+                button.textContent = '⏸';
+            });
+        });
+    </script>
+</body>
+</html>
