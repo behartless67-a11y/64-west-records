@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
         /* Custom background with overlay */
         body {
@@ -272,6 +273,32 @@
             margin-bottom: 0;
         }
 
+        .download-album-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid #d4a574;
+            color: #d4a574;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .download-album-btn:hover:not(:disabled) {
+            background: rgba(212, 165, 116, 0.2);
+            box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .download-album-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -499,6 +526,7 @@
             <p>From the celebratory "Barefoot on the Deck" to the hopeful promise of "Same Time Next Year," each track captures a specific moment while painting the larger picture of what summer friendships mean: the simple moments that become the memories we hold onto forever.</p>
             <p>The album lives in that sweet spot between celebration and nostalgia, joy and melancholy, youth and wisdom. Fingerpicked acoustic guitars with jazz chord voicings, syncopated drums, melodic upright bass, soaring violin countermelodies, and warm Hammond organ textures throughout. Production stays organic with natural room ambience and vocals that sound like a friend telling you a story over beers.</p>
             <p>This is music for backyard speakers and sunset drives, for moments that matter more than the noise. About the people who show up year after year, the stories that get better with every telling, and the promise to do it all again next summer.</p>
+            <button id="downloadAlbumBtn" class="download-album-btn">Download Album (ZIP)</button>
         </div>
     </div>
 
@@ -599,6 +627,77 @@
 
         audio.addEventListener('play', () => {
             isPlaying = true;
+        });
+
+        // Album Download Functionality
+        const downloadBtn = document.getElementById('downloadAlbumBtn');
+
+        downloadBtn.addEventListener('click', async () => {
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = 'Creating ZIP...';
+
+            try {
+                const zip = new JSZip();
+
+                // Track files to fetch
+                const trackFiles = [
+                    '01 - River Bend - Barefoot on the Deck.mp3',
+                    '02 - River Bend - Rope Swing Afternoon.mp3',
+                    '03 - River Bend - Porch Light Conversations.mp3',
+                    '04 - River Bend - Highway Playlist.mp3',
+                    '05 - River Bend - Bonfire Circle.mp3',
+                    '06 - River Bend - Morning After Coffee.mp3',
+                    '07 - River Bend - Sunset on the Hood.mp3',
+                    '08 - River Bend - Kitchen Dance Floor.mp3',
+                    '09 - River Bend - Stargazing.mp3',
+                    '10 - River Bend - Rain Day Inside.mp3',
+                    '11 - River Bend - Last Night of Summer.mp3',
+                    '12 - River Bend - Same Time Next Year.mp3'
+                ];
+
+                // Fetch all MP3 files
+                let loaded = 0;
+                for (const file of trackFiles) {
+                    const response = await fetch(`assets/audio/river-bend-summer-friends/${file}`);
+                    const blob = await response.blob();
+                    zip.file(file, blob);
+                    loaded++;
+                    downloadBtn.textContent = `Creating ZIP... (${loaded}/${trackFiles.length + 1})`;
+                }
+
+                // Fetch album cover
+                const coverResponse = await fetch('assets/images/albums/river-bend-summer-friends.png');
+                const coverBlob = await coverResponse.blob();
+                zip.file('River Bend - Summer Friends.png', coverBlob);
+                downloadBtn.textContent = `Creating ZIP... (${trackFiles.length + 1}/${trackFiles.length + 1})`;
+
+                // Generate ZIP file
+                downloadBtn.textContent = 'Finalizing ZIP...';
+                const zipBlob = await zip.generateAsync({ type: 'blob' });
+
+                // Trigger download
+                const url = URL.createObjectURL(zipBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'River Bend - Summer Friends.zip';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                downloadBtn.textContent = 'Download Complete!';
+                setTimeout(() => {
+                    downloadBtn.textContent = 'Download Album (ZIP)';
+                    downloadBtn.disabled = false;
+                }, 3000);
+            } catch (error) {
+                console.error('Download failed:', error);
+                downloadBtn.textContent = 'Download Failed';
+                setTimeout(() => {
+                    downloadBtn.textContent = 'Download Album (ZIP)';
+                    downloadBtn.disabled = false;
+                }, 3000);
+            }
         });
     </script>
 </body>
