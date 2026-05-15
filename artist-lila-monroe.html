@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lila Monroe | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom background with overlay */
+        body {
+            background-image: url('assets/images/background.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav:hover {
+            opacity: 1;
+        }
+
+        .top-nav a {
+            color: #d4a574;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .top-nav a:hover {
+            opacity: 0.7;
+        }
+
+        .artist-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem 2rem;
+            max-width: 100%;
+        }
+
+        .artist-name {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin: 0;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1rem 2rem 2rem 2rem;
+            max-width: 100%;
+            align-items: start;
+        }
+
+        .artist-bio {
+            column-count: 1;
+            margin: 0;
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .artist-bio h3 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-bio p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .artist-bio p:last-child {
+            margin-bottom: 0;
+        }
+
+        .album-carousel {
+            padding: 0.5rem 2rem 2rem 2rem;
+            max-width: 100%;
+        }
+
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            position: relative;
+            height: 320px;
+        }
+
+        .carousel-button {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        .carousel-button:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: scale(1.1);
+        }
+
+        .carousel-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .album-covers {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .album-cover-item {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .album-cover-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .album-cover-item.active {
+            width: 280px;
+            height: 280px;
+            opacity: 1;
+            z-index: 3;
+            box-shadow: 0 10px 40px rgba(212, 165, 116, 0.3);
+        }
+
+        .album-cover-item.adjacent {
+            width: 200px;
+            height: 200px;
+            opacity: 0.6;
+            z-index: 2;
+        }
+
+        .album-cover-item.hidden {
+            width: 120px;
+            height: 120px;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .tracklist-container {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .album-tracklist {
+            display: none;
+        }
+
+        .album-tracklist.active {
+            display: block;
+        }
+
+        .album-tracklist h4 {
+            margin: 0 0 1rem 0;
+            color: #d4a574;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .compact-tracklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .compact-track {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 6px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .compact-track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .compact-track-number {
+            color: rgba(212, 165, 116, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+            width: 2rem;
+            text-align: center;
+        }
+
+        .compact-track-title {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        .compact-track-play {
+            background: rgba(212, 165, 116, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            color: #d4a574;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .compact-track-play:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: scale(1.1);
+        }
+
+        .inline-player {
+            padding: 1rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 6px;
+            margin: 0.5rem 0;
+        }
+
+        .inline-player audio {
+            width: 100%;
+        }
+
+        .description-container {
+            padding: 1.5rem;
+            background: transparent;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .album-description-block {
+            display: none;
+        }
+
+        .album-description-block.active {
+            display: block;
+        }
+
+        .album-description-block h3 {
+            margin: 0 0 0.5rem 0;
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Merriweather', serif;
+        }
+
+        .album-info {
+            color: #8a7c94;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .album-description-block p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 1400px) {
+            .content-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+
+            .artist-bio {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .artist-name {
+                font-size: 2rem;
+            }
+
+            .album-cover-item.active {
+                width: 220px;
+                height: 220px;
+            }
+
+            .album-cover-item.adjacent {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="artists.html">Artists</a>
+    </nav>
+
+    <div class="artist-header">
+        <h1 class="artist-name">Lila Monroe</h1>
+        <p class="artist-tagline">Dark Alt-Pop / Moody EDM-Pop</p>
+    </div>
+
+    <!-- Album Carousel -->
+    <div class="album-carousel">
+        <div class="carousel-container">
+            <button class="carousel-button" onclick="prevAlbum()" id="prevBtn">‹</button>
+            <div class="album-covers">
+                <div class="album-cover-item" data-album="undertow" data-index="0">
+                    <img src="assets/images/albums/lila-monroe-undertow.png" alt="Undertow">
+                </div>
+            </div>
+            <button class="carousel-button" onclick="nextAlbum()" id="nextBtn">›</button>
+        </div>
+    </div>
+
+    <!-- 3-Column Grid -->
+    <div class="content-grid">
+        <!-- Left Column: Bio -->
+        <div class="artist-bio">
+            <h3>About</h3>
+            <p>Lila Monroe is 64 West Records' newest voice in dark alternative pop. With her debut album Undertow, she introduces herself through moody production, breathy intimate vocals, and emotionally raw storytelling about toxic relationships and choosing yourself.</p>
+            <p>Drawing influence from Selena Gomez's confessional vulnerability and Billie Eilish's minimalist production, Lila creates accessible dark-pop that feels both radio-ready and deeply personal. Her sound blends trap-pop beats with atmospheric synths, piano foundations with 808s, and whisper-to-power vocal dynamics that pull listeners into her emotional world.</p>
+            <p>Undertow chronicles the complete toxic relationship cycle from dangerous attraction to breaking free, capturing that magnetic pull of unhealthy love with honest, unflinching lyrics wrapped in polished dark-pop production.</p>
+        </div>
+
+        <!-- Middle Column: Tracklist -->
+        <div class="tracklist-container">
+            <div id="undertow-tracklist" class="album-tracklist active">
+                <h4 style="color: #d4a574; margin-bottom: 1rem;">Tracks</h4>
+                <div class="compact-tracklist">
+                    <div class="compact-track" data-track="lila-monroe-undertow/01 - Lila Monroe - Undertow.mp3">
+                        <span class="compact-track-number">01</span>
+                        <span class="compact-track-title">Undertow</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/02 - Lila Monroe - See Me.mp3">
+                        <span class="compact-track-number">02</span>
+                        <span class="compact-track-title">See Me</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/03 - Lila Monroe - Red Flags.mp3">
+                        <span class="compact-track-number">03</span>
+                        <span class="compact-track-title">Red Flags</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/04 - Lila Monroe - Addicted.mp3">
+                        <span class="compact-track-number">04</span>
+                        <span class="compact-track-title">Addicted</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/05 - Lila Monroe - Unraveling.mp3">
+                        <span class="compact-track-number">05</span>
+                        <span class="compact-track-title">Unraveling</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/06 - Lila Monroe - Yours.mp3">
+                        <span class="compact-track-number">06</span>
+                        <span class="compact-track-title">Yours</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/07 - Lila Monroe - Empty Promises.mp3">
+                        <span class="compact-track-number">07</span>
+                        <span class="compact-track-title">Empty Promises</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/08 - Lila Monroe - War & Peace.mp3">
+                        <span class="compact-track-number">08</span>
+                        <span class="compact-track-title">War & Peace</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/09 - Lila Monroe - Breaking Point.mp3">
+                        <span class="compact-track-number">09</span>
+                        <span class="compact-track-title">Breaking Point</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/10 - Lila Monroe - Walk Away.mp3">
+                        <span class="compact-track-number">10</span>
+                        <span class="compact-track-title">Walk Away</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/11 - Lila Monroe - Ghost of You.mp3">
+                        <span class="compact-track-number">11</span>
+                        <span class="compact-track-title">Ghost of You</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                    <div class="compact-track" data-track="lila-monroe-undertow/12 - Lila Monroe - Undertow (Reprise).mp3">
+                        <span class="compact-track-number">12</span>
+                        <span class="compact-track-title">Undertow (Reprise)</span>
+                        <button class="compact-track-play">▶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Album Description -->
+        <div class="description-container">
+            <div id="undertow-description" class="album-description-block active">
+                <h3>Undertow (2026)</h3>
+                <p class="album-info" style="color: #8a7c94; margin-bottom: 1rem;">Dark Alt-Pop • 12 Tracks</p>
+                <p>Lila Monroe's debut album Undertow is a raw, unflinching chronicle of the complete toxic relationship cycle. From the dangerous magnetic pull of falling hard against your better judgment, through the identity loss and explosive conflicts, to the breaking point and finally choosing yourself, this 12-track journey captures the emotional undertow that drags you under in unhealthy love.</p>
+                <p>Blending moody ballads with uptempo dance-pop bangers, Undertow showcases Lila's breathy intimate vocals over trap-pop production, atmospheric synth pads, and piano foundations with 808 bass. The album's sound draws from Selena Gomez's confessional vulnerability, Zedd-era EDM-pop energy, and Billie Eilish's minimalist darkness, creating accessible radio-ready tracks that never sacrifice emotional depth.</p>
+                <p>The album progresses through four acts: The Fall (tracks 1-4) captures dangerous attraction and ignoring warnings. The Deep End (tracks 5-8) explores identity loss and unhealthy attachment. Breaking Point (tracks 9-10) marks realization and liberation. The Aftermath (tracks 11-12) processes healing and choosing yourself. Standout tracks include the moody opener "Undertow," the EDM-pop anthem "See Me," the raw ballad "Breaking Point," and the triumphant closer "Undertow (Reprise)."</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Carousel functionality
+        const albums = document.querySelectorAll('.album-cover-item');
+        const totalAlbums = albums.length;
+        let currentAlbumIndex = 0;
+
+        function updateCarousel() {
+            albums.forEach((album, index) => {
+                album.classList.remove('active', 'adjacent', 'hidden');
+
+                if (index === currentAlbumIndex) {
+                    album.classList.add('active');
+                } else if (
+                    index === (currentAlbumIndex - 1 + totalAlbums) % totalAlbums ||
+                    index === (currentAlbumIndex + 1) % totalAlbums
+                ) {
+                    album.classList.add('adjacent');
+                } else {
+                    album.classList.add('hidden');
+                }
+            });
+
+            // Update button states (disable if only one album)
+            document.getElementById('prevBtn').disabled = totalAlbums === 1;
+            document.getElementById('nextBtn').disabled = totalAlbums === 1;
+
+            // Update tracklist visibility
+            document.querySelectorAll('.album-tracklist').forEach((tracklist, index) => {
+                tracklist.classList.remove('active');
+                if (index === currentAlbumIndex) {
+                    tracklist.classList.add('active');
+                }
+            });
+
+            // Update description visibility
+            document.querySelectorAll('.album-description-block').forEach((description, index) => {
+                description.classList.remove('active');
+                if (index === currentAlbumIndex) {
+                    description.classList.add('active');
+                }
+            });
+        }
+
+        function prevAlbum() {
+            currentAlbumIndex = (currentAlbumIndex - 1 + totalAlbums) % totalAlbums;
+            updateCarousel();
+        }
+
+        function nextAlbum() {
+            currentAlbumIndex = (currentAlbumIndex + 1) % totalAlbums;
+            updateCarousel();
+        }
+
+        // Click on album cover to select
+        albums.forEach((album, index) => {
+            album.addEventListener('click', () => {
+                currentAlbumIndex = index;
+                updateCarousel();
+            });
+        });
+
+        // Inline audio player functionality
+        document.querySelectorAll('.compact-track').forEach(track => {
+            track.addEventListener('click', function(e) {
+                if (e.target.classList.contains('compact-track-play')) {
+                    e.stopPropagation();
+                    const trackElement = this;
+                    const filename = this.getAttribute('data-track');
+
+                    // Remove any existing inline players
+                    document.querySelectorAll('.inline-player').forEach(player => player.remove());
+
+                    // Create new inline player
+                    const playerDiv = document.createElement('div');
+                    playerDiv.className = 'inline-player';
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.autoplay = true;
+                    audio.src = `assets/audio/${filename}`;
+                    playerDiv.appendChild(audio);
+
+                    // Insert player after the track
+                    trackElement.parentNode.insertBefore(playerDiv, trackElement.nextSibling);
+                }
+            });
+        });
+
+        // Initialize carousel
+        updateCarousel();
+    </script>
+</body>
+</html>
