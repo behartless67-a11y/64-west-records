@@ -66,22 +66,42 @@
 
         .carousel-container {
             position: relative;
-            max-width: 900px;
+            max-width: 1400px;
             margin: 0 auto;
+            overflow: visible;
+            padding: 0 2rem;
+        }
+
+        .carousel-viewport {
             overflow: hidden;
+            position: relative;
         }
 
         .carousel-track {
             display: flex;
             transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 0;
         }
 
         .carousel-item {
-            min-width: 100%;
+            min-width: 33.333%;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
+            transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+            opacity: 0.4;
+            transform: scale(0.75);
+            filter: grayscale(100%);
+        }
+
+        .carousel-item.active {
+            opacity: 1;
+            transform: scale(1);
+            filter: grayscale(0%);
+            z-index: 10;
         }
 
         .carousel-image {
@@ -89,8 +109,12 @@
             height: 450px;
             border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .carousel-item.active .carousel-image {
             box-shadow: 0 20px 60px rgba(212, 165, 116, 0.4);
-            transition: transform 0.3s;
         }
 
         .carousel-image:hover {
@@ -106,6 +130,12 @@
 
         .carousel-info {
             text-align: center;
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+        }
+
+        .carousel-item.active .carousel-info {
+            opacity: 1;
         }
 
         .carousel-title {
@@ -412,9 +442,10 @@
     <div class="featured-section">
         <div class="featured-label">New Releases</div>
         <div class="carousel-container">
-            <div class="carousel-track" id="carouselTrack">
-                <!-- Vexra - Heat Lightning -->
-                <div class="carousel-item">
+            <div class="carousel-viewport">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Vexra - Heat Lightning -->
+                    <div class="carousel-item active">
                     <a href="artist-elena-voss.html#heat-lightning" class="carousel-image">
                         <img src="assets/images/albums/vexra-heat-lightning.png" alt="Heat Lightning">
                     </a>
@@ -483,6 +514,7 @@
                         <div class="carousel-artist">Turn Up Syndicate</div>
                         <div class="carousel-meta">EDM / Club / Twerk Music • 14 tracks</div>
                     </div>
+                </div>
                 </div>
             </div>
             <div class="carousel-dots" id="carouselDots"></div>
@@ -1494,7 +1526,17 @@
 
             function goToSlide(index) {
                 currentIndex = index;
-                track.style.transform = `translateX(-${index * 100}%)`;
+                // Calculate offset to center the active item
+                // Each item is 33.333% wide, so we need to shift by (index * 33.333%)
+                // minus 33.333% to center it (because the center item is at 33.333% from the left)
+                const offset = (index * 33.333) - 33.333;
+                track.style.transform = `translateX(-${offset}%)`;
+
+                // Update active classes
+                items.forEach((item, i) => {
+                    item.classList.toggle('active', i === index);
+                });
+
                 document.querySelectorAll('.dot').forEach((dot, i) => {
                     dot.classList.toggle('active', i === index);
                 });
