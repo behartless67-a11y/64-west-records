@@ -75,13 +75,14 @@
         .carousel-viewport {
             overflow: hidden;
             position: relative;
+            width: 100%;
         }
 
         .carousel-track {
             display: flex;
             transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             padding: 3rem 0;
         }
 
@@ -1527,9 +1528,12 @@
             function goToSlide(index) {
                 currentIndex = index;
                 // Calculate offset to center the active item
-                // Each item is 33.333% wide, so we need to shift by (index * 33.333%)
-                // minus 33.333% to center it (because the center item is at 33.333% from the left)
-                const offset = (index * 33.333) - 33.333;
+                // Each item takes 33.333% width
+                // To center item N, we need to shift left by (N * 33.333%) minus (viewport center - item center)
+                // Viewport center is 50%, item center when at position 0 is 16.666% (half of 33.333%)
+                // So we need to shift: (index * 33.333%) - (50% - 16.666%) = (index * 33.333%) - 33.333%
+                const itemWidth = 100 / 3; // 33.333...
+                const offset = (index * itemWidth) - itemWidth;
                 track.style.transform = `translateX(-${offset}%)`;
 
                 // Update active classes
