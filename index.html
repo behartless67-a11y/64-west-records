@@ -87,14 +87,14 @@
         }
 
         .carousel-item {
-            min-width: 33.333%;
+            min-width: 20%;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 1.5rem;
             transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
-            opacity: 0.4;
-            transform: scale(0.75);
+            opacity: 0.3;
+            transform: scale(0.5);
             filter: grayscale(100%);
         }
 
@@ -103,6 +103,22 @@
             transform: scale(1);
             filter: grayscale(0%);
             z-index: 10;
+        }
+
+        /* Adjacent items (1 away from active) */
+        .carousel-item[data-distance="1"] {
+            opacity: 0.6;
+            transform: scale(0.75);
+            filter: grayscale(50%);
+            z-index: 5;
+        }
+
+        /* Outer items (2 away from active) */
+        .carousel-item[data-distance="2"] {
+            opacity: 0.3;
+            transform: scale(0.5);
+            filter: grayscale(100%);
+            z-index: 1;
         }
 
         .carousel-image {
@@ -519,6 +535,54 @@
                             <div class="carousel-title">Southern Heat</div>
                             <div class="carousel-artist">Turn Up Syndicate</div>
                             <div class="carousel-meta">EDM / Club / Twerk Music • 14 tracks</div>
+                        </div>
+                    </div>
+
+                    <!-- Group Therapy -->
+                    <div class="carousel-item">
+                        <a href="artist-fine-thanks.html#group-therapy" class="carousel-image">
+                            <img src="assets/images/fine-thanks-group-therapy-cover.png" alt="Group Therapy">
+                        </a>
+                        <div class="carousel-info">
+                            <div class="carousel-title">Group Therapy</div>
+                            <div class="carousel-artist">Fine Thanks</div>
+                            <div class="carousel-meta">Indie Rock / Post-Punk • 12 tracks</div>
+                        </div>
+                    </div>
+
+                    <!-- Extremely Online -->
+                    <div class="carousel-item">
+                        <a href="artist-fine-thanks.html#extremely-online" class="carousel-image">
+                            <img src="assets/images/fine-thanks-extremely-online-cover.png" alt="Extremely Online">
+                        </a>
+                        <div class="carousel-info">
+                            <div class="carousel-title">Extremely Online</div>
+                            <div class="carousel-artist">Fine Thanks</div>
+                            <div class="carousel-meta">Indie Rock • 11 tracks</div>
+                        </div>
+                    </div>
+
+                    <!-- Afterglow -->
+                    <div class="carousel-item">
+                        <a href="artist-lila-monroe.html#afterglow" class="carousel-image">
+                            <img src="assets/images/lila-monroe-afterglow-cover.png" alt="Afterglow">
+                        </a>
+                        <div class="carousel-info">
+                            <div class="carousel-title">Afterglow</div>
+                            <div class="carousel-artist">Lila Monroe</div>
+                            <div class="carousel-meta">R&B / Soul • 12 tracks</div>
+                        </div>
+                    </div>
+
+                    <!-- Undertow -->
+                    <div class="carousel-item">
+                        <a href="artist-lila-monroe.html#undertow" class="carousel-image">
+                            <img src="assets/images/lila-monroe-undertow-cover.png" alt="Undertow">
+                        </a>
+                        <div class="carousel-info">
+                            <div class="carousel-title">Undertow</div>
+                            <div class="carousel-artist">Lila Monroe</div>
+                            <div class="carousel-meta">R&B / Soul • 12 tracks</div>
                         </div>
                     </div>
                 </div>
@@ -1549,14 +1613,21 @@
 
             function goToSlide(index) {
                 currentIndex = index;
-                // Calculate offset to center the active item
-                const itemWidth = 100 / 3;
-                const offset = (index * itemWidth) - itemWidth;
+                // Calculate offset to center the active item (5 items visible, 20% each)
+                const itemWidth = 20;
+                const offset = (index * itemWidth) - (itemWidth * 2); // Center by offsetting 2 items
                 track.style.transform = `translateX(-${offset}%)`;
 
-                // Update active classes
+                // Update active classes and distance attributes
                 items.forEach((item, i) => {
                     item.classList.toggle('active', i === index);
+
+                    // Calculate distance from active item
+                    const distance = Math.abs(i - index);
+                    item.removeAttribute('data-distance');
+                    if (distance > 0 && distance <= 2) {
+                        item.setAttribute('data-distance', distance);
+                    }
                 });
 
                 document.querySelectorAll('.dot').forEach((dot, i) => {
