@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINDL1NG - Twilight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .player-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .album-art {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+
+        .album-info {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .album-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d4a574;
+            margin-bottom: 0.5rem;
+            font-family: 'Merriweather', serif;
+        }
+
+        .artist-name {
+            font-size: 1.3rem;
+            color: rgba(212, 165, 116, 0.8);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
+        }
+
+        .album-meta {
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.6);
+        }
+
+        .tracklist {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .track {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(212, 165, 116, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .track:hover {
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .track.playing {
+            background: rgba(212, 165, 116, 0.15);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .track-number {
+            color: rgba(212, 165, 116, 0.6);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .track-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            min-width: 0;
+        }
+
+        .track-title {
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        .track-feat {
+            color: rgba(212, 165, 116, 0.55);
+            font-size: 0.78rem;
+            font-style: italic;
+        }
+
+        .track-play {
+            background: none;
+            border: none;
+            color: #d4a574;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: transform 0.2s;
+        }
+
+        .track-play:hover {
+            transform: scale(1.2);
+        }
+
+        .main-player {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .main-player audio {
+            width: 100%;
+        }
+
+        .now-playing {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: rgba(212, 165, 116, 0.7);
+        }
+
+        .label-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .label-link a {
+            color: #d4a574;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .label-link a:hover {
+            color: #e0c097;
+        }
+
+        @media (max-width: 768px) {
+            .player-container {
+                padding: 1.5rem;
+            }
+
+            .album-title {
+                font-size: 1.5rem;
+            }
+
+            .artist-name {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <img src="assets/images/albums/kindl1ng-twilight-cover.png" alt="Twilight" class="album-art">
+
+        <div class="album-info">
+            <div class="album-title">Twilight</div>
+            <div class="artist-name">KINDL1NG</div>
+            <div class="album-meta">Melodic Bass / Future Bass / Folk-Electronic • 2026 • 12 Tracks</div>
+        </div>
+
+        <div class="main-player" id="mainPlayer" style="display: none;">
+            <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <div class="tracklist">
+            <div class="track" data-track="kindl1ng-twilight/01 - KINDL1NG - Six O'Clock Glow (feat. KINDL1NG).mp3" data-title="Six O'Clock Glow">
+                <span class="track-number">01</span>
+                <div class="track-info">
+                    <span class="track-title">Six O'Clock Glow</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/02 - KINDL1NG - Sunset Highway (feat. Vexra).mp3" data-title="Sunset Highway">
+                <span class="track-number">02</span>
+                <div class="track-info">
+                    <span class="track-title">Sunset Highway</span>
+                    <span class="track-feat">feat. Vexra</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/03 - KINDL1NG - Golden Hour Observations (feat. Fine Thanks).mp3" data-title="Golden Hour Observations">
+                <span class="track-number">03</span>
+                <div class="track-info">
+                    <span class="track-title">Golden Hour Observations</span>
+                    <span class="track-feat">feat. Fine Thanks</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/04 - KINDL1NG - Dusk Settles In (feat. Eleanor Pine).mp3" data-title="Dusk Settles In">
+                <span class="track-number">04</span>
+                <div class="track-info">
+                    <span class="track-title">Dusk Settles In</span>
+                    <span class="track-feat">feat. Eleanor Pine</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/05 - KINDL1NG - Midnight Diner (feat. Cassidy James).mp3" data-title="Midnight Diner">
+                <span class="track-number">05</span>
+                <div class="track-info">
+                    <span class="track-title">Midnight Diner</span>
+                    <span class="track-feat">feat. Cassidy James</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/06 - KINDL1NG - Two AM Truths (feat. Fine Thanks).mp3" data-title="Two AM Truths">
+                <span class="track-number">06</span>
+                <div class="track-info">
+                    <span class="track-title">Two AM Truths</span>
+                    <span class="track-feat">feat. Fine Thanks</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/07 - KINDL1NG - Insomnia Hymn (feat. Vexra).mp3" data-title="Insomnia Hymn">
+                <span class="track-number">07</span>
+                <div class="track-info">
+                    <span class="track-title">Insomnia Hymn</span>
+                    <span class="track-feat">feat. Vexra</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/08 - KINDL1NG - Empty Parking Lot (feat. Atlas Reign).mp3" data-title="Empty Parking Lot">
+                <span class="track-number">08</span>
+                <div class="track-info">
+                    <span class="track-title">Empty Parking Lot</span>
+                    <span class="track-feat">feat. Atlas Reign</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/09 - KINDL1NG - Five AM Confessional (feat. HARLOW and August Pine).mp3" data-title="Five AM Confessional">
+                <span class="track-number">09</span>
+                <div class="track-info">
+                    <span class="track-title">Five AM Confessional</span>
+                    <span class="track-feat">feat. HARLOW and August Pine</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/10 - KINDL1NG - First Light Breaking (feat. Sunday Supply).mp3" data-title="First Light Breaking">
+                <span class="track-number">10</span>
+                <div class="track-info">
+                    <span class="track-title">First Light Breaking</span>
+                    <span class="track-feat">feat. Sunday Supply</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/11 - KINDL1NG - Dawn Chorus (feat. Vexra and Elena Voss).mp3" data-title="Dawn Chorus">
+                <span class="track-number">11</span>
+                <div class="track-info">
+                    <span class="track-title">Dawn Chorus</span>
+                    <span class="track-feat">feat. Vexra and Elena Voss</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+            <div class="track" data-track="kindl1ng-twilight/12 - KINDL1NG - Morning After Twilight (feat. KINDL1NG).mp3" data-title="Morning After Twilight">
+                <span class="track-number">12</span>
+                <div class="track-info">
+                    <span class="track-title">Morning After Twilight</span>
+                </div>
+                <button class="track-play">▶</button>
+            </div>
+        </div>
+
+        <div class="label-link">
+            <a href="index.html">64 West Records • The porch light's always on.</a>
+        </div>
+    </div>
+
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const mainPlayer = document.getElementById('mainPlayer');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const tracks = document.querySelectorAll('.track');
+
+        tracks.forEach(track => {
+            track.addEventListener('click', function() {
+                const filename = this.getAttribute('data-track');
+                const title = this.getAttribute('data-title');
+                const trackNumber = this.querySelector('.track-number').textContent;
+
+                audioPlayer.src = `assets/audio/${filename}`;
+                audioPlayer.play();
+                mainPlayer.style.display = 'block';
+                nowPlaying.textContent = `Now Playing: ${trackNumber}. ${title}`;
+
+                tracks.forEach(t => t.classList.remove('playing'));
+                this.classList.add('playing');
+
+                mainPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+
+        audioPlayer.addEventListener('ended', function() {
+            const currentTrack = document.querySelector('.track.playing');
+            if (currentTrack) {
+                const currentIndex = Array.from(tracks).indexOf(currentTrack);
+                if (currentIndex >= 0 && currentIndex < tracks.length - 1) {
+                    tracks[currentIndex + 1].click();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
