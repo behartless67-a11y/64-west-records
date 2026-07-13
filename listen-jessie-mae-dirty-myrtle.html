@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jessie Mae Thornton - Dirty Myrtle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .player-container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid rgba(212,165,116,0.2);
+        }
+        .album-art { width: 100%; aspect-ratio: 1; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .album-info { text-align: center; margin-bottom: 2rem; }
+        .album-title { font-size: 2rem; font-weight: 700; color: #d4a574; margin-bottom: 0.5rem; font-family: 'Merriweather', serif; }
+        .artist-name { font-size: 1.3rem; color: rgba(212,165,116,0.8); margin-bottom: 0.5rem; }
+        .album-meta { font-size: 0.9rem; color: rgba(212,165,116,0.6); }
+        .tracklist { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .track { display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center; padding: 0.75rem; background: rgba(212,165,116,0.05); border-radius: 8px; transition: all 0.3s; cursor: pointer; }
+        .track:hover { background: rgba(212,165,116,0.1); }
+        .track.playing { background: rgba(212,165,116,0.15); border: 1px solid rgba(212,165,116,0.3); }
+        .track-number { color: rgba(212,165,116,0.6); font-weight: 600; font-size: 0.9rem; width: 2rem; text-align: center; }
+        .track-title { color: #e0e0e0; font-size: 1rem; font-weight: 500; }
+        .track-play { background: rgba(212,165,116,0.2); border: 1px solid rgba(212,165,116,0.3); color: #d4a574; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; transition: all 0.3s; font-weight: 600; }
+        .track-play:hover { background: rgba(212,165,116,0.3); transform: scale(1.05); }
+        .main-player { background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(212,165,116,0.2); margin-bottom: 1.5rem; }
+        .main-player audio { width: 100%; }
+        .now-playing { text-align: center; margin-bottom: 1rem; font-size: 0.9rem; color: rgba(212,165,116,0.7); }
+        .label-link { text-align: center; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(212,165,116,0.15); }
+        .label-link a { color: #d4a574; text-decoration: none; font-size: 0.9rem; opacity: 0.7; transition: opacity 0.3s; }
+        .label-link a:hover { opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <img src="assets/images/albums/jessie-mae-dirty-myrtle.png" alt="Dirty Myrtle" class="album-art">
+        <div class="album-info">
+            <h1 class="album-title">Dirty Myrtle</h1>
+            <p class="artist-name">Jessie Mae Thornton</p>
+            <p class="album-meta">Country Rock / Coastal Country • 14 Tracks • 2026</p>
+        </div>
+        <div class="main-player" id="mainPlayer" style="display:none;">
+            <div class="now-playing" id="nowPlaying">Now Playing</div>
+            <audio id="audioPlayer" controls></audio>
+        </div>
+        <div class="tracklist">
+            <div class="track" data-track="jessie-mae-dirty-myrtle/01 - Jessie Mae Thornton - Carolina Heat.mp3" data-title="Carolina Heat"><span class="track-number">01</span><span class="track-title">Carolina Heat</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/02 - Jessie Mae Thornton - Dirty Myrtle.mp3" data-title="Dirty Myrtle"><span class="track-number">02</span><span class="track-title">Dirty Myrtle</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/03 - Jessie Mae Thornton - Pier Bar at Five.mp3" data-title="Pier Bar at Five"><span class="track-number">03</span><span class="track-title">Pier Bar at Five</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/04 - Jessie Mae Thornton - Ankle Deep.mp3" data-title="Ankle Deep"><span class="track-number">04</span><span class="track-title">Ankle Deep</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/05 - Jessie Mae Thornton - The Smoke and the Salt.mp3" data-title="The Smoke and the Salt"><span class="track-number">05</span><span class="track-title">The Smoke and the Salt</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/06 - Jessie Mae Thornton - Cold Can, Warm Sand.mp3" data-title="Cold Can, Warm Sand"><span class="track-number">06</span><span class="track-title">Cold Can, Warm Sand</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/07 - Jessie Mae Thornton - She's Been Here Before.mp3" data-title="She's Been Here Before"><span class="track-number">07</span><span class="track-title">She's Been Here Before</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/08 - Jessie Mae Thornton - Sunburn Worth It.mp3" data-title="Sunburn Worth It"><span class="track-number">08</span><span class="track-title">Sunburn Worth It</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/09 - Jessie Mae Thornton - Ocean on Three Sides.mp3" data-title="Ocean on Three Sides"><span class="track-number">09</span><span class="track-title">Ocean on Three Sides</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/10 - Jessie Mae Thornton - Late Night on the Boardwalk.mp3" data-title="Late Night on the Boardwalk"><span class="track-number">10</span><span class="track-title">Late Night on the Boardwalk</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/11 - Jessie Mae Thornton - The Grill Don't Quit.mp3" data-title="The Grill Don't Quit"><span class="track-number">11</span><span class="track-title">The Grill Don't Quit</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/12 - Jessie Mae Thornton - One More Sunrise.mp3" data-title="One More Sunrise"><span class="track-number">12</span><span class="track-title">One More Sunrise</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/13 - Jessie Mae Thornton - Myrtle Beach in the Rearview.mp3" data-title="Myrtle Beach in the Rearview"><span class="track-number">13</span><span class="track-title">Myrtle Beach in the Rearview</span><button class="track-play">▶</button></div>
+            <div class="track" data-track="jessie-mae-dirty-myrtle/14 - Jessie Mae Thornton - Dirty Myrtle (Reprise).mp3" data-title="Dirty Myrtle (Reprise)"><span class="track-number">14</span><span class="track-title">Dirty Myrtle (Reprise)</span><button class="track-play">▶</button></div>
+        </div>
+        <div class="label-link"><a href="index.html">64 West Records • The porch light's always on.</a></div>
+    </div>
+    <script>
+        const audioPlayer = document.getElementById('audioPlayer');
+        const mainPlayer = document.getElementById('mainPlayer');
+        const nowPlaying = document.getElementById('nowPlaying');
+        const tracks = document.querySelectorAll('.track');
+        tracks.forEach(track => {
+            track.addEventListener('click', function() {
+                const filename = this.getAttribute('data-track');
+                const title = this.getAttribute('data-title');
+                const num = this.querySelector('.track-number').textContent;
+                audioPlayer.src = `assets/audio/${filename}`;
+                audioPlayer.play();
+                mainPlayer.style.display = 'block';
+                nowPlaying.textContent = `Now Playing: ${num}. ${title}`;
+                tracks.forEach(t => t.classList.remove('playing'));
+                this.classList.add('playing');
+                mainPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        });
+        audioPlayer.addEventListener('ended', function() {
+            const current = document.querySelector('.track.playing');
+            if (current) {
+                const all = Array.from(tracks);
+                const idx = all.indexOf(current);
+                if (idx < all.length - 1) all[idx + 1].click();
+            }
+        });
+    </script>
+</body>
+</html>
