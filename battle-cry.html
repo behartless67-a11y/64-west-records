@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Cry - UVA vs NC State | 64 West Records</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #232741 0%, #1a1d35 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #e87722 0%, #232D4B 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(232, 119, 34, 0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .game-info {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .intro {
+            background: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #e87722;
+        }
+
+        .intro h2 {
+            color: #e87722;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .tracklist {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            color: #e87722;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e87722;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .track {
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .track:hover {
+            background: rgba(232, 119, 34, 0.1);
+            border-color: #e87722;
+            transform: translateX(5px);
+        }
+
+        .track.dj {
+            background: rgba(232, 119, 34, 0.15);
+            border-left: 4px solid #e87722;
+        }
+
+        .track.dj:hover {
+            background: rgba(232, 119, 34, 0.25);
+        }
+
+        .track-number {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #e87722;
+            min-width: 50px;
+        }
+
+        .track-info {
+            flex: 1;
+        }
+
+        .track-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 3px;
+        }
+
+        .track-artist {
+            opacity: 0.7;
+            font-size: 0.9em;
+        }
+
+        .track-note {
+            font-size: 0.85em;
+            color: #e87722;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .stat {
+            background: rgba(232, 119, 34, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(232, 119, 34, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #e87722;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            opacity: 0.6;
+            font-size: 0.9em;
+        }
+
+        .wahoowa {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin: 40px 0;
+            color: #e87722;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .game-info {
+                font-size: 1.1em;
+            }
+
+            .track {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .track-number {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BATTLE CRY</h1>
+            <div class="subtitle">The Ultimate UVA Game Day Album</div>
+            <div class="game-info">🏈 UVA vs NC State | Kickoff 3PM 🏈</div>
+        </header>
+
+        <div class="intro">
+            <h2>Ready for Battle</h2>
+            <p>This is your complete pregame soundtrack — from 1pm tailgate arrival to 3pm kickoff and beyond. Maximum intensity from 64 West Records' hardest hitters.</p>
+            <p><strong>Listen in order</strong> for the full experience: hard music tracks broken up by DJ pregame hype building toward kickoff, then Vexra's industrial anthem AS the kickoff moment, finishing with Turn Up Syndicate's victory celebration.</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">21</div>
+                <div class="stat-label">Total Tracks</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">16</div>
+                <div class="stat-label">Hard Music</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">4</div>
+                <div class="stat-label">DJ Pregame</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">~90</div>
+                <div class="stat-label">Minutes</div>
+            </div>
+        </div>
+
+        <div class="tracklist">
+            <div class="section-title">🔥 Opening Assault (1pm - Early Tailgate)</div>
+            <div class="track">
+                <div class="track-number">01</div>
+                <div class="track-info">
+                    <div class="track-title">Scream to Roar</div>
+                    <div class="track-artist">Silk Fracture</div>
+                    <div class="track-note">Metal → Hard Rock transformation</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">02</div>
+                <div class="track-info">
+                    <div class="track-title">No Mercy</div>
+                    <div class="track-artist">Blackridge</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">03</div>
+                <div class="track-info">
+                    <div class="track-title">Hyperdrive</div>
+                    <div class="track-artist">MACH-6</div>
+                    <div class="track-note">Hyper-fast chopper rap</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">04</div>
+                <div class="track-info">
+                    <div class="track-title">Wrecking Crew</div>
+                    <div class="track-artist">Turn Up Syndicate</div>
+                </div>
+            </div>
+
+            <div class="track dj">
+                <div class="track-number">04A</div>
+                <div class="track-info">
+                    <div class="track-title">Pregame Welcome</div>
+                    <div class="track-artist">DJ Pregame Host</div>
+                    <div class="track-note">⚡ ~1pm: Fans arriving, tailgates going, WAH-HOO-WAH energy</div>
+                </div>
+            </div>
+
+            <div class="section-title">💪 Building Intensity (2pm - Heading Inside)</div>
+            <div class="track">
+                <div class="track-number">05</div>
+                <div class="track-info">
+                    <div class="track-title">Venom</div>
+                    <div class="track-artist">Diamondback</div>
+                    <div class="track-note">Southern metal aggression</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">06</div>
+                <div class="track-info">
+                    <div class="track-title">Beautiful Violence</div>
+                    <div class="track-artist">Crimson Verdict</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">07</div>
+                <div class="track-info">
+                    <div class="track-title">Unbreakable</div>
+                    <div class="track-artist">Blackridge</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">08</div>
+                <div class="track-info">
+                    <div class="track-title">Terminal</div>
+                    <div class="track-artist">MACH-6</div>
+                </div>
+            </div>
+
+            <div class="track dj">
+                <div class="track-number">08A</div>
+                <div class="track-info">
+                    <div class="track-title">Stadium Filling</div>
+                    <div class="track-artist">DJ Pregame Host</div>
+                    <div class="track-note">⚡ ~2pm: Stadium packing up, energy building, Orange & Blue everywhere</div>
+                </div>
+            </div>
+
+            <div class="section-title">⚔️ Peak Aggression (2:30pm - Almost Time)</div>
+            <div class="track">
+                <div class="track-number">09</div>
+                <div class="track-info">
+                    <div class="track-title">Dominate</div>
+                    <div class="track-artist">Turn Up Syndicate</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">10</div>
+                <div class="track-info">
+                    <div class="track-title">Apex</div>
+                    <div class="track-artist">Diamondback</div>
+                    <div class="track-note">Apex predator energy</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">11</div>
+                <div class="track-info">
+                    <div class="track-title">Feral Queen</div>
+                    <div class="track-artist">Crimson Verdict</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">12</div>
+                <div class="track-info">
+                    <div class="track-title">Iron Will</div>
+                    <div class="track-artist">Blackridge</div>
+                </div>
+            </div>
+
+            <div class="track dj">
+                <div class="track-number">12A</div>
+                <div class="track-info">
+                    <div class="track-title">Final Countdown</div>
+                    <div class="track-artist">DJ Pregame Host</div>
+                    <div class="track-note">⚡ ~2:45pm: Game SOLD OUT, stadium about to EXPLODE</div>
+                </div>
+            </div>
+
+            <div class="section-title">🚀 Final Assault (2:50pm - The Push)</div>
+            <div class="track">
+                <div class="track-number">13</div>
+                <div class="track-info">
+                    <div class="track-title">Blitz</div>
+                    <div class="track-artist">MACH-6</div>
+                    <div class="track-note">Maximum speed attack</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">14</div>
+                <div class="track-info">
+                    <div class="track-title">Warpath</div>
+                    <div class="track-artist">Turn Up Syndicate x Diamondback</div>
+                    <div class="track-note">Rap/Metal collaboration</div>
+                </div>
+            </div>
+            <div class="track">
+                <div class="track-number">15</div>
+                <div class="track-info">
+                    <div class="track-title">Reign in Chaos</div>
+                    <div class="track-artist">Crimson Verdict</div>
+                </div>
+            </div>
+
+            <div class="track dj">
+                <div class="track-number">15A</div>
+                <div class="track-info">
+                    <div class="track-title">Kickoff Imminent</div>
+                    <div class="track-artist">DJ Pregame Host</div>
+                    <div class="track-note">⚡ ~3pm: MOMENTS AWAY, team taking field, WAH-HOO-WAH at MAXIMUM</div>
+                </div>
+            </div>
+
+            <div class="section-title">🏆 Kickoff & Victory (3pm - GAME TIME)</div>
+            <div class="track" style="border: 2px solid #e87722;">
+                <div class="track-number">16</div>
+                <div class="track-info">
+                    <div class="track-title">Blackout Protocol</div>
+                    <div class="track-artist">Vexra</div>
+                    <div class="track-note">🔥 THE KICKOFF MOMENT - Dark industrial stadium anthem</div>
+                </div>
+            </div>
+            <div class="track" style="border: 2px solid #FFD700;">
+                <div class="track-number">17</div>
+                <div class="track-info">
+                    <div class="track-title">Cavaliers Until We Die</div>
+                    <div class="track-artist">Turn Up Syndicate</div>
+                    <div class="track-note">🏆 VICTORY ANTHEM - Cavalier Nation forever</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wahoowa">
+            WAH-HOO-WAH! 🧡💙
+        </div>
+
+        <footer>
+            <p><strong>Battle Cry</strong> | Various Artists | 64 West Records 2026</p>
+            <p>Created for UVA vs NC State | Go Hoos!</p>
+        </footer>
+    </div>
+</body>
+</html>
