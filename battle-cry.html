@@ -2,455 +2,528 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battle Cry - UVA vs NC State</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <title>Battle Cry | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #e87722 0%, #232D4B 50%, #e87722 100%);
+            background-image: url(assets/images/background.png);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
             color: #e0e0e0;
             min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: -1;
+        }
+        .top-nav {
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 2rem;
-        }
-
-        .player-container {
-            max-width: 700px;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 16px;
-            padding: 2.5rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-            border: 2px solid rgba(232, 119, 34, 0.4);
-        }
-
-        .album-art {
-            width: 100%;
-            aspect-ratio: 1;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 3px solid #e87722;
-        }
-
-        .album-info {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .album-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #e87722;
-            margin-bottom: 0.5rem;
-            font-family: 'Merriweather', serif;
-        }
-
-        .dedication {
-            font-size: 1.5rem;
-            color: rgba(232, 119, 34, 0.9);
-            margin-bottom: 0.5rem;
-            font-style: italic;
-        }
-
-        .album-meta {
-            font-size: 0.9rem;
-            color: rgba(232, 119, 34, 0.7);
-        }
-
-        .tracklist {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            max-height: 500px;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-        }
-
-        .tracklist::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .tracklist::-webkit-scrollbar-track {
-            background: rgba(232, 119, 34, 0.1);
-            border-radius: 3px;
-        }
-
-        .tracklist::-webkit-scrollbar-thumb {
-            background: rgba(232, 119, 34, 0.3);
-            border-radius: 3px;
-        }
-
-        .tracklist::-webkit-scrollbar-thumb:hover {
-            background: rgba(232, 119, 34, 0.5);
-        }
-
-        .track {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 1rem;
-            align-items: center;
-            padding: 0.75rem;
-            background: rgba(232, 119, 34, 0.08);
-            border-radius: 8px;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .track:hover {
-            background: rgba(232, 119, 34, 0.15);
-        }
-
-        .track.playing {
-            background: rgba(232, 119, 34, 0.25);
-            border: 1px solid rgba(232, 119, 34, 0.5);
-        }
-
-        .track.dj-track {
-            background: rgba(232, 119, 34, 0.2);
-            border-left: 4px solid #e87722;
-        }
-
-        .track.dj-track:hover {
-            background: rgba(232, 119, 34, 0.3);
-        }
-
-        .track-number {
-            color: rgba(232, 119, 34, 0.7);
-            font-weight: 600;
-            font-size: 0.9rem;
-            width: 2.5rem;
-            text-align: center;
-        }
-
-        .track-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-        }
-
-        .track-title {
-            color: #e0e0e0;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .track-artist {
-            color: rgba(232, 119, 34, 0.8);
+            gap: 2rem;
+            padding: 1rem 2rem;
             font-size: 0.85rem;
-        }
-
-        .track-play {
-            background: rgba(232, 119, 34, 0.3);
-            border: 1px solid rgba(232, 119, 34, 0.5);
-            color: #e87722;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s;
             font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0.7;
         }
-
-        .track-play:hover {
-            background: rgba(232, 119, 34, 0.5);
-            transform: scale(1.05);
-        }
-
-        .main-player {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid rgba(232, 119, 34, 0.3);
-            margin-bottom: 1.5rem;
-        }
-
-        .main-player audio {
-            width: 100%;
-        }
-
-        .now-playing {
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: rgba(232, 119, 34, 0.9);
-        }
-
-        .label-link {
-            text-align: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(232, 119, 34, 0.2);
-        }
-
-        .label-link a {
+        .top-nav a {
             color: #e87722;
             text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            transition: opacity 0.3s;
         }
-
-        .label-link a:hover {
-            opacity: 1;
+        .compilation-header {
+            text-align: center;
+            padding: 2rem;
         }
-
-        @media (max-width: 768px) {
-            .player-container {
-                padding: 1.5rem;
-            }
-
-            .album-title {
-                font-size: 2rem;
-            }
-
-            .dedication {
-                font-size: 1.2rem;
+        .compilation-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #e87722;
+            margin: 0;
+        }
+        .compilation-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin: 0.5rem 0 0 0;
+        }
+        .compilation-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .album-art-section {
+            text-align: center;
+        }
+        .album-art-section img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            border: 3px solid #e87722;
+        }
+        .album-description {
+            background: rgba(0,0,0,0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(232,119,34,0.2);
+            margin-top: 1.5rem;
+        }
+        .album-description h3 {
+            color: #e87722;
+            margin-top: 0;
+        }
+        .tracklist-section {
+            background: rgba(0,0,0,0.3);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(232,119,34,0.2);
+        }
+        .tracklist-section h2 {
+            color: #e87722;
+            margin-top: 0;
+            font-size: 2rem;
+        }
+        .compilation-track {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        .compilation-track:hover {
+            background: rgba(232,119,34,0.1);
+            border-color: rgba(232,119,34,0.3);
+        }
+        .compilation-track.playing {
+            background: rgba(232,119,34,0.15);
+            border-color: rgba(232,119,34,0.5);
+        }
+        .compilation-track.dj-track {
+            background: rgba(232,119,34,0.1);
+            border-left: 4px solid #e87722;
+        }
+        .compilation-track.dj-track:hover {
+            background: rgba(232,119,34,0.15);
+        }
+        .track-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #e87722;
+            min-width: 40px;
+        }
+        .track-info {
+            flex: 1;
+        }
+        .track-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            margin: 0 0 0.25rem 0;
+        }
+        .track-artist {
+            font-size: 0.95rem;
+            color: rgba(232,119,34,0.8);
+            margin: 0;
+        }
+        .track-play-button {
+            background: rgba(232,119,34,0.2);
+            border: 1px solid rgba(232,119,34,0.4);
+            color: #e87722;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .track-player-row {
+            display: none;
+            width: 100%;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0 0 0;
+        }
+        .compilation-track.playing .track-player-row {
+            display: flex;
+        }
+        .track-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(232,119,34,0.2);
+            border-radius: 2px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .track-progress-fill {
+            height: 100%;
+            background: #e87722;
+            width: 0%;
+            transition: width 0.1s;
+        }
+        .track-time {
+            color: #999;
+            font-size: 0.7rem;
+            min-width: 70px;
+            text-align: right;
+        }
+        .track-volume {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 60px;
+            height: 4px;
+            background: rgba(232,119,34,0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+        .track-volume::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e87722;
+            cursor: pointer;
+        }
+        .track-volume::-moz-range-thumb {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e87722;
+            cursor: pointer;
+            border: none;
+        }
+        @media (max-width: 1024px) {
+            .compilation-content {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="player-container">
-        <img src="assets/images/battle-cry-cover.png" alt="Battle Cry" class="album-art">
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="artists.html">Bios</a>
+    </nav>
 
-        <div class="album-info">
-            <h1 class="album-title">Battle Cry</h1>
-            <p class="dedication">🏈 UVA vs NC State 🏈</p>
-            <p class="album-meta">Various Artists • 21 Tracks • August 28, 2026 • 64 West Records</p>
+    <div class="compilation-header">
+        <h1 class="compilation-title">BATTLE CRY</h1>
+        <p class="compilation-subtitle">UVA vs NC State | Kickoff 3PM | August 28, 2026</p>
+    </div>
+
+    <div class="compilation-content">
+        <div class="album-art-section">
+            <img src="assets/images/battle-cry-cover.png" alt="Battle Cry">
+            <div class="album-description">
+                <h3>UVA Game Day Soundtrack</h3>
+                <p><strong>21 tracks</strong> of maximum intensity for your UVA vs NC State pregame experience.</p>
+                <p>From 1pm tailgate arrival through 3pm kickoff and beyond. Hard music from Silk Fracture, Blackridge, MACH-6, Turn Up Syndicate, Diamondback, Crimson Verdict, and Vexra, with DJ pregame hype building throughout.</p>
+                <p>Listen in order for the full progression: early tailgate energy, stadium filling intensity, final countdown hype, then Vexra's industrial anthem AS the kickoff moment, finishing with Turn Up Syndicate's victory celebration.</p>
+                <p><strong>WAH-HOO-WAH! GO HOOS!</strong></p>
+            </div>
         </div>
 
-        <div class="main-player" id="mainPlayer" style="display: none;">
-            <div class="now-playing" id="nowPlaying">Now Playing: Track 1</div>
-            <audio id="audioPlayer" controls></audio>
-        </div>
+        <div class="tracklist-section">
+            <h2>Tracklist</h2>
 
-        <div class="tracklist">
-            <div class="track" data-track="Various Artists - Battle Cry/01 - Silk Fracture - Scream to Roar.mp3" data-title="Scream to Roar" data-artist="Silk Fracture">
+            <div class="compilation-track" data-track="battle-cry/01 - Silk Fracture - Scream to Roar.mp3">
                 <span class="track-number">01</span>
                 <div class="track-info">
-                    <span class="track-title">Scream to Roar</span>
-                    <span class="track-artist">Silk Fracture</span>
+                    <p class="track-title">Scream to Roar</p>
+                    <p class="track-artist">Silk Fracture</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/02 - Blackridge - No Mercy.mp3" data-title="No Mercy" data-artist="Blackridge">
+
+            <div class="compilation-track" data-track="battle-cry/02 - Blackridge - No Mercy.mp3">
                 <span class="track-number">02</span>
                 <div class="track-info">
-                    <span class="track-title">No Mercy</span>
-                    <span class="track-artist">Blackridge</span>
+                    <p class="track-title">No Mercy</p>
+                    <p class="track-artist">Blackridge</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/03 - MACH-6 - Hyperdrive.mp3" data-title="Hyperdrive" data-artist="MACH-6">
+
+            <div class="compilation-track" data-track="battle-cry/03 - MACH-6 - Hyperdrive.mp3">
                 <span class="track-number">03</span>
                 <div class="track-info">
-                    <span class="track-title">Hyperdrive</span>
-                    <span class="track-artist">MACH-6</span>
+                    <p class="track-title">Hyperdrive</p>
+                    <p class="track-artist">MACH-6</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/04 - Turn Up Syndicate - Wrecking Crew.mp3" data-title="Wrecking Crew" data-artist="Turn Up Syndicate">
+
+            <div class="compilation-track" data-track="battle-cry/04 - Turn Up Syndicate - Wrecking Crew.mp3">
                 <span class="track-number">04</span>
                 <div class="track-info">
-                    <span class="track-title">Wrecking Crew</span>
-                    <span class="track-artist">Turn Up Syndicate</span>
+                    <p class="track-title">Wrecking Crew</p>
+                    <p class="track-artist">Turn Up Syndicate</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track dj-track" data-track="Various Artists - Battle Cry/04A - DJ - Pregame Welcome.mp3" data-title="Pregame Welcome" data-artist="DJ">
+
+            <div class="compilation-track dj-track" data-track="battle-cry/04A - DJ - Pregame Welcome.mp3">
                 <span class="track-number">04A</span>
                 <div class="track-info">
-                    <span class="track-title">⚡ Pregame Welcome</span>
-                    <span class="track-artist">DJ (~1pm Tailgate)</span>
+                    <p class="track-title">Pregame Welcome</p>
+                    <p class="track-artist">DJ (1pm Tailgate)</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/05 - Diamondback - Venom.mp3" data-title="Venom" data-artist="Diamondback">
+
+            <div class="compilation-track" data-track="battle-cry/05 - Diamondback - Venom.mp3">
                 <span class="track-number">05</span>
                 <div class="track-info">
-                    <span class="track-title">Venom</span>
-                    <span class="track-artist">Diamondback</span>
+                    <p class="track-title">Venom</p>
+                    <p class="track-artist">Diamondback</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/06 - Crimson Verdict - Beautiful Violence.mp3" data-title="Beautiful Violence" data-artist="Crimson Verdict">
+
+            <div class="compilation-track" data-track="battle-cry/06 - Crimson Verdict - Beautiful Violence.mp3">
                 <span class="track-number">06</span>
                 <div class="track-info">
-                    <span class="track-title">Beautiful Violence</span>
-                    <span class="track-artist">Crimson Verdict</span>
+                    <p class="track-title">Beautiful Violence</p>
+                    <p class="track-artist">Crimson Verdict</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/07 - Blackridge - Unbreakable.mp3" data-title="Unbreakable" data-artist="Blackridge">
+
+            <div class="compilation-track" data-track="battle-cry/07 - Blackridge - Unbreakable.mp3">
                 <span class="track-number">07</span>
                 <div class="track-info">
-                    <span class="track-title">Unbreakable</span>
-                    <span class="track-artist">Blackridge</span>
+                    <p class="track-title">Unbreakable</p>
+                    <p class="track-artist">Blackridge</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/08 - MACH-6 - Terminal.mp3" data-title="Terminal" data-artist="MACH-6">
+
+            <div class="compilation-track" data-track="battle-cry/08 - MACH-6 - Terminal.mp3">
                 <span class="track-number">08</span>
                 <div class="track-info">
-                    <span class="track-title">Terminal</span>
-                    <span class="track-artist">MACH-6</span>
+                    <p class="track-title">Terminal</p>
+                    <p class="track-artist">MACH-6</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track dj-track" data-track="Various Artists - Battle Cry/08A - DJ - Stadium Filling.mp3" data-title="Stadium Filling" data-artist="DJ">
+
+            <div class="compilation-track dj-track" data-track="battle-cry/08A - DJ - Stadium Filling.mp3">
                 <span class="track-number">08A</span>
                 <div class="track-info">
-                    <span class="track-title">⚡ Stadium Filling</span>
-                    <span class="track-artist">DJ (~2pm Heading In)</span>
+                    <p class="track-title">Stadium Filling</p>
+                    <p class="track-artist">DJ (2pm Heading Inside)</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/09 - Turn Up Syndicate - Dominate.mp3" data-title="Dominate" data-artist="Turn Up Syndicate">
+
+            <div class="compilation-track" data-track="battle-cry/09 - Turn Up Syndicate - Dominate.mp3">
                 <span class="track-number">09</span>
                 <div class="track-info">
-                    <span class="track-title">Dominate</span>
-                    <span class="track-artist">Turn Up Syndicate</span>
+                    <p class="track-title">Dominate</p>
+                    <p class="track-artist">Turn Up Syndicate</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/10 - Diamondback - Apex.mp3" data-title="Apex" data-artist="Diamondback">
+
+            <div class="compilation-track" data-track="battle-cry/10 - Diamondback - Apex.mp3">
                 <span class="track-number">10</span>
                 <div class="track-info">
-                    <span class="track-title">Apex</span>
-                    <span class="track-artist">Diamondback</span>
+                    <p class="track-title">Apex</p>
+                    <p class="track-artist">Diamondback</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/11 - Crimson Verdict - Feral Queen.mp3" data-title="Feral Queen" data-artist="Crimson Verdict">
+
+            <div class="compilation-track" data-track="battle-cry/11 - Crimson Verdict - Feral Queen.mp3">
                 <span class="track-number">11</span>
                 <div class="track-info">
-                    <span class="track-title">Feral Queen</span>
-                    <span class="track-artist">Crimson Verdict</span>
+                    <p class="track-title">Feral Queen</p>
+                    <p class="track-artist">Crimson Verdict</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/12 - Blackridge - Iron Will.mp3" data-title="Iron Will" data-artist="Blackridge">
+
+            <div class="compilation-track" data-track="battle-cry/12 - Blackridge - Iron Will.mp3">
                 <span class="track-number">12</span>
                 <div class="track-info">
-                    <span class="track-title">Iron Will</span>
-                    <span class="track-artist">Blackridge</span>
+                    <p class="track-title">Iron Will</p>
+                    <p class="track-artist">Blackridge</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track dj-track" data-track="Various Artists - Battle Cry/12A - DJ - Final Countdown.mp3" data-title="Final Countdown" data-artist="DJ">
+
+            <div class="compilation-track dj-track" data-track="battle-cry/12A - DJ - Final Countdown.mp3">
                 <span class="track-number">12A</span>
                 <div class="track-info">
-                    <span class="track-title">⚡ Final Countdown</span>
-                    <span class="track-artist">DJ (~2:45pm Almost Time)</span>
+                    <p class="track-title">Final Countdown</p>
+                    <p class="track-artist">DJ (2:45pm Almost Time)</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/13 - MACH-6 - Blitz.mp3" data-title="Blitz" data-artist="MACH-6">
+
+            <div class="compilation-track" data-track="battle-cry/13 - MACH-6 - Blitz.mp3">
                 <span class="track-number">13</span>
                 <div class="track-info">
-                    <span class="track-title">Blitz</span>
-                    <span class="track-artist">MACH-6</span>
+                    <p class="track-title">Blitz</p>
+                    <p class="track-artist">MACH-6</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/14 - Turn Up Syndicate x Diamondback - Warpath.mp3" data-title="Warpath" data-artist="Turn Up Syndicate x Diamondback">
+
+            <div class="compilation-track" data-track="battle-cry/14 - Turn Up Syndicate x Diamondback - Warpath.mp3">
                 <span class="track-number">14</span>
                 <div class="track-info">
-                    <span class="track-title">Warpath</span>
-                    <span class="track-artist">Turn Up Syndicate x Diamondback</span>
+                    <p class="track-title">Warpath</p>
+                    <p class="track-artist">Turn Up Syndicate x Diamondback</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/15 - Crimson Verdict - Reign in Chaos.mp3" data-title="Reign in Chaos" data-artist="Crimson Verdict">
+
+            <div class="compilation-track" data-track="battle-cry/15 - Crimson Verdict - Reign in Chaos.mp3">
                 <span class="track-number">15</span>
                 <div class="track-info">
-                    <span class="track-title">Reign in Chaos</span>
-                    <span class="track-artist">Crimson Verdict</span>
+                    <p class="track-title">Reign in Chaos</p>
+                    <p class="track-artist">Crimson Verdict</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track dj-track" data-track="Various Artists - Battle Cry/15A - DJ - Kickoff Imminent.mp3" data-title="Kickoff Imminent" data-artist="DJ">
+
+            <div class="compilation-track dj-track" data-track="battle-cry/15A - DJ - Kickoff Imminent.mp3">
                 <span class="track-number">15A</span>
                 <div class="track-info">
-                    <span class="track-title">⚡ Kickoff Imminent</span>
-                    <span class="track-artist">DJ (~3pm GAME TIME)</span>
+                    <p class="track-title">Kickoff Imminent</p>
+                    <p class="track-artist">DJ (3pm GAME TIME)</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/16 - Vexra - Blackout Protocol.mp3" data-title="Blackout Protocol" data-artist="Vexra">
+
+            <div class="compilation-track" data-track="battle-cry/16 - Vexra - Blackout Protocol.mp3">
                 <span class="track-number">16</span>
                 <div class="track-info">
-                    <span class="track-title">🔥 Blackout Protocol</span>
-                    <span class="track-artist">Vexra (THE KICKOFF)</span>
+                    <p class="track-title">Blackout Protocol (THE KICKOFF)</p>
+                    <p class="track-artist">Vexra</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-            <div class="track" data-track="Various Artists - Battle Cry/17 - Turn Up Syndicate - Cavaliers Until We Die.mp3" data-title="Cavaliers Until We Die" data-artist="Turn Up Syndicate">
+
+            <div class="compilation-track" data-track="battle-cry/17 - Turn Up Syndicate - Cavaliers Until We Die.mp3">
                 <span class="track-number">17</span>
                 <div class="track-info">
-                    <span class="track-title">🏆 Cavaliers Until We Die</span>
-                    <span class="track-artist">Turn Up Syndicate (VICTORY ANTHEM)</span>
+                    <p class="track-title">Cavaliers Until We Die (VICTORY ANTHEM)</p>
+                    <p class="track-artist">Turn Up Syndicate</p>
                 </div>
-                <button class="track-play">▶</button>
+                <button class="track-play-button">&#9654; Play</button>
             </div>
-        </div>
-
-        <div class="label-link">
-            <a href="index.html">64 West Records • The porch light's always on.</a>
         </div>
     </div>
 
+    <audio id="audioElement"></audio>
+
+    <footer style="text-align:center;padding:2rem;background:rgba(0,0,0,0.5)">
+        <p style="color:#e87722;font-weight:600">The porch light's always on.</p>
+        <p style="opacity:0.6">&#169; 2026 64 West Records</p>
+    </footer>
+
     <script>
-        const audioPlayer = document.getElementById('audioPlayer');
-        const mainPlayer = document.getElementById('mainPlayer');
-        const nowPlaying = document.getElementById('nowPlaying');
-        const tracks = document.querySelectorAll('.track');
+        // Inline audio player functionality
+        const audio = document.getElementById('audioElement');
+        let currentTrackIndex = -1;
+        let isPlaying = false;
 
-        tracks.forEach(track => {
-            track.addEventListener('click', function() {
-                const filename = this.getAttribute('data-track');
-                const title = this.getAttribute('data-title');
-                const artist = this.getAttribute('data-artist');
-                const trackNumber = this.querySelector('.track-number').textContent;
+        // Create inline player rows for each track
+        document.querySelectorAll('.compilation-track').forEach(track => {
+            const row = document.createElement('div');
+            row.className = 'track-player-row';
+            row.innerHTML = `
+                <div class="track-progress">
+                    <div class="track-progress-fill"></div>
+                </div>
+                <span class="track-time">0:00 / 0:00</span>
+                <input type="range" class="track-volume" min="0" max="1" step="0.01" value="0.8">
+            `;
+            track.appendChild(row);
+        });
 
-                // Update player
-                audioPlayer.src = `assets/audio/${filename}`;
-                audioPlayer.play();
-                mainPlayer.style.display = 'block';
-                nowPlaying.textContent = `Now Playing: ${trackNumber}. ${title} - ${artist}`;
+        const tracks = Array.from(document.querySelectorAll('.compilation-track'));
 
-                // Update visual state
-                tracks.forEach(t => t.classList.remove('playing'));
-                this.classList.add('playing');
+        function formatTime(s) {
+            if (isNaN(s)) return '0:00';
+            return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`;
+        }
 
-                // Smooth scroll to player
-                mainPlayer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        function playTrack(index) {
+            if (index < 0 || index >= tracks.length) return;
+            tracks.forEach(t => t.classList.remove('playing'));
+            document.querySelectorAll('.track-play-button').forEach(btn => btn.innerHTML = '&#9654; Play');
+            currentTrackIndex = index;
+
+            const track = tracks[index];
+            const filename = track.dataset.track;
+            audio.src = `assets/audio/${filename}`;
+            audio.play();
+            track.classList.add('playing');
+            track.querySelector('.track-play-button').innerHTML = '&#10074;&#10074; Pause';
+            isPlaying = true;
+        }
+
+        tracks.forEach((track, index) => {
+            track.addEventListener('click', (e) => {
+                if (e.target.classList.contains('track-volume') || e.target.classList.contains('track-progress')) return;
+                if (currentTrackIndex === index && isPlaying) {
+                    audio.pause();
+                    track.querySelector('.track-play-button').innerHTML = '&#9654; Play';
+                    isPlaying = false;
+                } else {
+                    playTrack(index);
+                }
+            });
+
+            const progress = track.querySelector('.track-progress');
+            const volumeSlider = track.querySelector('.track-volume');
+
+            progress.addEventListener('click', (e) => {
+                if (currentTrackIndex !== index) return;
+                const rect = progress.getBoundingClientRect();
+                const percent = (e.clientX - rect.left) / rect.width;
+                audio.currentTime = percent * audio.duration;
+            });
+
+            volumeSlider.addEventListener('input', (e) => {
+                audio.volume = e.target.value;
             });
         });
 
-        // Auto-play next track when current ends
-        audioPlayer.addEventListener('ended', function() {
-            const currentTrack = document.querySelector('.track.playing');
-            if (currentTrack && currentTrack.nextElementSibling) {
-                const nextTrack = currentTrack.nextElementSibling;
-                if (nextTrack.classList.contains('track')) {
-                    nextTrack.click();
-                }
+        audio.addEventListener('timeupdate', () => {
+            if (currentTrackIndex < 0) return;
+            const track = tracks[currentTrackIndex];
+            const fill = track.querySelector('.track-progress-fill');
+            const timeDisplay = track.querySelector('.track-time');
+            fill.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+            timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        });
+
+        audio.addEventListener('ended', () => {
+            if (currentTrackIndex < tracks.length - 1) {
+                playTrack(currentTrackIndex + 1);
             }
         });
+
+        audio.volume = 0.8;
     </script>
 </body>
 </html>
