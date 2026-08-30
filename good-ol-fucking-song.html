@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Good Ol' Fucking Song | 64 West Records</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        body {
+            background-image: url(assets/images/background.png);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.75);
+            z-index: -1;
+        }
+        .top-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        .top-nav a {
+            color: #e87722;
+            text-decoration: none;
+        }
+        .top-nav a:hover { opacity: 1; text-decoration: underline; }
+        .compilation-header {
+            text-align: center;
+            padding: 2rem 2rem 1rem;
+        }
+        .compilation-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #e87722;
+            margin: 0;
+            line-height: 1.1;
+        }
+        .compilation-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.75;
+            margin: 0.75rem 0 0 0;
+        }
+        .uva-colors {
+            color: #232d4b;
+            -webkit-text-stroke: 1px #e87722;
+        }
+        .compilation-content {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 3rem;
+            padding: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        @media (max-width: 768px) {
+            .compilation-content { grid-template-columns: 1fr; }
+            .compilation-title { font-size: 2rem; }
+        }
+        .album-art-section { text-align: center; }
+        .album-art-placeholder {
+            width: 100%;
+            max-width: 340px;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #232d4b 0%, #1a1a2e 40%, #e87722 100%);
+            border-radius: 12px;
+            border: 3px solid #e87722;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0 auto;
+        }
+        .album-art-placeholder .wahoowa {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #e87722;
+            letter-spacing: 0.05em;
+        }
+        .album-art-placeholder .ep-label {
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        .album-description {
+            background: rgba(0,0,0,0.3);
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(232,119,34,0.2);
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+        .tracklist-section h2 {
+            font-size: 1.4rem;
+            color: #e87722;
+            margin: 0 0 1.25rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .track-item {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(232,119,34,0.15);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            transition: border-color 0.2s;
+        }
+        .track-item:hover { border-color: rgba(232,119,34,0.5); }
+        .track-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .track-number {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            font-weight: 600;
+            min-width: 24px;
+        }
+        .track-info { flex: 1; }
+        .track-artist {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #e87722;
+        }
+        .track-title {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 0.1rem;
+        }
+        .play-btn {
+            background: #e87722;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .play-btn:hover { background: #ff9944; transform: scale(1.05); }
+        .play-btn.playing { background: #ff9944; }
+        .inline-player {
+            display: none;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(232,119,34,0.15);
+        }
+        .inline-player.active { display: block; }
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .progress-bar-container {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 2px;
+            cursor: pointer;
+            position: relative;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: #e87722;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .time-display {
+            font-size: 0.75rem;
+            opacity: 0.6;
+            min-width: 80px;
+            text-align: right;
+        }
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .volume-icon { font-size: 0.8rem; opacity: 0.6; }
+        .volume-slider {
+            width: 70px;
+            accent-color: #e87722;
+            cursor: pointer;
+        }
+        .footer-note {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            font-size: 0.8rem;
+            opacity: 0.4;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">Home</a>
+        <a href="artists.html">Artists</a>
+        <a href="battle-cry.html">Battle Cry</a>
+    </nav>
+
+    <div class="compilation-header">
+        <h1 class="compilation-title">The Good Ol' F***ing Song</h1>
+        <p class="compilation-subtitle">5-Track EP &nbsp;|&nbsp; Various Artists &nbsp;|&nbsp; 64 West Records &nbsp;|&nbsp; 2026</p>
+    </div>
+
+    <div class="compilation-content">
+        <div class="album-art-section">
+            <div class="album-art-placeholder">
+                <div class="wahoowa">WAH-HOO-WAH</div>
+                <div class="ep-label">64 West Records</div>
+            </div>
+            <div class="album-description">
+                Five artists. One song. Zero chill.<br><br>
+                Every artist on the 64 West Records roster took their shot at the Good Ol' Song — and every single version goes harder than it has any right to. Turn Up Syndicate opens the party, MACH-6 demolishes the place, Blackridge tears the roof off, Crimson Verdict makes it theatrical, and Vexra closes it out on another level entirely.<br><br>
+                Wahoo-wa. Let's go Hoos.
+            </div>
+        </div>
+
+        <div class="tracklist-section">
+            <h2>Tracks</h2>
+
+            <div class="track-item">
+                <div class="track-header">
+                    <span class="track-number">01</span>
+                    <div class="track-info">
+                        <div class="track-artist">Turn Up Syndicate</div>
+                        <div class="track-title">The Good Ol' Fucking Song</div>
+                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'good-ol-fucking-song/01 - Turn Up Syndicate - The Good Ol\' Fucking Song.mp3')">▶</button>
+                </div>
+                <div class="inline-player">
+                    <div class="player-controls">
+                        <div class="progress-bar-container" onclick="seekAudio(event, this)">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                        <span class="time-display">0:00 / 0:00</span>
+                        <div class="volume-control">
+                            <span class="volume-icon">🔊</span>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="track-header">
+                    <span class="track-number">02</span>
+                    <div class="track-info">
+                        <div class="track-artist">MACH-6</div>
+                        <div class="track-title">The Good Ol' Fucking Song</div>
+                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'good-ol-fucking-song/02 - MACH-6 - The Good Ol\' Fucking Song.mp3')">▶</button>
+                </div>
+                <div class="inline-player">
+                    <div class="player-controls">
+                        <div class="progress-bar-container" onclick="seekAudio(event, this)">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                        <span class="time-display">0:00 / 0:00</span>
+                        <div class="volume-control">
+                            <span class="volume-icon">🔊</span>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="track-header">
+                    <span class="track-number">03</span>
+                    <div class="track-info">
+                        <div class="track-artist">Blackridge</div>
+                        <div class="track-title">The Good Ol' Fucking Song</div>
+                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'good-ol-fucking-song/03 - Blackridge - The Good Ol\' Fucking Song.mp3')">▶</button>
+                </div>
+                <div class="inline-player">
+                    <div class="player-controls">
+                        <div class="progress-bar-container" onclick="seekAudio(event, this)">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                        <span class="time-display">0:00 / 0:00</span>
+                        <div class="volume-control">
+                            <span class="volume-icon">🔊</span>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="track-header">
+                    <span class="track-number">04</span>
+                    <div class="track-info">
+                        <div class="track-artist">Crimson Verdict</div>
+                        <div class="track-title">The Good Ol' Fucking Song</div>
+                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'good-ol-fucking-song/04 - Crimson Verdict - The Good Ol\' Fucking Song.mp3')">▶</button>
+                </div>
+                <div class="inline-player">
+                    <div class="player-controls">
+                        <div class="progress-bar-container" onclick="seekAudio(event, this)">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                        <span class="time-display">0:00 / 0:00</span>
+                        <div class="volume-control">
+                            <span class="volume-icon">🔊</span>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="track-item">
+                <div class="track-header">
+                    <span class="track-number">05</span>
+                    <div class="track-info">
+                        <div class="track-artist">Vexra</div>
+                        <div class="track-title">The Good Ol' Fucking Song</div>
+                    </div>
+                    <button class="play-btn" onclick="togglePlay(this, 'good-ol-fucking-song/05 - Vexra - The Good Ol\' Fucking Song.mp3')">▶</button>
+                </div>
+                <div class="inline-player">
+                    <div class="player-controls">
+                        <div class="progress-bar-container" onclick="seekAudio(event, this)">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                        <span class="time-display">0:00 / 0:00</span>
+                        <div class="volume-control">
+                            <span class="volume-icon">🔊</span>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer-note">64 West Records &copy; 2026 &nbsp;|&nbsp; WAH-HOO-WAH</div>
+
+    <script>
+        let currentAudio = null;
+        let currentBtn = null;
+        let currentPlayer = null;
+
+        function togglePlay(btn, src) {
+            const trackItem = btn.closest('.track-item');
+            const player = trackItem.querySelector('.inline-player');
+            const progressFill = player.querySelector('.progress-bar-fill');
+            const timeDisplay = player.querySelector('.time-display');
+            const volumeSlider = player.querySelector('.volume-slider');
+
+            if (currentAudio && currentBtn === btn) {
+                if (currentAudio.paused) {
+                    currentAudio.play();
+                    btn.textContent = '⏸';
+                    btn.classList.add('playing');
+                } else {
+                    currentAudio.pause();
+                    btn.textContent = '▶';
+                    btn.classList.remove('playing');
+                }
+                return;
+            }
+
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                if (currentBtn) { currentBtn.textContent = '▶'; currentBtn.classList.remove('playing'); }
+                if (currentPlayer) currentPlayer.classList.remove('active');
+            }
+
+            const audio = new Audio('assets/audio/' + src);
+            audio.volume = parseFloat(volumeSlider.value);
+
+            audio.addEventListener('timeupdate', () => {
+                if (audio.duration) {
+                    const pct = (audio.currentTime / audio.duration) * 100;
+                    progressFill.style.width = pct + '%';
+                    timeDisplay.textContent = formatTime(audio.currentTime) + ' / ' + formatTime(audio.duration);
+                }
+            });
+
+            audio.addEventListener('ended', () => {
+                btn.textContent = '▶';
+                btn.classList.remove('playing');
+                player.classList.remove('active');
+                progressFill.style.width = '0%';
+            });
+
+            audio.play();
+            btn.textContent = '⏸';
+            btn.classList.add('playing');
+            player.classList.add('active');
+
+            currentAudio = audio;
+            currentBtn = btn;
+            currentPlayer = player;
+
+            volumeSlider.oninput = () => { audio.volume = parseFloat(volumeSlider.value); };
+        }
+
+        function seekAudio(event, container) {
+            if (!currentAudio) return;
+            const rect = container.getBoundingClientRect();
+            const pct = (event.clientX - rect.left) / rect.width;
+            currentAudio.currentTime = pct * currentAudio.duration;
+        }
+
+        function setVolume(slider) {
+            if (currentAudio) currentAudio.volume = parseFloat(slider.value);
+        }
+
+        function formatTime(s) {
+            const m = Math.floor(s / 60);
+            const sec = Math.floor(s % 60);
+            return m + ':' + (sec < 10 ? '0' : '') + sec;
+        }
+    </script>
+</body>
+</html>
