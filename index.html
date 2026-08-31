@@ -44,13 +44,78 @@
             z-index: -1;
         }
 
-        /* Featured Carousel Section */
+        /* Pagination */
+        .pagination-wrapper {
+            position: relative;
+        }
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 1.5rem 2rem;
+        }
+        .pagination-controls.top {
+            padding-bottom: 0;
+        }
+        .page-btn {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(212,165,116,0.35);
+            color: #d4a574;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, border-color 0.2s, transform 0.1s;
+            flex-shrink: 0;
+        }
+        .page-btn:hover:not(:disabled) {
+            background: rgba(212,165,116,0.15);
+            border-color: rgba(212,165,116,0.7);
+            transform: scale(1.05);
+        }
+        .page-btn:disabled {
+            opacity: 0.25;
+            cursor: default;
+        }
+        .page-indicator {
+            font-size: 0.9rem;
+            color: rgba(212,165,116,0.8);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.05em;
+            min-width: 80px;
+            text-align: center;
+        }
+        .page-dots {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .page-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(212,165,116,0.25);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            border: none;
+            padding: 0;
+            flex-shrink: 0;
+        }
+        .page-dot.active {
+            background: #d4a574;
+            transform: scale(1.3);
+        }
+        .gallery-item.page-hidden {
+            display: none;
+        }
+        /* Dummy rule to remove dead CSS reference */
         .featured-section {
-            padding: 3rem 2rem 2rem;
-            margin-bottom: 3rem;
-            background: rgba(212, 165, 116, 0.02);
-            border-top: 1px solid rgba(212, 165, 116, 0.1);
-            border-bottom: 1px solid rgba(212, 165, 116, 0.1);
+            display: none;
         }
 
         .featured-label {
@@ -436,9 +501,8 @@
         </div>
     </div>
 
-    <!-- Featured Carousel -->
-    <div class="featured-section">
-        <div class="featured-label">New Releases</div>
+    <!-- Carousel removed - replaced by paginated gallery below -->
+    <div class="featured-section" style="display:none">
         <div class="carousel-container">
             <div class="carousel-viewport">
                 <div class="carousel-track" id="carouselTrack">
@@ -543,11 +607,20 @@
         </div>
     </div>
 
-    <!-- Gallery Grid -->
-    <div class="gallery-grid">
+    <!-- Paginated Gallery -->
+    <div class="pagination-wrapper">
+        <div class="pagination-controls top" id="paginationTop">
+            <button class="page-btn" id="prevBtnTop" onclick="changePage(-1)" disabled>&#8592;</button>
+            <div class="page-dots" id="pageDotsTop"></div>
+            <span class="page-indicator" id="pageIndicatorTop">1 / 1</span>
+            <div class="page-dots" id="pageDotsTop2" style="display:none"></div>
+            <button class="page-btn" id="nextBtnTop" onclick="changePage(1)">&#8594;</button>
+        </div>
+
+    <div class="gallery-grid" id="galleryGrid">
         <!-- Mateo Vega x Elena Voss - Frontera -->
         <a href="artist-mateo-vega-elena-voss.html#frontera" class="gallery-item">
-            <img src="assets/images/albums/mateo-vega-elena-voss-frontera-cover.png" alt="Frontera">
+            <img loading="lazy" src="assets/images/albums/mateo-vega-elena-voss-frontera-cover.png" alt="Frontera">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Frontera</h3>
                 <p class="gallery-artist">Mateo Vega x Elena Voss</p>
@@ -557,7 +630,7 @@
 
         <!-- Fine Thanks - Good Enough -->
         <a href="artist-fine-thanks.html#good-enough" class="gallery-item">
-            <img src="assets/images/albums/fine-thanks-good-enough.png" alt="Good Enough">
+            <img loading="lazy" src="assets/images/albums/fine-thanks-good-enough.png" alt="Good Enough">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Good Enough</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -567,7 +640,7 @@
 
         <!-- Red Shift - Red Clay Renaissance -->
         <a href="artist-red-shift.html#red-clay-renaissance" class="gallery-item">
-            <img src="assets/images/albums/red-shift-red-clay-renaissance.png" alt="Red Clay Renaissance">
+            <img loading="lazy" src="assets/images/albums/red-shift-red-clay-renaissance.png" alt="Red Clay Renaissance">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Red Clay Renaissance</h3>
                 <p class="gallery-artist">Red Shift</p>
@@ -577,7 +650,7 @@
 
         <!-- Fine Thanks - Fuck Politeness -->
         <a href="artist-fine-thanks.html#fuck-politeness" class="gallery-item">
-            <img src="assets/images/fine-thanks-fuck-politeness-cover.png" alt="Fuck Politeness">
+            <img loading="lazy" src="assets/images/fine-thanks-fuck-politeness-cover.png" alt="Fuck Politeness">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Fuck Politeness</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -587,7 +660,7 @@
 
         <!-- Fine Thanks - Minor Inconveniences (Again) -->
         <a href="artist-fine-thanks.html#minor-inconveniences-again" class="gallery-item">
-            <img src="assets/images/fine-thanks-minor-inconveniences-again-cover.png" alt="Minor Inconveniences (Again)">
+            <img loading="lazy" src="assets/images/fine-thanks-minor-inconveniences-again-cover.png" alt="Minor Inconveniences (Again)">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Minor Inconveniences (Again)</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -597,7 +670,7 @@
 
         <!-- Fine Thanks - Group Therapy -->
         <a href="artist-fine-thanks.html#group-therapy" class="gallery-item">
-            <img src="assets/images/fine-thanks-group-therapy-cover.png" alt="Group Therapy">
+            <img loading="lazy" src="assets/images/fine-thanks-group-therapy-cover.png" alt="Group Therapy">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Group Therapy</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -607,7 +680,7 @@
 
         <!-- Vexra - Corazon Electrico -->
         <a href="artist-elena-voss.html#vexra-corazon-electrico" class="gallery-item">
-            <img src="assets/images/vexra-corazon-electrico-cover.jpg" alt="Corazón Eléctrico">
+            <img loading="lazy" src="assets/images/vexra-corazon-electrico-cover.jpg" alt="Corazón Eléctrico">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Corazón Eléctrico</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -617,7 +690,7 @@
 
         <!-- Vexra - Radiant -->
         <a href="artist-elena-voss.html#vexra-radiant" class="gallery-item">
-            <img src="assets/images/vexra-radiant-cover.jpg" alt="Radiant">
+            <img loading="lazy" src="assets/images/vexra-radiant-cover.jpg" alt="Radiant">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Radiant</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -627,7 +700,7 @@
 
         <!-- Turn Up Syndicate - Southern Heat -->
         <a href="artist-turn-up-syndicate.html#southern-heat" class="gallery-item">
-            <img src="assets/images/turn-up-syndicate-southern-heat-cover.png" alt="Southern Heat">
+            <img loading="lazy" src="assets/images/turn-up-syndicate-southern-heat-cover.png" alt="Southern Heat">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Southern Heat</h3>
                 <p class="gallery-artist">Turn Up Syndicate</p>
@@ -637,7 +710,7 @@
 
         <!-- Mateo Vega - Corazon Frio -->
         <a href="artist-mateo-vega.html#corazon-frio" class="gallery-item">
-            <img src="assets/images/mateo-vega-corazon-frio-cover.png" alt="Corazón Frío">
+            <img loading="lazy" src="assets/images/mateo-vega-corazon-frio-cover.png" alt="Corazón Frío">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Corazón Frío</h3>
                 <p class="gallery-artist">Mateo Vega</p>
@@ -647,7 +720,7 @@
 
         <!-- Fine Thanks - Extremely Online -->
         <a href="artist-fine-thanks.html#extremely-online" class="gallery-item">
-            <img src="assets/images/fine-thanks-extremely-online-cover.png" alt="Extremely Online">
+            <img loading="lazy" src="assets/images/fine-thanks-extremely-online-cover.png" alt="Extremely Online">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Extremely Online</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -657,7 +730,7 @@
 
         <!-- Lila Monroe - Afterglow -->
         <a href="artist-lila-monroe.html#afterglow" class="gallery-item">
-            <img src="assets/images/lila-monroe-afterglow-cover.png" alt="Afterglow">
+            <img loading="lazy" src="assets/images/lila-monroe-afterglow-cover.png" alt="Afterglow">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Afterglow</h3>
                 <p class="gallery-artist">Lila Monroe</p>
@@ -667,7 +740,7 @@
 
         <!-- Lila Monroe - Undertow -->
         <a href="artist-lila-monroe.html" class="gallery-item">
-            <img src="assets/images/albums/lila-monroe-undertow.png" alt="Undertow">
+            <img loading="lazy" src="assets/images/albums/lila-monroe-undertow.png" alt="Undertow">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Undertow</h3>
                 <p class="gallery-artist">Lila Monroe</p>
@@ -677,7 +750,7 @@
 
         <!-- Fine Thanks - No Worries If Not -->
         <a href="artist-fine-thanks.html" class="gallery-item">
-            <img src="assets/images/albums/fine-thanks-no-worries-if-not.png" alt="No Worries If Not">
+            <img loading="lazy" src="assets/images/albums/fine-thanks-no-worries-if-not.png" alt="No Worries If Not">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">No Worries If Not</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -687,7 +760,7 @@
 
         <!-- River Bend - Summer Friends -->
         <a href="artist-river-bend.html" class="gallery-item">
-            <img src="assets/images/albums/river-bend-summer-friends.png" alt="Summer Friends">
+            <img loading="lazy" src="assets/images/albums/river-bend-summer-friends.png" alt="Summer Friends">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Summer Friends</h3>
                 <p class="gallery-artist">River Bend</p>
@@ -697,7 +770,7 @@
 
         <!-- Vexra - Heat Lightning -->
         <a href="artist-elena-voss.html" class="gallery-item">
-            <img src="assets/images/albums/vexra-heat-lightning.png" alt="Heat Lightning">
+            <img loading="lazy" src="assets/images/albums/vexra-heat-lightning.png" alt="Heat Lightning">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Heat Lightning</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -707,7 +780,7 @@
 
         <!-- Vexra - One More Round -->
         <a href="artist-elena-voss.html" class="gallery-item">
-            <img src="assets/images/albums/vexra-one-more-round-cover.png" alt="One More Round">
+            <img loading="lazy" src="assets/images/albums/vexra-one-more-round-cover.png" alt="One More Round">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">One More Round</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -717,7 +790,7 @@
 
         <!-- Vexra - Neon Atlas -->
         <a href="artist-elena-voss.html" class="gallery-item">
-            <img src="assets/images/albums/vexra-neon-atlas-cover.png" alt="Neon Atlas">
+            <img loading="lazy" src="assets/images/albums/vexra-neon-atlas-cover.png" alt="Neon Atlas">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Neon Atlas</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -727,7 +800,7 @@
 
         <!-- Turn Up Syndicate x Vexra - Sacred Chaos -->
         <a href="artist-turn-up-syndicate-vexra.html" class="gallery-item">
-            <img src="assets/images/albums/turn-up-syndicate-vexra-sacred-chaos-cover.png" alt="Sacred Chaos">
+            <img loading="lazy" src="assets/images/albums/turn-up-syndicate-vexra-sacred-chaos-cover.png" alt="Sacred Chaos">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Sacred Chaos</h3>
                 <p class="gallery-artist">Turn Up Syndicate x Vexra</p>
@@ -737,7 +810,7 @@
 
         <!-- Turn Up Syndicate - Southern Heat -->
         <a href="artist-turn-up-syndicate.html" class="gallery-item">
-            <img src="assets/images/albums/turn-up-syndicate-southern-heat.png" alt="Southern Heat">
+            <img loading="lazy" src="assets/images/albums/turn-up-syndicate-southern-heat.png" alt="Southern Heat">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Southern Heat</h3>
                 <p class="gallery-artist">Turn Up Syndicate</p>
@@ -747,7 +820,7 @@
 
         <!-- Turn Up Syndicate - No Off Switch -->
         <a href="artist-turn-up-syndicate.html" class="gallery-item">
-            <img src="assets/images/albums/turn-up-syndicate-no-off-switch-cover.png" alt="No Off Switch">
+            <img loading="lazy" src="assets/images/albums/turn-up-syndicate-no-off-switch-cover.png" alt="No Off Switch">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">No Off Switch</h3>
                 <p class="gallery-artist">Turn Up Syndicate</p>
@@ -757,7 +830,7 @@
 
         <!-- Fine Thanks - Moderately Inconvenienced -->
         <a href="artist-fine-thanks.html" class="gallery-item">
-            <img src="assets/images/albums/fine-thanks-moderately-inconvenienced.png" alt="Moderately Inconvenienced">
+            <img loading="lazy" src="assets/images/albums/fine-thanks-moderately-inconvenienced.png" alt="Moderately Inconvenienced">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Moderately Inconvenienced</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -767,7 +840,7 @@
 
         <!-- Vexra - Ciudades de Noche -->
         <a href="artist-elena-voss.html#ciudades-de-noche" class="gallery-item">
-            <img src="assets/images/albums/vexra-ciudades-de-noche-cover.png" alt="Ciudades de Noche">
+            <img loading="lazy" src="assets/images/albums/vexra-ciudades-de-noche-cover.png" alt="Ciudades de Noche">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Ciudades de Noche</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -777,7 +850,7 @@
 
         <!-- KINDL1NG - Twilight -->
         <a href="listen-kindl1ng-twilight.html" class="gallery-item">
-            <img src="assets/images/albums/kindl1ng-twilight-cover.png" alt="Twilight">
+            <img loading="lazy" src="assets/images/albums/kindl1ng-twilight-cover.png" alt="Twilight">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Twilight</h3>
                 <p class="gallery-artist">KINDL1NG</p>
@@ -787,7 +860,7 @@
 
         <!-- KINDL1NG - Sweet Loud Summer -->
         <a href="listen-kindl1ng-sweet-loud-summer.html" class="gallery-item">
-            <img src="assets/images/albums/kindl1ng-sweet-loud-summer-cover.png" alt="Sweet Loud Summer">
+            <img loading="lazy" src="assets/images/albums/kindl1ng-sweet-loud-summer-cover.png" alt="Sweet Loud Summer">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Sweet Loud Summer</h3>
                 <p class="gallery-artist">KINDL1NG</p>
@@ -797,7 +870,7 @@
 
         <!-- Atlas Reign - Front Porch Years -->
         <a href="artist-atlas-reign.html#front-porch-years" class="gallery-item">
-            <img src="assets/images/atlas-reign-front-porch-years-cover.png" alt="Front Porch Years">
+            <img loading="lazy" src="assets/images/atlas-reign-front-porch-years-cover.png" alt="Front Porch Years">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Front Porch Years</h3>
                 <p class="gallery-artist">Atlas Reign</p>
@@ -807,7 +880,7 @@
 
         <!-- Vexra - Neon Ritual -->
         <a href="artist-elena-voss.html#neon-ritual" class="gallery-item">
-            <img src="assets/images/albums/vexra-neon-ritual-cover.png" alt="Neon Ritual">
+            <img loading="lazy" src="assets/images/albums/vexra-neon-ritual-cover.png" alt="Neon Ritual">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Neon Ritual</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -817,7 +890,7 @@
 
         <!-- Vexra - Signal Church -->
         <a href="artist-elena-voss.html#signal-church" class="gallery-item">
-            <img src="assets/images/albums/vexra-signal-church-cover.png" alt="Signal Church">
+            <img loading="lazy" src="assets/images/albums/vexra-signal-church-cover.png" alt="Signal Church">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Signal Church</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -827,7 +900,7 @@
 
         <!-- Atlas Reign - Whiskey Religion -->
         <a href="artist-atlas-reign.html#whiskey-religion" class="gallery-item">
-            <img src="assets/images/atlas-reign-whiskey-religion-cover.png" alt="Whiskey Religion">
+            <img loading="lazy" src="assets/images/atlas-reign-whiskey-religion-cover.png" alt="Whiskey Religion">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Whiskey Religion</h3>
                 <p class="gallery-artist">Atlas Reign</p>
@@ -837,7 +910,7 @@
 
         <!-- A.P.A. - Business Is Business -->
         <a href="artist-apa.html" class="gallery-item">
-            <img src="assets/images/albums/apa-business-is-business-cover.png" alt="Business Is Business">
+            <img loading="lazy" src="assets/images/albums/apa-business-is-business-cover.png" alt="Business Is Business">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Business Is Business</h3>
                 <p class="gallery-artist">A.P.A.</p>
@@ -847,7 +920,7 @@
 
         <!-- DJ Snuggle Bear - Snuggle Bear Sings for Chris! -->
         <a href="artist-dj-snuggle-bear.html" class="gallery-item">
-            <img src="assets/images/albums/dj-snuggle-bear-sings-for-chris.png" alt="Snuggle Bear Sings for Chris!">
+            <img loading="lazy" src="assets/images/albums/dj-snuggle-bear-sings-for-chris.png" alt="Snuggle Bear Sings for Chris!">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Snuggle Bear Sings for Chris!</h3>
                 <p class="gallery-artist">DJ Snuggle Bear</p>
@@ -857,7 +930,7 @@
 
         <!-- My Slutty Sister - Self-Titled -->
         <a href="artist-my-slutty-sister.html" class="gallery-item">
-            <img src="assets/images/my-slutty-sister-cover.png" alt="My Slutty Sister">
+            <img loading="lazy" src="assets/images/my-slutty-sister-cover.png" alt="My Slutty Sister">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">My Slutty Sister</h3>
                 <p class="gallery-artist">My Slutty Sister</p>
@@ -867,7 +940,7 @@
 
         <!-- Winter Sage - Thaw -->
         <a href="artist-winter-sage.html" class="gallery-item">
-            <img src="assets/images/winter-sage-thaw-cover.jpg" alt="Thaw">
+            <img loading="lazy" src="assets/images/winter-sage-thaw-cover.jpg" alt="Thaw">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Thaw</h3>
                 <p class="gallery-artist">Winter Sage</p>
@@ -877,7 +950,7 @@
 
         <!-- Scarlett Reid - Fade to Black -->
         <a href="artist-scarlett-reid.html" class="gallery-item">
-            <img src="assets/images/scarlett-reid-fade-to-black-cover.jpg" alt="Fade to Black">
+            <img loading="lazy" src="assets/images/scarlett-reid-fade-to-black-cover.jpg" alt="Fade to Black">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Fade to Black</h3>
                 <p class="gallery-artist">Scarlett Reid</p>
@@ -887,7 +960,7 @@
 
         <!-- Vexra - Beautiful Damage -->
         <a href="artist-elena-voss.html#beautiful-damage" class="gallery-item">
-            <img src="assets/images/vexra-beautiful-damage-cover.jpg" alt="Beautiful Damage">
+            <img loading="lazy" src="assets/images/vexra-beautiful-damage-cover.jpg" alt="Beautiful Damage">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Beautiful Damage</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -897,7 +970,7 @@
 
         <!-- Vexra - Phantom Frequency -->
         <a href="artist-elena-voss.html#phantom-frequency" class="gallery-item">
-            <img src="assets/images/vexra-phantom-frequency-cover.jpg" alt="Phantom Frequency">
+            <img loading="lazy" src="assets/images/vexra-phantom-frequency-cover.jpg" alt="Phantom Frequency">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Phantom Frequency</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -907,7 +980,7 @@
 
         <!-- Vexra - Skin & Static -->
         <a href="artist-elena-voss.html#skin-static" class="gallery-item">
-            <img src="assets/images/vexra-skin-static-cover.jpg" alt="Skin & Static">
+            <img loading="lazy" src="assets/images/vexra-skin-static-cover.jpg" alt="Skin & Static">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Skin & Static</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -917,7 +990,7 @@
 
         <!-- Vexra - Human -->
         <a href="artist-elena-voss.html#human" class="gallery-item">
-            <img src="assets/images/vexra-human-cover.jpg" alt="Human">
+            <img loading="lazy" src="assets/images/vexra-human-cover.jpg" alt="Human">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Human</h3>
                 <p class="gallery-artist">Vexra / Elena Voss</p>
@@ -927,7 +1000,7 @@
 
         <!-- Vexra - Venom Heart -->
         <a href="artist-elena-voss.html#venom-heart" class="gallery-item">
-            <img src="assets/images/vexra-venom-heart-cover.jpg" alt="Venom Heart">
+            <img loading="lazy" src="assets/images/vexra-venom-heart-cover.jpg" alt="Venom Heart">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Venom Heart</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -937,7 +1010,7 @@
 
         <!-- Vexra - Icon -->
         <a href="artist-elena-voss.html#icon" class="gallery-item">
-            <img src="assets/images/vexra-icon-cover.png" alt="Icon">
+            <img loading="lazy" src="assets/images/vexra-icon-cover.png" alt="Icon">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Icon</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -947,7 +1020,7 @@
 
         <!-- Elena Voss - Luminous -->
         <a href="artist-elena-voss.html#luminous" class="gallery-item">
-            <img src="assets/images/elena-voss-luminous-cover.png" alt="Luminous">
+            <img loading="lazy" src="assets/images/elena-voss-luminous-cover.png" alt="Luminous">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Luminous</h3>
                 <p class="gallery-artist">Elena Voss</p>
@@ -957,7 +1030,7 @@
 
         <!-- Vexra / Elena Voss - Skin Contact -->
         <a href="artist-elena-voss.html#skin-contact" class="gallery-item">
-            <img src="assets/images/vexra-skin-contact-cover.png" alt="Skin Contact">
+            <img loading="lazy" src="assets/images/vexra-skin-contact-cover.png" alt="Skin Contact">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Skin Contact</h3>
                 <p class="gallery-artist">Vexra / Elena Voss</p>
@@ -967,7 +1040,7 @@
 
         <!-- Elena Voss - Daybreak -->
         <a href="artist-elena-voss.html#daybreak" class="gallery-item">
-            <img src="assets/images/elena-voss-daybreak-cover.png" alt="Daybreak">
+            <img loading="lazy" src="assets/images/elena-voss-daybreak-cover.png" alt="Daybreak">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Daybreak</h3>
                 <p class="gallery-artist">Elena Voss</p>
@@ -977,7 +1050,7 @@
 
         <!-- Elena Voss / VEXRA - Signal Fade -->
         <a href="artist-elena-voss.html#signal-fade" class="gallery-item">
-            <img src="assets/images/elena-voss-signal-fade.png" alt="Signal Fade">
+            <img loading="lazy" src="assets/images/elena-voss-signal-fade.png" alt="Signal Fade">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Signal Fade</h3>
                 <p class="gallery-artist">Elena Voss / VEXRA</p>
@@ -987,7 +1060,7 @@
 
         <!-- Elena Voss - Raíces -->
         <a href="artist-elena-voss.html#raices" class="gallery-item">
-            <img src="assets/images/elena-voss-raices.png" alt="Raíces">
+            <img loading="lazy" src="assets/images/elena-voss-raices.png" alt="Raíces">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Raíces</h3>
                 <p class="gallery-artist">Elena Voss</p>
@@ -997,7 +1070,7 @@
 
         <!-- Vexra / Elena Voss - Dos Almas -->
         <a href="artist-elena-voss.html#dos-almas" class="gallery-item">
-            <img src="assets/images/elena-voss-dos-almas-cover.png" alt="Dos Almas">
+            <img loading="lazy" src="assets/images/elena-voss-dos-almas-cover.png" alt="Dos Almas">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Dos Almas</h3>
                 <p class="gallery-artist">Vexra / Elena Voss</p>
@@ -1007,7 +1080,7 @@
 
         <!-- Vexra - Invincible -->
         <a href="artist-elena-voss.html#invincible" class="gallery-item">
-            <img src="assets/images/vexra-invincible-cover.png" alt="Invincible">
+            <img loading="lazy" src="assets/images/vexra-invincible-cover.png" alt="Invincible">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Invincible</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1017,7 +1090,7 @@
 
         <!-- Elena Voss - Morning Light -->
         <a href="artist-elena-voss.html#morning-light" class="gallery-item">
-            <img src="assets/images/elena-voss-morning-light-cover.png" alt="Morning Light">
+            <img loading="lazy" src="assets/images/elena-voss-morning-light-cover.png" alt="Morning Light">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Morning Light</h3>
                 <p class="gallery-artist">Elena Voss</p>
@@ -1027,7 +1100,7 @@
 
         <!-- Vexra x Mason Reid - Neon Honky-Tonk -->
         <a href="artist-vexra-mason-reid.html" class="gallery-item">
-            <img src="assets/images/vexra-mason-reid-neon-honky-tonk-cover.png" alt="Neon Honky-Tonk">
+            <img loading="lazy" src="assets/images/vexra-mason-reid-neon-honky-tonk-cover.png" alt="Neon Honky-Tonk">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Neon Honky-Tonk</h3>
                 <p class="gallery-artist">Vexra x Mason Reid</p>
@@ -1037,7 +1110,7 @@
 
         <!-- Vexra - Después de la Medianoche -->
         <a href="artist-elena-voss.html#despues-de-la-medianoche" class="gallery-item">
-            <img src="assets/images/vexra-despues-de-la-medianoche-cover.png" alt="Después de la Medianoche">
+            <img loading="lazy" src="assets/images/vexra-despues-de-la-medianoche-cover.png" alt="Después de la Medianoche">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Después de la Medianoche</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1047,7 +1120,7 @@
 
         <!-- Vexra - Overdrive -->
         <a href="artist-elena-voss.html#overdrive" class="gallery-item">
-            <img src="assets/images/vexra-overdrive-cover.png" alt="Overdrive">
+            <img loading="lazy" src="assets/images/vexra-overdrive-cover.png" alt="Overdrive">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Overdrive</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1057,7 +1130,7 @@
 
         <!-- Vexra - Reflect -->
         <a href="artist-elena-voss.html#reflect" class="gallery-item">
-            <img src="assets/images/vexra-reflect-cover.png?v=2" alt="Reflect">
+            <img loading="lazy" src="assets/images/vexra-reflect-cover.png?v=2" alt="Reflect">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Reflect</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1067,7 +1140,7 @@
 
         <!-- Vexra - Blackout -->
         <a href="artist-elena-voss.html#blackout" class="gallery-item">
-            <img src="assets/images/albums/vexra-blackout-cover.png" alt="Blackout">
+            <img loading="lazy" src="assets/images/albums/vexra-blackout-cover.png" alt="Blackout">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Blackout</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1077,7 +1150,7 @@
 
         <!-- Vexra - La Mala -->
         <a href="artist-elena-voss.html#la-mala" class="gallery-item">
-            <img src="assets/images/albums/vexra-la-mala-cover.png" alt="La Mala">
+            <img loading="lazy" src="assets/images/albums/vexra-la-mala-cover.png" alt="La Mala">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">La Mala</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1087,7 +1160,7 @@
 
         <!-- Vexra - Phantom Hostess -->
         <a href="artist-elena-voss.html#phantom-hostess" class="gallery-item">
-            <img src="assets/images/albums/vexra-phantom-hostess.png" alt="Phantom Hostess">
+            <img loading="lazy" src="assets/images/albums/vexra-phantom-hostess.png" alt="Phantom Hostess">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Phantom Hostess</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1097,7 +1170,7 @@
 
         <!-- Colt Ramsey - Lake Days & Late Nights -->
         <a href="artist-colt-ramsey.html" class="gallery-item">
-            <img src="assets/images/colt-ramsey-lake-days-cover.jpg" alt="Lake Days & Late Nights">
+            <img loading="lazy" src="assets/images/colt-ramsey-lake-days-cover.jpg" alt="Lake Days & Late Nights">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Lake Days & Late Nights</h3>
                 <p class="gallery-artist">Colt Ramsey</p>
@@ -1107,7 +1180,7 @@
 
         <!-- Jessie Mae - Red Dirt & Rhododendron -->
         <a href="artist-jessie-mae-thornton.html#red-dirt" class="gallery-item">
-            <img src="assets/images/jessie-mae-red-dirt-cover.jpg" alt="Red Dirt & Rhododendron">
+            <img loading="lazy" src="assets/images/jessie-mae-red-dirt-cover.jpg" alt="Red Dirt & Rhododendron">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Red Dirt & Rhododendron</h3>
                 <p class="gallery-artist">Jessie Mae Thornton</p>
@@ -1117,7 +1190,7 @@
 
         <!-- Jessie Mae - Frost & Foxglove -->
         <a href="artist-jessie-mae-thornton.html#frost-foxglove" class="gallery-item">
-            <img src="assets/images/jessie-mae-frost-foxglove-cover.jpg" alt="Frost & Foxglove">
+            <img loading="lazy" src="assets/images/jessie-mae-frost-foxglove-cover.jpg" alt="Frost & Foxglove">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Frost & Foxglove</h3>
                 <p class="gallery-artist">Jessie Mae Thornton</p>
@@ -1127,7 +1200,7 @@
 
         <!-- Jessie Mae - Cheap Seats & Good Company -->
         <a href="artist-jessie-mae-thornton.html#cheap-seats" class="gallery-item">
-            <img src="assets/images/jessie-mae-cheap-seats-cover.jpg" alt="Cheap Seats & Good Company">
+            <img loading="lazy" src="assets/images/jessie-mae-cheap-seats-cover.jpg" alt="Cheap Seats & Good Company">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Cheap Seats & Good Company</h3>
                 <p class="gallery-artist">Jessie Mae Thornton</p>
@@ -1137,7 +1210,7 @@
 
         <!-- Jessie Mae - Learning to Let Go -->
         <a href="artist-jessie-mae-thornton.html#learning-to-let-go" class="gallery-item">
-            <img src="assets/images/jessie-mae-learning-to-let-go-cover.png" alt="Learning to Let Go">
+            <img loading="lazy" src="assets/images/jessie-mae-learning-to-let-go-cover.png" alt="Learning to Let Go">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Learning to Let Go</h3>
                 <p class="gallery-artist">Jessie Mae Thornton</p>
@@ -1147,7 +1220,7 @@
 
         <!-- Jessie Mae - Static & Soul (Produced by Vexra) -->
         <a href="artist-jessie-mae-thornton.html#static-soul" class="gallery-item">
-            <img src="assets/images/jessie-mae-static-and-soul-cover.jpg" alt="Static & Soul">
+            <img loading="lazy" src="assets/images/jessie-mae-static-and-soul-cover.jpg" alt="Static & Soul">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Static & Soul</h3>
                 <p class="gallery-artist">Jessie Mae Thornton (Prod. Vexra)</p>
@@ -1157,7 +1230,7 @@
 
         <!-- Jessie Mae - Velvet & Honey -->
         <a href="artist-jessie-mae-thornton.html#velvet-honey" class="gallery-item">
-            <img src="assets/images/jessie-mae-velvet-honey.png" alt="Velvet & Honey">
+            <img loading="lazy" src="assets/images/jessie-mae-velvet-honey.png" alt="Velvet & Honey">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Velvet & Honey</h3>
                 <p class="gallery-artist">Jessie Mae Thornton</p>
@@ -1167,7 +1240,7 @@
 
         <!-- Crimson Verdict - Reckless Heart -->
         <a href="artist-crimson-verdict.html#reckless-heart" class="gallery-item">
-            <img src="assets/images/albums/crimson-verdict-reckless-heart.jpg" alt="Reckless Heart">
+            <img loading="lazy" src="assets/images/albums/crimson-verdict-reckless-heart.jpg" alt="Reckless Heart">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Reckless Heart</h3>
                 <p class="gallery-artist">Crimson Verdict</p>
@@ -1177,7 +1250,7 @@
 
         <!-- Crimson Verdict - Beautiful Violence -->
         <a href="artist-crimson-verdict.html#beautiful-violence" class="gallery-item">
-            <img src="assets/images/crimson-verdict-beautiful-violence.jpg" alt="Beautiful Violence">
+            <img loading="lazy" src="assets/images/crimson-verdict-beautiful-violence.jpg" alt="Beautiful Violence">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Beautiful Violence</h3>
                 <p class="gallery-artist">Crimson Verdict</p>
@@ -1187,7 +1260,7 @@
 
         <!-- Crimson Verdict - Burn the Throne -->
         <a href="artist-crimson-verdict.html#burn-the-throne" class="gallery-item">
-            <img src="assets/images/crimson-verdict-burn-throne.jpg" alt="Burn the Throne">
+            <img loading="lazy" src="assets/images/crimson-verdict-burn-throne.jpg" alt="Burn the Throne">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Burn the Throne</h3>
                 <p class="gallery-artist">Crimson Verdict</p>
@@ -1197,7 +1270,7 @@
 
         <!-- Ben James - Hey Gurl -->
         <a href="artist-ben-james.html" class="gallery-item">
-            <img src="assets/images/ben-james-hey-gurl-cover.jpg" alt="Hey Gurl">
+            <img loading="lazy" src="assets/images/ben-james-hey-gurl-cover.jpg" alt="Hey Gurl">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Hey Gurl</h3>
                 <p class="gallery-artist">Ben James</p>
@@ -1207,7 +1280,7 @@
 
         <!-- MACH-6 - Terminal Velocity -->
         <a href="artist-mach6.html#terminal-velocity" class="gallery-item">
-            <img src="assets/images/mach6-terminal-velocity-cover.jpg" alt="Terminal Velocity">
+            <img loading="lazy" src="assets/images/mach6-terminal-velocity-cover.jpg" alt="Terminal Velocity">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Terminal Velocity</h3>
                 <p class="gallery-artist">MACH-6</p>
@@ -1217,7 +1290,7 @@
 
         <!-- MACH-6 - Codeine Terminal -->
         <a href="artist-mach6.html#codeine-terminal" class="gallery-item">
-            <img src="assets/images/mach6-codeine-terminal-cover.png" alt="Codeine Terminal">
+            <img loading="lazy" src="assets/images/mach6-codeine-terminal-cover.png" alt="Codeine Terminal">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Codeine Terminal</h3>
                 <p class="gallery-artist">MACH-6</p>
@@ -1227,7 +1300,7 @@
 
         <!-- MACH-6 - Golden Era -->
         <a href="artist-mach6.html#golden-era" class="gallery-item">
-            <img src="assets/images/mach6-golden-era-cover.png" alt="Golden Era">
+            <img loading="lazy" src="assets/images/mach6-golden-era-cover.png" alt="Golden Era">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Golden Era</h3>
                 <p class="gallery-artist">MACH-6</p>
@@ -1237,7 +1310,7 @@
 
         <!-- MACH-6 - California Terminal -->
         <a href="artist-mach6.html#california-terminal" class="gallery-item">
-            <img src="assets/images/mach6-california-terminal-cover.png" alt="California Terminal">
+            <img loading="lazy" src="assets/images/mach6-california-terminal-cover.png" alt="California Terminal">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">California Terminal</h3>
                 <p class="gallery-artist">MACH-6</p>
@@ -1247,7 +1320,7 @@
 
         <!-- MACH-6 - Dirty South -->
         <a href="artist-mach6.html#dirty-south" class="gallery-item">
-            <img src="assets/images/mach6-dirty-south-cover.png" alt="Dirty South">
+            <img loading="lazy" src="assets/images/mach6-dirty-south-cover.png" alt="Dirty South">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Dirty South</h3>
                 <p class="gallery-artist">MACH-6</p>
@@ -1257,7 +1330,7 @@
 
         <!-- BLACKRIDGE - Red Flags -->
         <a href="artist-blackridge.html" class="gallery-item">
-            <img src="assets/images/blackridge-red-flags-cover.png" alt="Red Flags">
+            <img loading="lazy" src="assets/images/blackridge-red-flags-cover.png" alt="Red Flags">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Red Flags</h3>
                 <p class="gallery-artist">BLACKRIDGE</p>
@@ -1267,7 +1340,7 @@
 
         <!-- BLACKRIDGE - Duality -->
         <a href="artist-blackridge.html" class="gallery-item">
-            <img src="assets/images/blackridge-duality-cover.png" alt="Duality">
+            <img loading="lazy" src="assets/images/blackridge-duality-cover.png" alt="Duality">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Duality</h3>
                 <p class="gallery-artist">BLACKRIDGE</p>
@@ -1277,7 +1350,7 @@
 
         <!-- BLACKRIDGE - Unbreakable -->
         <a href="artist-blackridge.html" class="gallery-item">
-            <img src="assets/images/blackridge-unbreakable-cover.png" alt="Unbreakable">
+            <img loading="lazy" src="assets/images/blackridge-unbreakable-cover.png" alt="Unbreakable">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Unbreakable</h3>
                 <p class="gallery-artist">BLACKRIDGE</p>
@@ -1287,7 +1360,7 @@
 
         <!-- VOIDRUNNER - Overdrive -->
         <a href="artist-voidrunner.html" class="gallery-item">
-            <img src="assets/images/voidrunner-overdrive-cover.jpg" alt="Overdrive">
+            <img loading="lazy" src="assets/images/voidrunner-overdrive-cover.jpg" alt="Overdrive">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Overdrive</h3>
                 <p class="gallery-artist">VOIDRUNNER</p>
@@ -1297,7 +1370,7 @@
 
         <!-- Tyler Hayes & Jake Morrison - Aged to Perfection -->
         <a href="artist-tyler-jake.html" class="gallery-item">
-            <img src="assets/images/tyler-jake-aged-perfection-cover.png" alt="Aged to Perfection">
+            <img loading="lazy" src="assets/images/tyler-jake-aged-perfection-cover.png" alt="Aged to Perfection">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Aged to Perfection</h3>
                 <p class="gallery-artist">Tyler Hayes & Jake Morrison</p>
@@ -1307,7 +1380,7 @@
 
         <!-- Tyler Hayes & Jake Morrison - First Warm Weekend -->
         <a href="artist-tyler-jake.html" class="gallery-item">
-            <img src="assets/images/tyler-hayes-first-warm-weekend.png" alt="First Warm Weekend">
+            <img loading="lazy" src="assets/images/tyler-hayes-first-warm-weekend.png" alt="First Warm Weekend">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">First Warm Weekend</h3>
                 <p class="gallery-artist">Tyler Hayes & Jake Morrison</p>
@@ -1317,7 +1390,7 @@
 
         <!-- Tyler Hayes & Jake Morrison - Backyard Sessions -->
         <a href="artist-tyler-jake.html#backyard-sessions" class="gallery-item">
-            <img src="assets/images/tyler-jake-backyard-sessions-cover.png" alt="Backyard Sessions">
+            <img loading="lazy" src="assets/images/tyler-jake-backyard-sessions-cover.png" alt="Backyard Sessions">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Backyard Sessions</h3>
                 <p class="gallery-artist">Tyler Hayes & Jake Morrison</p>
@@ -1327,7 +1400,7 @@
 
         <!-- Sunday Supply - Key West to Crozet -->
         <a href="artist-sunday-supply.html" class="gallery-item">
-            <img src="assets/images/sunday-supply-key-west-to-crozet.png" alt="Key West to Crozet">
+            <img loading="lazy" src="assets/images/sunday-supply-key-west-to-crozet.png" alt="Key West to Crozet">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Key West to Crozet</h3>
                 <p class="gallery-artist">Sunday Supply</p>
@@ -1337,7 +1410,7 @@
 
         <!-- Sunday Supply - Coastal -->
         <a href="artist-sunday-supply.html" class="gallery-item">
-            <img src="assets/images/sunday-supply-coastal.png" alt="Coastal">
+            <img loading="lazy" src="assets/images/sunday-supply-coastal.png" alt="Coastal">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Coastal</h3>
                 <p class="gallery-artist">Sunday Supply</p>
@@ -1347,7 +1420,7 @@
 
         <!-- Mason Reid - Early Start -->
         <a href="artist-mason-reid.html" class="gallery-item">
-            <img src="assets/images/mason-reid-early-start-cover.png" alt="Early Start">
+            <img loading="lazy" src="assets/images/mason-reid-early-start-cover.png" alt="Early Start">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Early Start</h3>
                 <p class="gallery-artist">Mason Reid</p>
@@ -1357,7 +1430,7 @@
     
         <!-- Various Artists - Summer Sessions -->
         <a href="summer-sessions.html" class="gallery-item">
-            <img src="assets/images/summer-sessions.png" alt="Summer Sessions">
+            <img loading="lazy" src="assets/images/summer-sessions.png" alt="Summer Sessions">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Summer Sessions</h3>
                 <p class="gallery-artist">Various Artists</p>
@@ -1366,7 +1439,7 @@
         </a>
         <!-- Various Artists - After Dark -->
         <a href="after-dark.html" class="gallery-item">
-            <img src="assets/images/after-dark.png" alt="After Dark">
+            <img loading="lazy" src="assets/images/after-dark.png" alt="After Dark">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">After Dark</h3>
                 <p class="gallery-artist">Various Artists</p>
@@ -1376,7 +1449,7 @@
 
         <!-- Various Artists - Survivors -->
         <a href="survivors.html" class="gallery-item">
-            <img src="assets/images/survivors.png" alt="Survivors">
+            <img loading="lazy" src="assets/images/survivors.png" alt="Survivors">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Survivors</h3>
                 <p class="gallery-artist">Various Artists</p>
@@ -1386,7 +1459,7 @@
 
         <!-- Sunday Revival - Almost Here -->
         <a href="artist-sunday-revival.html" class="gallery-item">
-            <img src="assets/images/sunday-revival-almost-here.png" alt="Almost Here">
+            <img loading="lazy" src="assets/images/sunday-revival-almost-here.png" alt="Almost Here">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Almost Here</h3>
                 <p class="gallery-artist">Sunday Revival</p>
@@ -1396,7 +1469,7 @@
 
         <!-- HARLOW - Wildfire Season -->
         <a href="artist-harlow.html" class="gallery-item">
-            <img src="assets/images/harlow-wildfire-season-cover.png" alt="Wildfire Season">
+            <img loading="lazy" src="assets/images/harlow-wildfire-season-cover.png" alt="Wildfire Season">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Wildfire Season</h3>
                 <p class="gallery-artist">HARLOW</p>
@@ -1406,7 +1479,7 @@
 
         <!-- Cassidy James - Late Checkout -->
         <a href="artist-cassidy-james.html" class="gallery-item">
-            <img src="assets/images/cassidy-james-lc-2026.png" alt="Late Checkout">
+            <img loading="lazy" src="assets/images/cassidy-james-lc-2026.png" alt="Late Checkout">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Late Checkout</h3>
                 <p class="gallery-artist">Cassidy James</p>
@@ -1416,7 +1489,7 @@
 
         <!-- Cassidy James - No Filter -->
         <a href="artist-cassidy-james.html" class="gallery-item">
-            <img src="assets/images/cassidy-james-no-filter.png" alt="No Filter">
+            <img loading="lazy" src="assets/images/cassidy-james-no-filter.png" alt="No Filter">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">No Filter</h3>
                 <p class="gallery-artist">Cassidy James</p>
@@ -1426,7 +1499,7 @@
 
         <!-- Violet Reign - Sophisticated Chaos -->
         <a href="artist-violet-reign.html" class="gallery-item">
-            <img src="assets/images/violet-reign-sophisticated-chaos.png" alt="Sophisticated Chaos">
+            <img loading="lazy" src="assets/images/violet-reign-sophisticated-chaos.png" alt="Sophisticated Chaos">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Sophisticated Chaos</h3>
                 <p class="gallery-artist">Violet Reign</p>
@@ -1436,7 +1509,7 @@
 
         <!-- The Holler Sound - Roots & Ridges -->
         <a href="artist-the-holler-sound.html" class="gallery-item">
-            <img src="assets/images/the-holler-sound-roots-ridges.png" alt="Roots & Ridges">
+            <img loading="lazy" src="assets/images/the-holler-sound-roots-ridges.png" alt="Roots & Ridges">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Roots & Ridges</h3>
                 <p class="gallery-artist">The Holler Sound</p>
@@ -1446,7 +1519,7 @@
 
         <!-- Various Artists - 3.31 -->
         <a href="3-31.html" class="gallery-item">
-            <img src="assets/images/3-31.png" alt="3.31">
+            <img loading="lazy" src="assets/images/3-31.png" alt="3.31">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">3.31</h3>
                 <p class="gallery-artist">Various Artists</p>
@@ -1456,7 +1529,7 @@
 
         <!-- Cassidy James x Vexra - Dangerous Games -->
         <a href="artist-cassidy-james.html#dangerous-games" class="gallery-item">
-            <img src="assets/images/cassidy-james-vexra-dangerous-games-cover.png" alt="Dangerous Games">
+            <img loading="lazy" src="assets/images/cassidy-james-vexra-dangerous-games-cover.png" alt="Dangerous Games">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Dangerous Games</h3>
                 <p class="gallery-artist">Cassidy James x Vexra</p>
@@ -1466,7 +1539,7 @@
 
         <!-- Elena Voss - Tenderness and Teeth -->
         <a href="artist-elena-voss.html#tenderness-and-teeth" class="gallery-item">
-            <img src="assets/images/elena-voss-tenderness-and-teeth-cover.png" alt="Tenderness and Teeth">
+            <img loading="lazy" src="assets/images/elena-voss-tenderness-and-teeth-cover.png" alt="Tenderness and Teeth">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Tenderness and Teeth</h3>
                 <p class="gallery-artist">Elena Voss</p>
@@ -1476,7 +1549,7 @@
 
         <!-- Vexra - Teeth and Tenderness -->
         <a href="artist-elena-voss.html#teeth-and-tenderness" class="gallery-item">
-            <img src="assets/images/vexra-teeth-and-tenderness-cover.png" alt="Teeth and Tenderness">
+            <img loading="lazy" src="assets/images/vexra-teeth-and-tenderness-cover.png" alt="Teeth and Tenderness">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Teeth and Tenderness</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1486,7 +1559,7 @@
 
         <!-- Vexra & Elena Voss - Garras y Gracia -->
         <a href="artist-elena-voss.html#garras-y-gracia" class="gallery-item">
-            <img src="assets/images/vexra-elena-voss-garras-y-gracia-cover.png" alt="Garras y Gracia">
+            <img loading="lazy" src="assets/images/vexra-elena-voss-garras-y-gracia-cover.png" alt="Garras y Gracia">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Garras y Gracia</h3>
                 <p class="gallery-artist">Vexra & Elena Voss</p>
@@ -1496,7 +1569,7 @@
 
         <!-- Vexra - A Porch Light After Dark Collaboration -->
         <a href="artist-elena-voss.html#porch-light-after-dark" class="gallery-item">
-            <img src="assets/images/vexra-porch-light-after-dark-cover.png" alt="A Porch Light After Dark Collaboration">
+            <img loading="lazy" src="assets/images/vexra-porch-light-after-dark-cover.png" alt="A Porch Light After Dark Collaboration">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">A Porch Light After Dark</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1506,7 +1579,7 @@
 
         <!-- KINDL1NG - Porchlight -->
         <a href="artist-kindl1ng.html" class="gallery-item">
-            <img src="assets/images/kindling-porchlight-cover.png" alt="Porchlight">
+            <img loading="lazy" src="assets/images/kindling-porchlight-cover.png" alt="Porchlight">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Porchlight</h3>
                 <p class="gallery-artist">KINDL1NG</p>
@@ -1516,7 +1589,7 @@
 
         <!-- KINDL1NG - Hearthlight -->
         <a href="artist-kindl1ng.html" class="gallery-item">
-            <img src="assets/images/kindling-hearthlight-cover.png" alt="Hearthlight">
+            <img loading="lazy" src="assets/images/kindling-hearthlight-cover.png" alt="Hearthlight">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Hearthlight</h3>
                 <p class="gallery-artist">KINDL1NG</p>
@@ -1526,7 +1599,7 @@
 
         <!-- KINDL1NG - Streetlight -->
         <a href="artist-kindl1ng.html" class="gallery-item">
-            <img src="assets/images/albums/kindl1ng-streetlight-cover.png" alt="Streetlight">
+            <img loading="lazy" src="assets/images/albums/kindl1ng-streetlight-cover.png" alt="Streetlight">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Streetlight</h3>
                 <p class="gallery-artist">KINDL1NG</p>
@@ -1536,7 +1609,7 @@
 
         <!-- KINDL1NG - Starlight -->
         <a href="artist-kindl1ng.html" class="gallery-item">
-            <img src="assets/images/albums/kindl1ng-starlight-cover.png" alt="Starlight">
+            <img loading="lazy" src="assets/images/albums/kindl1ng-starlight-cover.png" alt="Starlight">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Starlight</h3>
                 <p class="gallery-artist">KINDL1NG</p>
@@ -1546,7 +1619,7 @@
 
         <!-- Morgan Hayes - Wildflower Season -->
         <a href="#" class="gallery-item">
-            <img src="assets/images/morgan-hayes-wildflower-season-cover.png" alt="Wildflower Season">
+            <img loading="lazy" src="assets/images/morgan-hayes-wildflower-season-cover.png" alt="Wildflower Season">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Wildflower Season</h3>
                 <p class="gallery-artist">Morgan Hayes</p>
@@ -1556,7 +1629,7 @@
 
         <!-- Elena Voss & Stella Hartley - Plainclothes -->
         <a href="artist-elena-stella.html#plainclothes" class="gallery-item">
-            <img src="assets/images/albums/elena-stella-plainclothes.png" alt="Plainclothes">
+            <img loading="lazy" src="assets/images/albums/elena-stella-plainclothes.png" alt="Plainclothes">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Plainclothes</h3>
                 <p class="gallery-artist">Elena Voss &amp; Stella Hartley</p>
@@ -1566,7 +1639,7 @@
 
         <!-- Elena Voss & Stella Hartley - Good Trouble -->
         <a href="artist-elena-stella.html#good-trouble" class="gallery-item">
-            <img src="assets/images/albums/elena-stella-good-trouble.png" alt="Good Trouble">
+            <img loading="lazy" src="assets/images/albums/elena-stella-good-trouble.png" alt="Good Trouble">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Good Trouble</h3>
                 <p class="gallery-artist">Elena Voss &amp; Stella Hartley</p>
@@ -1576,7 +1649,7 @@
 
         <!-- Elena Voss & Stella Hartley - Tierra -->
         <a href="artist-elena-stella.html#tierra" class="gallery-item">
-            <img src="assets/images/albums/elena-stella-tierra.png" alt="Tierra">
+            <img loading="lazy" src="assets/images/albums/elena-stella-tierra.png" alt="Tierra">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Tierra</h3>
                 <p class="gallery-artist">Elena Voss &amp; Stella Hartley</p>
@@ -1586,7 +1659,7 @@
 
         <!-- Elena Voss & Stella Hartley - Collateral -->
         <a href="artist-elena-stella.html#collateral" class="gallery-item">
-            <img src="assets/images/albums/elena-stella-collateral.png" alt="Collateral">
+            <img loading="lazy" src="assets/images/albums/elena-stella-collateral.png" alt="Collateral">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Collateral</h3>
                 <p class="gallery-artist">Elena Voss &amp; Stella Hartley</p>
@@ -1596,7 +1669,7 @@
 
         <!-- Elena Voss - Cielo Abierto -->
         <a href="artist-elena-voss.html#cielo-abierto" class="gallery-item">
-            <img src="assets/images/albums/elena-voss-cielo-abierto.jpg" alt="Cielo Abierto">
+            <img loading="lazy" src="assets/images/albums/elena-voss-cielo-abierto.jpg" alt="Cielo Abierto">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Cielo Abierto</h3>
                 <p class="gallery-artist">Elena Voss</p>
@@ -1606,7 +1679,7 @@
 
         <!-- Fine Thanks - Cheers We Guess -->
         <a href="artist-fine-thanks.html#cheers-we-guess" class="gallery-item">
-            <img src="assets/images/albums/fine-thanks-cheers-we-guess.png" alt="Cheers, We Guess">
+            <img loading="lazy" src="assets/images/albums/fine-thanks-cheers-we-guess.png" alt="Cheers, We Guess">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Cheers, We Guess</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -1616,7 +1689,7 @@
 
         <!-- Fine Thanks - Open to Anything -->
         <a href="artist-fine-thanks.html#open-to-anything" class="gallery-item">
-            <img src="assets/images/albums/fine-thanks-open-to-anything.png" alt="Open to Anything (Within Reason)">
+            <img loading="lazy" src="assets/images/albums/fine-thanks-open-to-anything.png" alt="Open to Anything (Within Reason)">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Open to Anything (Within Reason)</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -1626,7 +1699,7 @@
 
         <!-- Fine Thanks - Thirty Thousand Feet -->
         <a href="artist-fine-thanks.html#thirty-thousand-feet" class="gallery-item">
-            <img src="assets/images/albums/fine-thanks-thirty-thousand-feet.png" alt="Thirty Thousand Feet of Bullshit">
+            <img loading="lazy" src="assets/images/albums/fine-thanks-thirty-thousand-feet.png" alt="Thirty Thousand Feet of Bullshit">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Thirty Thousand Feet of Bullshit</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -1636,7 +1709,7 @@
 
         <!-- Fine Thanks - Goodbye Timmy -->
         <a href="artist-fine-thanks.html#goodbye-timmy" class="gallery-item">
-            <img src="assets/images/albums/fine-thanks-goodbye-timmy.png" alt="Goodbye Timmy">
+            <img loading="lazy" src="assets/images/albums/fine-thanks-goodbye-timmy.png" alt="Goodbye Timmy">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Goodbye Timmy</h3>
                 <p class="gallery-artist">Fine Thanks</p>
@@ -1646,7 +1719,7 @@
 
         <!-- Vexra - Ordinary World -->
         <a href="artist-elena-voss.html#ordinary-world" class="gallery-item">
-            <img src="assets/images/albums/vexra-ordinary-world.png" alt="Ordinary World">
+            <img loading="lazy" src="assets/images/albums/vexra-ordinary-world.png" alt="Ordinary World">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Ordinary World</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1656,7 +1729,7 @@
 
         <!-- Vexra - No Rest -->
         <a href="artist-elena-voss.html#no-rest" class="gallery-item">
-            <img src="assets/images/albums/vexra-no-rest.png" alt="No Rest">
+            <img loading="lazy" src="assets/images/albums/vexra-no-rest.png" alt="No Rest">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">No Rest</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1666,7 +1739,7 @@
 
         <!-- Vexra - Skin Contact 2.0 -->
         <a href="artist-elena-voss.html#skin-contact-2" class="gallery-item">
-            <img src="assets/images/albums/vexra-skin-contact-2.png" alt="Skin Contact 2.0">
+            <img loading="lazy" src="assets/images/albums/vexra-skin-contact-2.png" alt="Skin Contact 2.0">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Skin Contact 2.0</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1676,7 +1749,7 @@
 
         <!-- Vexra - Teeth and Tenderness -->
         <a href="artist-elena-voss.html#teeth-and-tenderness" class="gallery-item">
-            <img src="assets/images/albums/vexra-teeth-and-tenderness.png" alt="Teeth and Tenderness">
+            <img loading="lazy" src="assets/images/albums/vexra-teeth-and-tenderness.png" alt="Teeth and Tenderness">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Teeth and Tenderness</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1686,7 +1759,7 @@
 
         <!-- Vexra - Garras y Gracia -->
         <a href="artist-elena-voss.html#garras-y-gracia" class="gallery-item">
-            <img src="assets/images/albums/vexra-garras-y-gracia.png" alt="Garras y Gracia">
+            <img loading="lazy" src="assets/images/albums/vexra-garras-y-gracia.png" alt="Garras y Gracia">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Garras y Gracia</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1696,7 +1769,7 @@
 
         <!-- Vexra - Beautiful Damage Remix -->
         <a href="artist-elena-voss.html#beautiful-damage-remix" class="gallery-item">
-            <img src="assets/images/albums/vexra-beautiful-damage-remix.png" alt="Beautiful Damage (Remix)">
+            <img loading="lazy" src="assets/images/albums/vexra-beautiful-damage-remix.png" alt="Beautiful Damage (Remix)">
             <div class="gallery-overlay">
                 <h3 class="gallery-title">Beautiful Damage (Remix)</h3>
                 <p class="gallery-artist">Vexra</p>
@@ -1704,7 +1777,15 @@
             </div>
         </a>
 
-    </div>
+    </div><!-- end gallery-grid -->
+
+        <div class="pagination-controls" id="paginationBottom">
+            <button class="page-btn" id="prevBtnBottom" onclick="changePage(-1)" disabled>&#8592;</button>
+            <div class="page-dots" id="pageDotsBottom"></div>
+            <span class="page-indicator" id="pageIndicatorBottom">1 / 1</span>
+            <button class="page-btn" id="nextBtnBottom" onclick="changePage(1)">&#8594;</button>
+        </div>
+    </div><!-- end pagination-wrapper -->
 
     <!-- Footer -->    <footer class="site-footer">
         <p class="tagline">The porch light's always on.</p>
@@ -1868,6 +1949,85 @@
 
     <script src="assets/js/global-player.js"></script>
 
+    <!-- Pagination logic -->
+    <script>
+        const ITEMS_PER_PAGE = 24;
+        let currentPage = 1;
+
+        function getVisibleItems() {
+            return Array.from(document.querySelectorAll('.gallery-item')).filter(el => !el.classList.contains('hidden-by-filter'));
+        }
+
+        function getTotalPages() {
+            return Math.max(1, Math.ceil(getVisibleItems().length / ITEMS_PER_PAGE));
+        }
+
+        function renderPage() {
+            const allItems = Array.from(document.querySelectorAll('.gallery-item'));
+            const visible = allItems.filter(el => !el.classList.contains('hidden-by-filter'));
+            const total = Math.max(1, Math.ceil(visible.length / ITEMS_PER_PAGE));
+            if (currentPage > total) currentPage = 1;
+
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+
+            // Show/hide based on position in visible array
+            allItems.forEach(el => el.classList.add('page-hidden'));
+            visible.slice(start, end).forEach(el => el.classList.remove('page-hidden'));
+
+            // Eagerly load first-page images
+            visible.slice(start, end).forEach(el => {
+                const img = el.querySelector('img');
+                if (img && img.getAttribute('loading') === 'lazy' && currentPage === 1) {
+                    img.removeAttribute('loading');
+                }
+            });
+
+            // Update controls
+            const indicator = `${currentPage} / ${total}`;
+            document.getElementById('pageIndicatorTop').textContent = indicator;
+            document.getElementById('pageIndicatorBottom').textContent = indicator;
+
+            ['prevBtnTop','prevBtnBottom'].forEach(id => {
+                document.getElementById(id).disabled = currentPage === 1;
+            });
+            ['nextBtnTop','nextBtnBottom'].forEach(id => {
+                document.getElementById(id).disabled = currentPage === total;
+            });
+
+            // Render dots (max 10 visible)
+            ['pageDotsTop','pageDotsBottom'].forEach(id => {
+                const container = document.getElementById(id);
+                container.innerHTML = '';
+                if (total <= 1) return;
+                const maxDots = 10;
+                const dotsToShow = Math.min(total, maxDots);
+                for (let i = 1; i <= dotsToShow; i++) {
+                    const pg = total <= maxDots ? i : Math.round(1 + (i - 1) * (total - 1) / (maxDots - 1));
+                    const dot = document.createElement('button');
+                    dot.className = 'page-dot' + (pg === currentPage ? ' active' : '');
+                    dot.setAttribute('aria-label', `Page ${pg}`);
+                    dot.onclick = () => { currentPage = pg; renderPage(); scrollToGallery(); };
+                    container.appendChild(dot);
+                }
+            });
+        }
+
+        function changePage(dir) {
+            const total = getTotalPages();
+            currentPage = Math.max(1, Math.min(total, currentPage + dir));
+            renderPage();
+            scrollToGallery();
+        }
+
+        function scrollToGallery() {
+            document.getElementById('galleryGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Init on load
+        document.addEventListener('DOMContentLoaded', () => renderPage());
+    </script>
+
     <!-- Gallery filter logic -->
     <script>
         (function() {
@@ -1935,6 +2095,8 @@
                     const matchesGenre = !selectedGenre || item.dataset.genre === selectedGenre;
                     item.classList.toggle('hidden-by-filter', !(matchesArtist && matchesGenre));
                 });
+                currentPage = 1;
+                renderPage();
             }
 
             artistFilter.addEventListener('change', applyFilter);
